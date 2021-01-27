@@ -6,24 +6,29 @@ import { StyleSheet, Text, TextInput, TouchableOpacity, View, Image } from 'reac
 
 
 
-class Login extends Component{
+class ProfileActivate extends Component{
     render(){
         // const [email, setEmail] = useState('');
         // const [password, setPassword] = useState('');
         return (
             <View style={styles.container}>
+            <Text style={styles.heading}>
+              Complete your Profile to Activate Your Account
+            </Text>
             {/*             
             <View style={styles.logo}>
             <Image source={require('./assets/logo.png')} resizeMode='contain' />
             </View> */}
 
-            <TextInput placeholder="Enter username or Email" style={styles.stext}   />
-            <TextInput placeholder="Enter Password" style={styles.stext} secureTextEntry={true} />
-            
+            <TextInput placeholder="Enter First Name" style={styles.stext}   />
+            <TextInput placeholder="Enter Last Name" style={styles.stext}  />
+            <TextInput placeholder="Mobile Number" style={styles.stext}  />
+            <TextInput placeholder="Address" style={styles.stext}  />
+            <TextInput placeholder="Location" style={styles.stext}  />
         
             <TouchableOpacity style={styles.sbutton}>
             <View >
-                <Text>Login</Text>
+                <Text>Activate Account</Text>
             </View>
             </TouchableOpacity>
         
@@ -47,22 +52,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 
-  sbutton:{
-    height:34,
-    width:200,
-    borderWidth:1,
-    borderRadius:40,
-    textAlign:"center",
-    backgroundColor:'#4b2',
-    alignItems:"center",
-    alignSelf:"center",
-    justifyContent:"center",
-    marginTop:50,
-    alignContent:"center",
-    alignItems:"center",
-    alignSelf:"center",
-  },
-
   stext:{
     marginTop:7,
     height:40,
@@ -70,17 +59,33 @@ const styles = StyleSheet.create({
     borderBottomWidth:1
   },
 
-//   logo:{
-//     backgroundColor:"blue",
-//     height:20,
-//     width:20,
-//     borderWidth:1,
-//     flex:1,
-//     alignItems: 'center'
+  sbutton:{
+    height:34,
+    width:200,
+    borderWidth:1,
+    borderRadius:40,
+    textAlign:"center",
+    backgroundColor:'#4b2',
+    justifyContent:"center",
+    marginTop:50,
+    alignContent:"center",
+    alignItems:"center",
+    alignSelf:"center"
+  },
 
-//   }
+  heading:{
+    fontSize:25,
+    textAlign:'center',
+    textShadowColor:'green',
+    textShadowRadius:10,
+    fontWeight:'100',
+    marginTop:5,
+    marginBottom:100,
+    
+
+  }
 
 
 });
 
-export default Login;
+export default ProfileActivate;

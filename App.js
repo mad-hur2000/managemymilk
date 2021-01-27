@@ -1,14 +1,19 @@
 import { StatusBar } from 'expo-status-bar';
 import React,{Component} from 'react';
-import { StyleSheet, Text, TextInput, TouchableOpacity, View, Image } from 'react-native';
+import { StyleSheet, View,} from 'react-native';
 import Login from './Login';
+import ProfileActivate from './ProfileActivate';
+import SignUp from './SignUp';
 
 
 
 export default function App() {
   return (
       <View style={styles.container}>
-        <Login />
+        {/* <Login /> */}
+        {/* <SignUp /> */}
+        <ProfileActivate />
+        
 
       </View>
 
