@@ -6,26 +6,31 @@ import { StyleSheet, Text, TextInput, TouchableOpacity, View, Image } from 'reac
 
 
 
-class Login extends Component{
+class SignUp extends Component{
     render(){
         // const [email, setEmail] = useState('');
         // const [password, setPassword] = useState('');
+        // const [cpassword, setCPassword] = useState('');
         return (
-            <View style={styles.container}>
-            {/*             
+            <View style={styles.containers}>
+            {/* 
             <View style={styles.logo}>
-            <Image source={require('./assets/logo.png')} resizeMode='contain' />
+            <Image source={require('./assets/logo.png')} />
             </View> */}
 
-            <TextInput placeholder="Enter username or Email" style={styles.stext}   />
-            <TextInput placeholder="Enter Password" style={styles.stext} secureTextEntry={true} />
+            <TextInput placeholder="Enter username or Email" style={styles.stext}  /*onChangeText={(email) => setEmail(email)}*//>
+            <TextInput placeholder="Enter Password" style={styles.stext}   secureTextEntry={true} /*onChangeText={(password) => setPassword(password)}*//>
+            <TextInput placeholder="Confirm Password" style={styles.stext} secureTextEntry={true} /*onChangeText={(cpassword) => setCPassword(cpassword)}*//>
             
         
             <TouchableOpacity style={styles.sbutton}>
             <View >
-                <Text>Login</Text>
+                <Text>Sign Up</Text>
             </View>
             </TouchableOpacity>
+            
+            <Text style={{marginTop:10, fontSize:12}}>Already have an account?</Text> 
+            <View><Text>Login!!</Text></View>
         
 
             </View>
@@ -40,8 +45,9 @@ class Login extends Component{
 
 
 const styles = StyleSheet.create({
-  container: {
-   
+  containers: {
+    flex:1,
+    marginTop:200,
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
@@ -53,7 +59,7 @@ const styles = StyleSheet.create({
     borderWidth:1,
     borderRadius:40,
     textAlign:"center",
-    backgroundColor:'#4b2',
+    backgroundColor:'#aaf',
     alignItems:"center",
     alignSelf:"center",
     justifyContent:"center",
@@ -71,11 +77,12 @@ const styles = StyleSheet.create({
   },
 
 //   logo:{
-//     backgroundColor:"blue",
-//     height:20,
-//     width:20,
+//     backgroundColor:"red",
+//     height:40,
+//     width:40,
+//     position: 'relative',
 //     borderWidth:1,
-//     flex:1,
+//     flex: 1,
 //     alignItems: 'center'
 
 //   }
@@ -83,4 +90,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default Login;
+export default SignUp;

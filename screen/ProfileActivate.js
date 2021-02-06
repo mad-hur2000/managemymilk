@@ -46,7 +46,8 @@ class ProfileActivate extends Component{
 
 const styles = StyleSheet.create({
   container: {
-   
+    flex:1,
+    marginTop:50,
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
@@ -65,7 +66,7 @@ const styles = StyleSheet.create({
     borderWidth:1,
     borderRadius:40,
     textAlign:"center",
-    backgroundColor:'#4b2',
+    backgroundColor:'#aaf',
     justifyContent:"center",
     marginTop:50,
     alignContent:"center",
@@ -76,7 +77,7 @@ const styles = StyleSheet.create({
   heading:{
     fontSize:25,
     textAlign:'center',
-    textShadowColor:'green',
+    textShadowColor:'#aaf',
     textShadowRadius:10,
     fontWeight:'100',
     marginTop:5,
