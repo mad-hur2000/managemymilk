@@ -1,72 +1,37 @@
 import { StatusBar } from 'expo-status-bar';
 import React,{Component} from 'react';
 import { StyleSheet, View,} from 'react-native';
-import Login from './Login';
-import ProfileActivate from './ProfileActivate';
-import SignUp from './SignUp';
+
+import Login from './screen/Login';
+import ProfileActivate from './screen/ProfileActivate';
+import SignUp from './screen/SignUp';
+import Manager from './screen/Manager';
+import Welcome from './screen/Welcome';
 
 
 
 export default function App() {
   return (
+
       <View style={styles.container}>
-        {/* <Login /> */}
+        <Login />
         {/* <SignUp /> */}
-        <ProfileActivate />
-        
+        {/* <ProfileActivate /> */}
+        {/* <Manager /> */}
+        {/* <Welcome /> */}
 
       </View>
-
-      
-
-
 
   );
 }
 
 
 const styles = StyleSheet.create({
+
   container: {
-    marginTop:100,
-    flex: 1,
+    flex:1,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    
   },
-
-  // sbutton:{
-  //   height:34,
-  //   width:200,
-  //   borderWidth:1,
-  //   borderRadius:40,
-  //   textAlign:"center",
-  //   backgroundColor:"green",
-  //   alignItems:"center",
-  //   alignSelf:"center",
-  //   justifyContent:"center",
-  //   marginTop:"15%",
-  //   alignContent:"center",
-  //   alignItems:"center",
-  //   alignSelf:"center",
-  // },
-
-  // stext:{
-  //   marginTop:"4%",
-  //   height:40,
-  //   width:"80%",
-  //   borderBottomWidth:1
-  // },
-
-  // logo:{
-  //   backgroundColor:"red",
-  //   height:40,
-  //   width:40,
-  //   position: 'relative',
-  //   borderWidth:1,
-  //   flex: 1,
-  //   alignItems: 'center'
-
-  // }
-
 
 });
