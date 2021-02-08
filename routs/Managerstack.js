@@ -1,31 +1,62 @@
 import { createStackNavigator } from 'react-navigation-stack';
 import {createAppContainer} from 'react-navigation';
-import manager from '../screen/Manager';
-import viewProfile from '../screen/ViewProfile';
+import Manager from '../screen/Manager';
+import ViewProfile from '../screen/ViewProfile';
 import globalstyles from '../styles/Global';
-import showCustomer from '../screen/ShowCustomer'
+import ShowCustomer from '../screen/ShowCustomer';
+import EditCustomer from '../screen/EditCustomer';
+import React from 'react';
+import Header from '../shared/Header';
+
 
 const screens = {
    
     Manager: {
-        screen:manager
+        screen:Manager,
+        navigationOptions: ({navigation}) => {
+            return(
+                {
+                    headerTitle: () => <Header navigtion={navigation} title='Manager' />
+                }
+            )
+        }
+        
+        
 
     },
     ViewProfile:{
-        screen:viewProfile
-    },
-    ShowCustomer:
-    {
-        screen:showCustomer,
+        screen:ViewProfile,
         navigationOptions: {
-            title:'Customer Data'
+            title:'My Profile',
         }
+
+    },
+    ShowCustomer:{
+        screen:ShowCustomer,
+        navigationOptions: {
+            title:'Customer Data',
+        }
+    },
+    EditCustomer:{
+        screen:EditCustomer,
+        navigationOptions:{
+            title:'Edit Customer',
+        }
+
     }
 
     
    
 }
 
-const managerstack=createStackNavigator(screens);
+const Managerstack=createStackNavigator(screens,{
+    defaultNavigationOptions:{
+        headerStyle:{
+            backgroundColor:'#0d0',
+            height:80,
+        },
+        
+    }
+});
 
-export default createAppContainer(managerstack);
+export default Managerstack;

@@ -17,7 +17,7 @@ class Myhead extends Component{
         return (
             <View style={styles.header}>
         
-            {/* <Entypo  name={"dots-three-vertical"}><Entypo> */}
+            <Entypo  name={"dots-three-vertical"}><Entypo>
             
             {
             this.state.icons.map((items,index)=>{
