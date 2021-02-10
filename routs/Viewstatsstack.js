@@ -1,31 +1,24 @@
 import { createStackNavigator } from 'react-navigation-stack';
-import Adddeliveryboy from '../screen/AddDeliveryboy';
+import Viewstats from '../screen/Viewstats';
 import React from 'react';
 import Header from '../shared/Header'
 
 
 const screens = {
    
-    Adddeliveryboy: {
-        screen:Adddeliveryboy,
+    Viewstats: {
+        screen:Viewstats,
         navigationOptions: ({navigation}) => {
             return(
                 {
-                    headerTitle: () => <Header navigtion={navigation} title='Add Deliveryboy' />
+                    headerTitle: () => <Header navigtion={navigation} title='View Stats' />
                 }
             )
         }
         
-        
-
-    },
-    
-
-    
-   
+    },  
 }
-
-const Adddeliveryboystack=createStackNavigator(screens,{
+const Viewstatsstack=createStackNavigator(screens,{
     defaultNavigationOptions:{
         headerStyle:{
             backgroundColor:'#0d0',
@@ -35,4 +28,4 @@ const Adddeliveryboystack=createStackNavigator(screens,{
     }
 });
 
-export default Adddeliveryboystack;
+export default Viewstatsstack;

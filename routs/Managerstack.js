@@ -1,7 +1,7 @@
 import { createStackNavigator } from 'react-navigation-stack';
 import {createAppContainer} from 'react-navigation';
 import Manager from '../screen/Manager';
-import ViewProfile from '../screen/ViewProfile';
+import ViewProfile from '../screen/Myprofile';
 import globalstyles from '../styles/Global';
 import ShowCustomer from '../screen/ShowCustomer';
 import EditCustomer from '../screen/EditCustomer';
@@ -43,7 +43,8 @@ const screens = {
             title:'Edit Customer',
         }
 
-    }
+    },
+    
 
     
    

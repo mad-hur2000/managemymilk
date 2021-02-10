@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import { View ,Text, Button, ImageBackground, TouchableOpacity, FlatList  , navigate} from 'react-native';
-import ViewProfile from '../screen/ViewProfile'
+import ViewProfile from './Myprofile'
 
 import { globalstyles } from '../styles/Global';
 import bgimage from '../assets/bgimage3.jpg';

@@ -1,31 +1,24 @@
 import { createStackNavigator } from 'react-navigation-stack';
-import Adddeliveryboy from '../screen/AddDeliveryboy';
+import Myprofile from '../screen/Myprofile';
 import React from 'react';
-import Header from '../shared/Header'
+import Header from '../shared/Header';
 
 
 const screens = {
    
-    Adddeliveryboy: {
-        screen:Adddeliveryboy,
+    Myprofile: {
+        screen:Myprofile,
         navigationOptions: ({navigation}) => {
             return(
                 {
-                    headerTitle: () => <Header navigtion={navigation} title='Add Deliveryboy' />
+                    headerTitle: () => <Header navigtion={navigation} title='Myprofile' />
                 }
             )
         }
         
-        
-
-    },
-    
-
-    
-   
+    },  
 }
-
-const Adddeliveryboystack=createStackNavigator(screens,{
+const Myprofilestack=createStackNavigator(screens,{
     defaultNavigationOptions:{
         headerStyle:{
             backgroundColor:'#0d0',
@@ -35,4 +28,4 @@ const Adddeliveryboystack=createStackNavigator(screens,{
     }
 });
 
-export default Adddeliveryboystack;
+export default Myprofilestack;

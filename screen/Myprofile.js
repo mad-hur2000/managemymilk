@@ -6,16 +6,12 @@ import { StyleSheet, Text,  View , Keyboard} from 'react-native';
 import { TouchableWithoutFeedback } from 'react-native';
 import globalstyles from '../styles/Global';
 
-const MyProfile = () => {
+
+const Myprofile = () => {
 
         return (
             
-            <TouchableWithoutFeedback onPress={() => {
-              // console.log('keyboard dismiss');
-              Keyboard.dismiss();
-
-            }}>
-              
+         <ImageBackground source={bgimage} style={styles.imagecontainer} >
                 <View style={styles.box}>
                   <Text style={styles.titletext}>My Profile</Text>
                   <View style={styles.profilepic}/>
@@ -25,12 +21,14 @@ const MyProfile = () => {
                   <Text>Name</Text>
 
                 </View>
+
+          </ImageBackground>
+            
                 
                 
              
             
-            </TouchableWithoutFeedback>
-      
+          
 
 
 
@@ -44,14 +42,13 @@ const styles = StyleSheet.create({
   
 
   box:{
-    marginTop:7,
     height:'100%',
     width:'100%',
     fontSize:16,
     backgroundColor:'rgba(0,0,0,0.2)',
-    marginTop:40,
+    marginTop:10,
     borderRadius:25,
-    justifyContent:'center',
+    justifyContent:'flex-start',
     alignItems:'center',
   
     
@@ -79,6 +76,16 @@ const styles = StyleSheet.create({
 
   },
 
+  imagecontainer: {
+      flex:1,
+      // alignItems: 'center',
+      // justifyContent: 'center',
+      backgroundColor:'rgba(255,255,255,0.4)',
+      opacity:0.7,
+      
+    
+    },
+
 
   buttontext:{
     color:'#bbb',
@@ -95,6 +102,6 @@ const styles = StyleSheet.create({
 
 });
 
-export default MyProfile;
+export default Myprofile;
 
 

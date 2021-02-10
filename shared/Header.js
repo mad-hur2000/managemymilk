@@ -1,7 +1,12 @@
 import React from 'react';
-import {Text,StyleSheet,View} from 'react-native';
-// import { Materialicons } from '@expo/vector-icons';
+import {Text,StyleSheet,View,Button, TouchableOpacity} from 'react-native';
 import Entypo  from 'react-native-vector-icons/Entypo';
+import {openDrawer} from 'react-navigation-drawer';
+import { createAppContainer,navigation } from 'react-navigation';
+
+
+
+
 
 
 
@@ -9,13 +14,11 @@ import Entypo  from 'react-native-vector-icons/Entypo';
 
 export default function Header({navigation,title}){
 
-    // const openmenu=()=>{
-    //     navigation.openDrawer();
-    // }
-   
     return(
         <View style={styles.header}>
-            <Entypo name={'menu'} size={26} style={styles.iconmenu}  />
+           
+                <Entypo name={'menu'} size={26} style={styles.iconmenu}  />
+
             <View>
                 <Text style={styles.headertext}>{title}</Text>
             </View>

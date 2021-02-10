@@ -9,9 +9,9 @@ import Login from './screen/Login';
 import ProfileActivate from './screen/ProfileActivate';
 import SignUp from './screen/SignUp';
 import Manager from './screen/Manager';
-import Welcome from './screen/Welcome';
-import ViewProfile from './screen/ViewProfile';
-import Navigator  from './routs/Drawer';
+
+import ViewProfile from './screen/Myprofile';
+import NavigatorManager  from './routs/Drawer';
 
 
 
@@ -20,7 +20,7 @@ export default function App() {
       return (
 
           <View style={styles.container}>
-            <Navigator />
+            <NavigatorManager />
             {/* <MyProfile /> */}
             {/* <Login /> */}
             {/* <ProfileActivate /> */}

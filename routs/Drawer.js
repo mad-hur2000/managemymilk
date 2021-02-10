@@ -5,10 +5,15 @@ import Aboutstack from './Aboutstack';
 import Addcustomerstack from './Addcustomerstack';
 import Addproductstack from './Addproductstack';
 import Adddeliveryboystack from './Adddeliveryboystack';
+import Viewstatsstack from './Viewstatsstack';
+import Myprofilestack from './Myprofilestack';
  
 const rootDrawerNavigator = createDrawerNavigator({
     Manager:{
         screen:Managerstack,
+    },
+    Myprofile:{
+        screen:Myprofilestack,
     },
     AddCustomer:{
         screen:Addcustomerstack,
@@ -21,7 +26,13 @@ const rootDrawerNavigator = createDrawerNavigator({
     },
     About:{
         screen:Aboutstack,
-    }
+    },
+    Viewstats:{
+        screen:Viewstatsstack,
+    },
+    
+
+   
 });
 
 export default createAppContainer(rootDrawerNavigator); 

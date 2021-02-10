@@ -1,39 +1,90 @@
 
 import React,{Component, useState} from 'react';
-import { render } from 'react-dom';
-import { StyleSheet, Text, TextInput, TouchableOpacity, View, Image } from 'react-native';
+import bgimage from '../assets/bgimage3.jpg'
+import { StyleSheet, Text, ScrollView,TextInput, TouchableOpacity, View, Image , Keyboard} from 'react-native';
+import { TouchableWithoutFeedback , ImageBackground} from 'react-native';
+import {globalstyles} from '../styles/Global';
 
 
 
 
 class  AddCustomer extends Component{
     render(){
-        // const [email, setEmail] = useState('');
-        // const [password, setPassword] = useState('');
-        // const [cpassword, setCPassword] = useState('');
         return (
-            <View style={styles.containers}>
-            {/* 
-            <View style={styles.logo}>
-            <Image source={require('./assets/logo.png')} />
-            </View> */}
-
-            <TextInput placeholder="Enter username or Email" style={styles.stext}  /*onChangeText={(email) => setEmail(email)}*//>
-            <TextInput placeholder="Enter Password" style={styles.stext}   secureTextEntry={true} /*onChangeText={(password) => setPassword(password)}*//>
-            <TextInput placeholder="Confirm Password" style={styles.stext} secureTextEntry={true} /*onChangeText={(cpassword) => setCPassword(cpassword)}*//>
+          <TouchableWithoutFeedback onPress={() => {
             
-        
-            <TouchableOpacity style={styles.sbutton}>
-            <View >
-                <Text>Sign Up</Text>
-            </View>
-            </TouchableOpacity>
-            
-            <Text style={{marginTop:10, fontSize:12}}>Already have an account?</Text> 
-            <View><Text>Login!!</Text></View>
-        
+            Keyboard.dismiss();
 
-            </View>
+          }}>
+            <ImageBackground source={bgimage} style={globalstyles.imagecontainer} style={{flex:1}}>
+              <View style={styles.tocenter}>
+                <View style={styles.box}>
+                  <ScrollView >
+                  <Text style={styles.titletext}>Enter The Details to add New Customer</Text>
+                  
+                  <TextInput style={styles.stext}
+                    placeholder=  {'Enter Name'}
+                    underlineColorAndroid='transparent'
+                  />
+
+                  <TextInput style={styles.stext}
+                    placeholder=  {'Enter Email'}
+                    underlineColorAndroid='transparent'
+                  />
+
+                  <TextInput style={styles.stext}
+                    placeholder=  {'Enter Mobile Number'}
+                    underlineColorAndroid='transparent'
+                    keyboardType='numeric'
+                  />
+
+                  <TextInput style={styles.stext}
+                    placeholder=  {'Morning Milk'}
+                    underlineColorAndroid='transparent'
+                    keyboardType='numeric'
+                  />
+
+                  <TextInput style={styles.stext}
+                    placeholder=  {'Evening Milk'}
+                    underlineColorAndroid='transparent'
+                    keyboardType='numeric'
+                  />
+
+                  <TextInput style={styles.stext}
+                    placeholder=  {'House Number/Name'}
+                    underlineColorAndroid='transparent'
+                  />
+
+                  <TextInput style={styles.stext}
+                    placeholder=  {'Society'}
+                    underlineColorAndroid='transparent'
+                  />
+
+                  <TextInput style={styles.stext}
+                  
+                    placeholder=  {'Pincode'}
+                    // underlineColorAndroid='transparent'
+                  
+                  />
+
+                  
+
+
+                  <TouchableOpacity style={styles.sbutton}>
+                    <View >
+                        <Text style={styles.buttontext}>Create New Customer</Text>
+                    </View>
+                  </TouchableOpacity>
+                  </ScrollView>
+                 
+                
+
+                </View>
+              </View>
+              
+            </ImageBackground>
+          
+          </TouchableWithoutFeedback>
 
       
 
@@ -45,12 +96,54 @@ class  AddCustomer extends Component{
 
 
 const styles = StyleSheet.create({
-  containers: {
+  
+  tocenter:{
     flex:1,
-    marginTop:200,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent:'center',
+    alignItems:'center',
+
+  },
+
+  box:{
+    // marginTop:7,
+    height:'100%',
+    width:'100%',
+    fontSize:16,
+    backgroundColor:'rgba(0,0,0,0.2)',
+    borderRadius:5,
+    justifyContent:'center',
+    alignItems:'center',
+  
+    
+  },
+
+  titletext:{
+    alignContent:'center',
+    justifyContent:'center',
+    textAlign:'center',
+    color:'#eee',
+    fontSize:28,
+    marginTop:10,
+    marginHorizontal:10,
+    borderBottomWidth:0.5,
+
+  },
+
+
+  stext:{
+    // flex:1,
+    marginTop:7,
+    height:40,
+    width:300,
+    // borderBottomWidth:1,
+    borderRadius:25,
+    fontSize:16,
+    backgroundColor:'rgba(0,0,0,0.2)',
+    marginHorizontal:25,
+    paddingLeft:25,
+    marginTop:20,
+    color:'#bbb',
+    
   },
 
   sbutton:{
@@ -59,35 +152,33 @@ const styles = StyleSheet.create({
     borderWidth:1,
     borderRadius:40,
     textAlign:"center",
-    backgroundColor:'#aaf',
+    backgroundColor:'rgba(40,40,40,0.4)',
     alignItems:"center",
     alignSelf:"center",
     justifyContent:"center",
-    marginTop:50,
-    alignContent:"center",
-    alignItems:"center",
-    alignSelf:"center",
+    marginTop:25,
+    color:'white',
+    
+  
   },
 
-  stext:{
-    marginTop:7,
-    height:40,
-    width:270,
-    borderBottomWidth:1
+  buttontext:{
+    color:'#ddd',
+
   },
 
-//   logo:{
-//     backgroundColor:"red",
-//     height:40,
-//     width:40,
-//     position: 'relative',
-//     borderWidth:1,
-//     flex: 1,
-//     alignItems: 'center'
-
-//   }
+  lasttext:{
+    color:'#fff',
+    marginTop:15,
+    alignItems:'center',
+    alignSelf:'center'
+  }
 
 
 });
 
 export default AddCustomer;
+
+
+
+

@@ -11,7 +11,7 @@ const screens = {
         navigationOptions: ({navigation}) => {
             return(
                 {
-                    headerTitle: () => <Header navigtion={navigation} title='About' />
+                    headerTitle: () => <Header navigtion={navigation} title='Add Product' />
                 }
             )
         }

@@ -4,6 +4,7 @@ import bgimage from '../assets/bgimage3.jpg'
 import { StyleSheet, Text, TextInput, TouchableOpacity, View, Image , Keyboard} from 'react-native';
 import { TouchableWithoutFeedback , ImageBackground} from 'react-native';
 import {globalstyles} from '../styles/Global';
+import logo from '../assets/logo.png';
 
 
 class Login extends Component{
@@ -21,10 +22,24 @@ class Login extends Component{
                 <View style={styles.tocenter}>
                   <View style={styles.box}>
                     <Text style={styles.titletext}>Manage My Milk</Text>
-                    <View style={styles.logo}/>
+                    <Image source={logo} style={styles.logo} />
 
                     <TextInput style={styles.stext}
                       placeholder=  {'Enter Your Mobile Number'}
+                      // placeholderTextColor= { 'rgba(225,225,225,0.7)'}
+                      underlineColorAndroid='transparent'
+                      keyboardType='numeric'
+                  
+                    />
+
+                    <TouchableOpacity style={styles.sbutton}>
+                      <View >
+                          <Text style={styles.buttontext}>Send OTP</Text>
+                      </View>
+                    </TouchableOpacity>
+
+                    <TextInput style={styles.stext}
+                      placeholder=  {'Enter OTP'}
                       // placeholderTextColor= { 'rgba(225,225,225,0.7)'}
                       underlineColorAndroid='transparent'
                       keyboardType='numeric'
@@ -64,10 +79,10 @@ const styles = StyleSheet.create({
 
   box:{
     marginTop:7,
-    height:310,
+    height:450,
     width:320,
     fontSize:16,
-    backgroundColor:'rgba(0,0,0,0.2)',
+    backgroundColor:'rgba(0,0,0,0.3)',
     marginTop:40,
     borderRadius:25,
     justifyContent:'center',
@@ -82,19 +97,19 @@ const styles = StyleSheet.create({
     color:'#eee',
     fontSize:28,
     marginTop:10,
-    // marginLeft:12,
+    
 
   },
 
   logo:{
-    backgroundColor:"blue",
-    height:80,
-    width:80,
+    backgroundColor:'#fff',
+    height:90,
+    width:90,
     alignItems: 'center',
     justifyContent:'center',
     marginHorizontal:120,
     marginTop:20,
-    borderRadius:20,
+    borderRadius:15,
 
   },
 
@@ -102,14 +117,13 @@ const styles = StyleSheet.create({
     marginTop:7,
     height:40,
     width:270,
-    // borderBottomWidth:1,
+    borderBottomWidth:0.2,
     borderRadius:25,
     fontSize:16,
     backgroundColor:'rgba(0,0,0,0.2)',
-    marginHorizontal:25,
-    paddingLeft:45,
     marginTop:20,
     color:'#bbb',
+    textAlign:'center',
     
   },
 
