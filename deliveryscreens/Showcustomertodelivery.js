@@ -5,7 +5,7 @@ import {globalstyles} from '../styles/Global';
 import bgimage from '../assets/bgimage3.jpg';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
-const ShowCustomer = ({navigation}) => {
+const ShowCustomertodelivery = ({navigation}) => {
 
   const [customer,setCustomer] = useState([
     { date:'12-12-2020' , name: 'madhur mungra', morningMilk:2 , eveningMilk:1 },
@@ -33,13 +33,10 @@ const ShowCustomer = ({navigation}) => {
       <View style={styles.titlecontainer}>
         <Text style={styles.nametext}>{navigation.getParam('name')}</Text>
 
-        <TouchableOpacity style={styles.editprofilebutton} >
-          <Text style={{textAlign:'center' }}>Delete Profile</Text>
-        </TouchableOpacity>
       
-        <TouchableOpacity style={styles.editprofilebutton} onPress={() => navigation.navigate('EditCustomer')}>
+        {/* <TouchableOpacity style={styles.editprofilebutton} onPress={() => navigation.navigate('EditCustomer')}>
           <Text style={{textAlign:'center' }}>Edit Profile</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
 
       <View style={styles.tablebox}>
@@ -152,4 +149,4 @@ const styles= StyleSheet.create({
 
 
 
-export default ShowCustomer;
+export default ShowCustomertodelivery;

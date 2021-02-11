@@ -13,6 +13,7 @@ import Manager from './screen/Manager';
 import ViewProfile from './screen/Myprofile';
 import NavigatorManager  from './routes/Drawer';
 import NavigatorCustomer from './customerroutes/Customerdrawer'
+import NavigatorDelivery from './deliveryroutes/Deliverydrawer'
 
 
 
@@ -21,8 +22,9 @@ export default function App() {
       return (
 
           <View style={styles.container}>
-            {/* <NavigatorManager /> */}
-            <NavigatorCustomer />
+            {/* <NavigatorManager />
+            <NavigatorCustomer /> */}
+            <NavigatorDelivery />
 
             {/* <MyProfile /> */}
             {/* <Login /> */}

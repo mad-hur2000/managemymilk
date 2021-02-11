@@ -24,7 +24,6 @@ const Customerviewstats = ({navigation}) => {
     { date:'12-12-2020' , name: 'Nsdjsarg mungra', morningMilk:2 , eveningMilk:1 },
     { date:'12-12-2020' , name: 'Ndjsag mungra', morningMilk:2 , eveningMilk:1}
   ])
-  const name = 'Madhur Mungra';
 
 
 
@@ -32,7 +31,7 @@ const Customerviewstats = ({navigation}) => {
     <ImageBackground source={bgimage} style={globalstyles.imagecontainer} >
       
       <View style={styles.titlecontainer}>
-        <Text style={styles.nametext}>{name}</Text>
+        <Text style={styles.nametext}>{customer[0].name}</Text>
         
       </View>
 

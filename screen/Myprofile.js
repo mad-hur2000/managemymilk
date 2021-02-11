@@ -1,40 +1,49 @@
 
 import React from 'react';
-import { ImageBackground } from 'react-native';
 import bgimage from '../assets/bgimage3.jpg'
-import { StyleSheet, Text,  View , Keyboard} from 'react-native';
+import { StyleSheet,  Image,Text,  View,ImageBackground ,useState , Keyboard} from 'react-native';
 import { TouchableWithoutFeedback } from 'react-native';
 import globalstyles from '../styles/Global';
-import logo from '../assets/logo.png'
+import logo from '../assets/logo.png';
+
+const customer=[
+      
+  { name: 'Nisarg mungra', mobileNo: '9988d998859' , Email:'mafdfaad@gmail.com',
+   morningMilk:2 , eveningMilk:1 ,
+   houseName_No:'295-A' ,street:'11',society:'Raijibaug', city:'Junagadh',state:'Gujarat'}];
 
 
-const Myprofile = () => {
+
+
+const  Myprofilemanager = () => {
+
+  
+  
+
 
         return (
             
          <ImageBackground source={bgimage} style={styles.imagecontainer} >
                 <View style={styles.box}>
-                  <Text style={styles.titletext}>My Profile</Text>
+           
+                  <Image source={logo} style={styles.profilepic}/>
+                  <Text style={styles.titletext}>{customer[0].name}</Text>
+                  <View style={styles.detailbox}>
+                  <Text style={styles.text}>Email: {customer[0].Email}</Text>
+                  <Text style={styles.text}>Mobile No: {customer[0].mobileNo}</Text>
+                  <Text style={styles.text} multiline >Address: {`${customer[0].houseName_No},${customer[0].street},${customer[0].society}`}</Text>
+                  <Text style={styles.text} multiline > {`                ${customer[0].city},${customer[0].state}`}</Text>
+                    
+                  </View>
                   
-                    <Image source={logo} style={styles.profilepic}></Image>
-                  
-                  <Text>Name</Text>
-                  <Text>Name oyy</Text>
-                  <Text>Name</Text>
-                  <Text>Name</Text>
+
+
+                
 
                 </View>
 
           </ImageBackground>
             
-                
-                
-             
-            
-          
-
-
-
          );
     
 }
@@ -66,6 +75,23 @@ const styles = StyleSheet.create({
   
   },
 
+  
+  text:{
+    
+    marginTop:14,
+    fontSize:20,
+    height:30,
+    color:'#fff',
+    alignItems:'center',
+    marginHorizontal:8,
+    justifyContent:'center',
+    // borderBottomWidth:0.5,
+
+    textAlign:'center',
+    
+
+  },
+
   titletext:{
     alignContent:'center',
     justifyContent:'center',
@@ -77,14 +103,25 @@ const styles = StyleSheet.create({
   },
 
   profilepic:{
-    // backgroundColor:"blue",
+    backgroundColor:"blue",
     height:80,
     width:80,
     alignItems: 'center',
     justifyContent:'center',
     marginHorizontal:120,
     marginTop:20,
-    borderRadius:20,
+    borderRadius:150,
+
+  },
+  detailbox:{
+    backgroundColor:'rgba(255,255,255,0.4)',
+    width:340,
+    height:300,
+    marginTop:5,
+  
+    alignItems:'flex-start',
+
+
 
   },
 
@@ -103,6 +140,6 @@ const styles = StyleSheet.create({
 
 });
 
-export default Myprofile;
+export default Myprofilemanager;
 
 

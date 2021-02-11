@@ -24,13 +24,13 @@ const screens = {
         
 
     },
-    ViewProfile:{
-        screen:ViewProfile,
-        navigationOptions: {
-            title:'My Profile',
-        }
+    // ViewProfile:{
+    //     screen:ViewProfile,
+    //     navigationOptions: {
+    //         title:'My Profile',
+    //     }
 
-    },
+    // },
     ShowCustomer:{
         screen:ShowCustomer,
         navigationOptions: {

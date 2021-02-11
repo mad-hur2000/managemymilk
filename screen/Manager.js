@@ -35,7 +35,7 @@ const Manager = ({navigation}) => {
           keyExtractor={(item)=> item.Email }
           data={customer}
           renderItem= {({item}) => (
-            <TouchableOpacity onPress={() => navigation.navigate('ShowCustomer',item)}>
+            <TouchableOpacity onPress={() => navigation.navigate('ShowCustomer',item)}> 
               <View style={globalstyles.card} >
                 <Text style={styles.cardtextname}> Name : {item.name}</Text>
                 <View style={styles.milktext}>
