@@ -15,27 +15,25 @@ import NavigatorManager  from './routes/Drawer';
 import NavigatorCustomer from './customerroutes/Customerdrawer'
 import NavigatorDelivery from './deliveryroutes/Deliverydrawer'
 
-
+const state = 'ismanager'
+const isloggedin = true
 
 export default function App() {
 
-      return (
+              if(state=='ismanager' && isloggedin){
+                return <NavigatorManager />
+              }
+              
+              else if(state=='iscustomer' && isloggedin){
+                 return <NavigatorCustomer />
+              } 
+              else if(state=='isdeliveryboy'&& isloggedin){
+                return <NavigatorDelivery />
+              }
 
-          <View style={styles.container}>
-            {/* <NavigatorManager />
-            <NavigatorCustomer /> */}
-            <NavigatorDelivery />
+            
 
-            {/* <MyProfile /> */}
-            {/* <Login /> */}
-            {/* <ProfileActivate /> */}
-            {/* <Manager /> */}
-            {/* <Welcome /> */}
-            {/* <SignUp /> */}
-
-          </View>
-
-      );
+      
 }
 
 
