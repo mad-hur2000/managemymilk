@@ -11,7 +11,8 @@ import SignUp from './screen/SignUp';
 import Manager from './screen/Manager';
 
 import ViewProfile from './screen/Myprofile';
-import NavigatorManager  from './routs/Drawer';
+import NavigatorManager  from './routes/Drawer';
+import NavigatorCustomer from './customerroutes/Customerdrawer'
 
 
 
@@ -20,12 +21,15 @@ export default function App() {
       return (
 
           <View style={styles.container}>
-            <NavigatorManager />
+            {/* <NavigatorManager /> */}
+            <NavigatorCustomer />
+
             {/* <MyProfile /> */}
             {/* <Login /> */}
             {/* <ProfileActivate /> */}
             {/* <Manager /> */}
             {/* <Welcome /> */}
+            {/* <SignUp /> */}
 
           </View>
 

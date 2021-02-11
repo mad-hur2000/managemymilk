@@ -24,11 +24,12 @@ const rootDrawerNavigator = createDrawerNavigator({
     AddDeliveryboy:{
         screen:Adddeliveryboystack,
     },
-    About:{
-        screen:Aboutstack,
-    },
+   
     Viewstats:{
         screen:Viewstatsstack,
+    },
+    About:{
+        screen:Aboutstack,
     },
     
 

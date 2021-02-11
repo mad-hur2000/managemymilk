@@ -13,7 +13,7 @@ const Manager = ({navigation}) => {
   // }
 
   const [customer,setCustomer] = useState([
-    { name: 'madhur mungra', mobileNo: '998899a8899' , Email:'mfgaad@gmail.com', morningMilk:2 , eveningMilk:1 , houseName_No:'295-A' ,street:'11',society:'Raijibaug', city:'Junagadh',state:'Gujarat'},
+      
     { name: 'Nisarg mungra', mobileNo: '9988d998859' , Email:'mafdfaad@gmail.com', morningMilk:2 , eveningMilk:1 , houseName_No:'295-A' ,street:'11',society:'Raijibaug', city:'Junagadh',state:'Gujarat'},
     { name: 'akdjslka', mobileNo: '998fg899859' , Email:'mad@gmaeil.com', morningMilk:2 , eveningMilk:1 , houseName_No:'295-A' ,street:'11',society:'Raijibaug', city:'Junagadh',state:'Gujarat'},
     { name: 'Nsdklfg munskadlfgra', mobileNo: '99s8898859' , Email:'maagd@gmail.com', morningMilk:2 , eveningMilk:1 , houseName_No:'295-A' ,street:'11',society:'Raijibaug', city:'Junagadh',state:'Gujarat'},
