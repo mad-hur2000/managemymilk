@@ -1,6 +1,6 @@
 
 import React,{Component, useState} from 'react';
-import bgimage from '../assets/bgimage3.jpg';
+import bgimage from '../assets/bgimage3.jpg'
 import { StyleSheet, Text, ScrollView,TextInput, TouchableOpacity, View, Image , Keyboard} from 'react-native';
 import { TouchableWithoutFeedback , ImageBackground} from 'react-native';
 import {globalstyles} from '../styles/Global';
@@ -8,8 +8,7 @@ import {globalstyles} from '../styles/Global';
 
 
 
-
-class  AddCustomer extends Component{
+class  EditProduct extends Component{
     render(){
         return (
           <TouchableWithoutFeedback onPress={() => {
@@ -21,59 +20,37 @@ class  AddCustomer extends Component{
               <View style={styles.tocenter}>
                 <View style={styles.box}>
                   <ScrollView >
-                  <Text style={styles.titletext}>Enter The Details to add New Customer</Text>
+                  <Text style={styles.titletext}>Enter The Details to add Edit Product</Text>
                   
                   <TextInput style={styles.stext}
                     placeholder=  {'Enter Name'}
                     underlineColorAndroid='transparent'
+                    
                   />
 
-                  <TextInput style={styles.stext}
-                    placeholder=  {'Enter Email'}
+                  <Image placeholder='add Image'></Image>
+
+                  <TextInput style={styles.stext1}
+                    placeholder=  {'Add Description'}
                     underlineColorAndroid='transparent'
+                    multiline
                   />
 
-                  <TextInput style={styles.stext}
-                    placeholder=  {'Enter Mobile Number'}
-                    underlineColorAndroid='transparent'
-                    keyboardType='numeric'
-                  />
+                  <TouchableOpacity style={styles.sbutton}>
+                    <View >
+                        <Text style={styles.buttontext}>Upload Image</Text>
+                    </View>
+                  </TouchableOpacity>
 
-                  <TextInput style={styles.stext}
-                    placeholder=  {'Morning Milk'}
-                    underlineColorAndroid='transparent'
-                    keyboardType='numeric'
-                  />
-
-                  <TextInput style={styles.stext}
-                    placeholder=  {'Evening Milk'}
-                    underlineColorAndroid='transparent'
-                    keyboardType='numeric'
-                  />
-
-                  <TextInput style={styles.stext}
-                    placeholder=  {'House Number/Name'}
-                    underlineColorAndroid='transparent'
-                  />
-
-                  <TextInput style={styles.stext}
-                    placeholder=  {'Society'}
-                    underlineColorAndroid='transparent'
-                  />
-
-                  <TextInput style={styles.stext}
                   
-                    placeholder=  {'Pincode'}
-                    // underlineColorAndroid='transparent'
                   
-                  />
 
                   
 
 
                   <TouchableOpacity style={styles.sbutton}>
                     <View >
-                        <Text style={styles.buttontext}>Create New Customer</Text>
+                        <Text style={styles.buttontext}>Save Changes</Text>
                     </View>
                   </TouchableOpacity>
                   </ScrollView>
@@ -147,6 +124,21 @@ const styles = StyleSheet.create({
     
   },
 
+  stext1:{
+    
+    marginTop:7,
+    height:60,
+    width:300,
+    borderRadius:25,
+    fontSize:16,
+    backgroundColor:'rgba(0,0,0,0.2)',
+    marginHorizontal:25,
+    paddingLeft:25,
+    marginTop:20,
+    color:'#bbb',
+    
+  },
+
   sbutton:{
     height:34,
     width:200,
@@ -178,7 +170,7 @@ const styles = StyleSheet.create({
 
 });
 
-export default AddCustomer;
+export default EditProduct;
 
 
 

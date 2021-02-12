@@ -7,6 +7,8 @@ import ShowCustomer from '../screen/ShowCustomer';
 import EditCustomer from '../screen/EditCustomer';
 import React from 'react';
 import Header from '../shared/Header';
+import EditProduct from '../screen/EditProduct';
+import ShowProduct from '../screen/ShowProduct'
 
 
 const screens = {
@@ -45,6 +47,20 @@ const screens = {
 
     },
     
+    ShowProduct:{
+        screen:ShowProduct,
+        navigationOptions:{
+            title:'Product',
+        }
+
+    },
+    EditProduct:{
+        screen:EditProduct,
+        navigationOptions:{
+            title:'Product',
+        }
+
+    },
 
     
    

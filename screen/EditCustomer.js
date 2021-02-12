@@ -8,6 +8,7 @@ import {globalstyles} from '../styles/Global';
 
 
 
+
 class  EditCustomer extends Component{
     render(){
         return (
@@ -20,7 +21,7 @@ class  EditCustomer extends Component{
               <View style={styles.tocenter}>
                 <View style={styles.box}>
                   <ScrollView >
-                  <Text style={styles.titletext}>Enter The Details to add Edit Customer</Text>
+                  <Text style={styles.titletext}>Enter The Details to Edit Customer</Text>
                   
                   <TextInput style={styles.stext}
                     placeholder=  {'Enter Name'}

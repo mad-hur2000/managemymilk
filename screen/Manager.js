@@ -1,11 +1,12 @@
 import React, {useState} from 'react';
-import { View ,Text, Button, ImageBackground, TouchableOpacity, FlatList  , navigate} from 'react-native';
+import { View ,Text, Button, ImageBackground, ScrollView,TouchableOpacity, FlatList  , navigate} from 'react-native';
 import ViewProfile from './Myprofile'
 
 import { globalstyles } from '../styles/Global';
 import bgimage from '../assets/bgimage3.jpg';
 import ShowCustomer from '../screen/ShowCustomer'
 import { StyleSheet } from 'react-native';
+
 
 const Manager = ({navigation}) => {
   // const gotoprofile = () => {
@@ -25,12 +26,20 @@ const Manager = ({navigation}) => {
 
     { name: 'Jay', mobileNo: 9988998849 , Email:'mad@gmykail.com', morningMilk:2 , eveningMilk:1 , houseName_No:'295-A' ,street:'11',society:'Raijibaug', city:'Junagadh',state:'Gujarat'},
   ]);
+  const [product,setProduct] = useState([
+      
+    { name: 'milk', price: '70 rs/liter' },
+    { name: 'ghee', price: '1500 rs/kg'  },
+    { name: 'gaumutra', price: '30 rs/liter' }
+  ]);
+
 
 
   return(
    
       <ImageBackground source={bgimage} style={globalstyles.imagecontainer}>
-      
+        <Text style={{backgroundColor:'rgba(40,40,40,0.3)'}}>Customers</Text>
+         <ScrollView>
           <FlatList
           keyExtractor={(item)=> item.Email }
           data={customer}
@@ -43,10 +52,30 @@ const Manager = ({navigation}) => {
                   <Text style={{ flex:3}}>Evening : {item.eveningMilk}</Text>
                 </View>
               </View>
+              
             </TouchableOpacity>
+
                   
           )}
-        />
+          />
+        <Text style={{backgroundColor:'rgba(40,40,40,0.3)'}}>Produsts</Text>
+        
+         <FlatList
+          style={{marginTop:50}}
+          keyExtractor={(item)=> item.Email }
+          data={product}
+          renderItem= {({item}) => (
+            <TouchableOpacity onPress={() => navigation.navigate('ShowProduct',item)}> 
+              <View style={globalstyles.card} >
+                <Text style={styles.cardtextname}> Product Name : {item.name}</Text>
+                
+              </View>
+            </TouchableOpacity>
+            
+                  
+          )}
+         />
+        </ScrollView>
         
       </ImageBackground>
    
