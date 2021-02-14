@@ -1,3 +1,4 @@
+
 import { createStackNavigator } from 'react-navigation-stack';
 import {createAppContainer} from 'react-navigation';
 import Manager from '../screen/Manager';
@@ -12,40 +13,32 @@ import ShowProduct from '../screen/ShowProduct'
 
 
 const screens = {
-   
-    Manager: {
-        screen:Manager,
-        navigationOptions: ({navigation}) => {
-            return(
-                {
-                    headerTitle: () => <Header navigtion={navigation} title='Manager' />
-                }
-            )
-        }
-        
-        
-
+  Manager: {
+    screen: Manager,
+    navigationOptions: ({ navigation }) => {
+      return {
+        headerTitle: () => <Header navigtion={navigation} title="Manager" />,
+      };
     },
-    // ViewProfile:{
-    //     screen:ViewProfile,
-    //     navigationOptions: {
-    //         title:'My Profile',
-    //     }
-
-    // },
-    ShowCustomer:{
-        screen:ShowCustomer,
-        navigationOptions: {
-            title:'Customer Data',
-        }
+  },
+  // ViewProfile:{
+  //     screen:ViewProfile,
+  //     navigationOptions: {
+  //         title:'My Profile',
+  //     }
+  // },
+   ShowCustomer: {
+    screen: ShowCustomer,
+    navigationOptions: {
+      title: "Customer Data",
     },
-    EditCustomer:{
-        screen:EditCustomer,
-        navigationOptions:{
-            title:'Edit Customer',
-        }
-
+  },
+  EditCustomer: {
+    screen: EditCustomer,
+    navigationOptions: {
+      title: "Edit Customer",
     },
+
     
     ShowProduct:{
         screen:ShowProduct,
