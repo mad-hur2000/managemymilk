@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import {
   View,
@@ -10,12 +11,15 @@ import {
 } from "react-native";
 import ViewProfile from "./Myprofile";
 
+
 import { globalstyles } from "../styles/Global";
 import bgimage from "../assets/bgimage3.jpg";
 import ShowCustomer from "../screen/ShowCustomer";
 import { StyleSheet } from "react-native";
 
+
 const Manager = ({ navigation }) => {
+
   // const gotoprofile = () => {
   //   navigation.navigate('ViewProfile');
   // }
@@ -131,30 +135,61 @@ const Manager = ({ navigation }) => {
       state: "Gujarat",
     },
   ]);
+  const [product,setProduct] = useState([
+      
+    { name: 'milk', price: '70 rs/liter' },
+    { name: 'ghee', price: '1500 rs/kg'  },
+    { name: 'gaumutra', price: '30 rs/liter' }
+  ]);
 
-  return (
-    <ImageBackground source={bgimage} style={globalstyles.imagecontainer}>
-      <FlatList
-        keyExtractor={(item) => item.Email}
-        data={customer}
-        renderItem={({ item }) => (
-          <TouchableOpacity
-            onPress={() => navigation.navigate("ShowCustomer", item)}
-          >
-            <View style={globalstyles.card}>
-              <Text style={styles.cardtextname}> Name : {item.name}</Text>
-              <View style={styles.milktext}>
-                <Text style={styles.cardtextmilk}>
-                  Morning : {item.morningMilk}
-                </Text>
-                <Text style={{ flex: 3 }}>Evening : {item.eveningMilk}</Text>
+
+
+  return(
+   
+      <ImageBackground source={bgimage} style={globalstyles.imagecontainer}>
+        <Text style={{backgroundColor:'rgba(40,40,40,0.3)'}}>Customers</Text>
+         <ScrollView>
+          <FlatList
+          keyExtractor={(item)=> item.Email }
+          data={customer}
+          renderItem= {({item}) => (
+            <TouchableOpacity onPress={() => navigation.navigate('ShowCustomer',item)}> 
+              <View style={globalstyles.card} >
+                <Text style={styles.cardtextname}> Name : {item.name}</Text>
+                <View style={styles.milktext}>
+                  <Text style={styles.cardtextmilk}>Morning : {item.morningMilk}</Text>
+                  <Text style={{ flex:3}}>Evening : {item.eveningMilk}</Text>
+                </View>
               </View>
-            </View>
-          </TouchableOpacity>
-        )}
-      />
-    </ImageBackground>
-  );
+              
+            </TouchableOpacity>
+
+                  
+          )}
+          />
+        <Text style={{backgroundColor:'rgba(40,40,40,0.3)'}}>Produsts</Text>
+        
+         <FlatList
+          style={{marginTop:50}}
+          keyExtractor={(item)=> item.Email }
+          data={product}
+          renderItem= {({item}) => (
+            <TouchableOpacity onPress={() => navigation.navigate('ShowProduct',item)}> 
+              <View style={globalstyles.card} >
+                <Text style={styles.cardtextname}> Product Name : {item.name}</Text>
+                
+              </View>
+            </TouchableOpacity>
+            
+                  
+          )}
+         />
+        </ScrollView>
+        
+      </ImageBackground>
+   
+   
+  )
 };
 
 const styles = StyleSheet.create({

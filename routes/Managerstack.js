@@ -1,12 +1,16 @@
-import { createStackNavigator } from "react-navigation-stack";
-import { createAppContainer } from "react-navigation";
-import Manager from "../screen/Manager";
-import ViewProfile from "../screen/Myprofile";
-import globalstyles from "../styles/Global";
-import ShowCustomer from "../screen/ShowCustomer";
-import EditCustomer from "../screen/EditCustomer";
-import React from "react";
-import Header from "../shared/Header";
+
+import { createStackNavigator } from 'react-navigation-stack';
+import {createAppContainer} from 'react-navigation';
+import Manager from '../screen/Manager';
+import ViewProfile from '../screen/Myprofile';
+import globalstyles from '../styles/Global';
+import ShowCustomer from '../screen/ShowCustomer';
+import EditCustomer from '../screen/EditCustomer';
+import React from 'react';
+import Header from '../shared/Header';
+import EditProduct from '../screen/EditProduct';
+import ShowProduct from '../screen/ShowProduct'
+
 
 const screens = {
   Manager: {
@@ -23,7 +27,7 @@ const screens = {
   //         title:'My Profile',
   //     }
   // },
-  ShowCustomer: {
+   ShowCustomer: {
     screen: ShowCustomer,
     navigationOptions: {
       title: "Customer Data",
@@ -34,15 +38,35 @@ const screens = {
     navigationOptions: {
       title: "Edit Customer",
     },
-  },
-};
-const Managerstack = createStackNavigator(screens, {
-  defaultNavigationOptions: {
-    headerStyle: {
-      backgroundColor: "#0d0",
-      height: 80,
+
+    
+    ShowProduct:{
+        screen:ShowProduct,
+        navigationOptions:{
+            title:'Product',
+        }
+
     },
-  },
+    EditProduct:{
+        screen:EditProduct,
+        navigationOptions:{
+            title:'Product',
+        }
+
+    },
+
+    
+   
+}
+
+const Managerstack=createStackNavigator(screens,{
+    defaultNavigationOptions:{
+        headerStyle:{
+            backgroundColor:'#0d0',
+            height:80,
+        },
+        
+    }
 });
 
 export default Managerstack;

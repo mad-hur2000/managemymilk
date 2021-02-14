@@ -1,3 +1,4 @@
+
 import React, { Component, useState } from "react";
 import bgimage from "../assets/bgimage3.jpg";
 import {
@@ -96,6 +97,7 @@ class AddCustomer extends Component {
       </TouchableWithoutFeedback>
     );
   }
+
 }
 
 const styles = StyleSheet.create({
