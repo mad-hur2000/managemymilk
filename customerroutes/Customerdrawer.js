@@ -4,6 +4,7 @@ import Customerstack from "./Customerstack";
 import Customerviewstatsstack from "./Customerviewstatsstack";
 import Myprofilecustomerstack from "./Myprofilecustomerstack";
 import Aboutstack from "../routes/Aboutstack";
+
 const rootDrawerNavigator = createDrawerNavigator({
   Dashboard: {
     screen: Customerstack,

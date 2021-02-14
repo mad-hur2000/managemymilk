@@ -38,8 +38,9 @@ try {
 }
 
 export default function Login() {
+  const { phoneNumber , setPhoneNumber , isloggedin , setIsloggedin , setNormalnumber } = useContext(UserContext);
+
   const recaptchaVerifier = React.useRef(null);
-  const [phoneNumber, setPhoneNumber] = React.useState();
   const [verificationId, setVerificationId] = React.useState();
   const [verificationCode, setVerificationCode] = React.useState();
   const firebaseConfig = firebase.apps.length
@@ -78,12 +79,19 @@ export default function Login() {
       <Text style={{ marginTop: 20 }}>Enter phone number</Text>
       <TextInput
         style={styles.stext}
-        placeholder="+91 999 999 9999"
+        placeholder="1234567891"
         autoFocus
         autoCompleteType="tel"
         keyboardType="phone-pad"
         textContentType="telephoneNumber"
-        onChangeText={(phoneNumber) => setPhoneNumber(phoneNumber)}
+        onChangeText={(phoneNumber) => {
+          let number = phoneNumber.replace("+91" , "");
+          if(number.length == 10)
+          {
+            setNormalnumber(phoneNumber.replace("+91" , ""));
+          }
+          setPhoneNumber(phoneNumber)
+        }}
       />
       <TouchableOpacity>
           <View>
@@ -133,6 +141,7 @@ export default function Login() {
                   );
                   await firebase.auth().signInWithCredential(credential);
                   showMessage({ text: "Phone authentication successful 👍" });
+                  setIsloggedin(true);
                 } catch (err) {
                   showMessage({ text: `Error: ${err.message}`, color: "red" });
                 }
@@ -165,7 +174,7 @@ export default function Login() {
     </View>
     </View>
     <Text style={styles.lasttext}>
-      To create account , contact here
+      To create account , contact here{ isloggedin ? <Text>{phoneNumber}</Text> : "" }
     </Text>
     </ImageBackground>
     </TouchableWithoutFeedback>
@@ -175,7 +184,7 @@ export default function Login() {
 
 const styles = StyleSheet.create({
   tocenter: {
-    flex: 1,
+    flex: 1,  
     justifyContent: "center",
     alignItems: "center",
   },
@@ -220,7 +229,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     backgroundColor: "rgba(0,0,0,0.2)",
     marginTop: 20,
-    color: "#bbb",
+    color: "black",
     textAlign: "center",
   },
 

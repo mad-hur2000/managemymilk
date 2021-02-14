@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect , useContext } from "react";
 import bgimage from "../assets/bgimage3.jpg";
 import {
   StyleSheet,
@@ -12,6 +12,7 @@ import {
 import { TouchableWithoutFeedback } from "react-native";
 import globalstyles from "../styles/Global";
 import logo from "../assets/logo.png";
+import {ManagerContext} from '../context/Managercontext'
 
 const customer = [
   {
@@ -23,12 +24,28 @@ const customer = [
     houseName_No: "295-A",
     street: "11",
     society: "Raijibaug",
-    city: "Junagadh",
+    city: "Junagadh", 
     state: "Gujarat",
   },
 ];
 
 const Myprofilemanager = () => {
+  const { phone , profile , setProfile } = useContext(ManagerContext);
+  const [ loading , setLoading ] = useState(false);
+
+  useEffect(() => {
+    setLoading(true);
+    fetch("https://managedairy.herokuapp.com/manager/profile", {
+      method: "POST",
+      headers: { "Content-type": "application/json; charset=UTF-8" },
+      body: JSON.stringify({ phone : phone }),
+    })
+      .then((response) => response.json())
+      .then((data) => { setProfile(data) ; setLoading(false); console.log(profile); })
+      .catch((err) => console.log(err));
+  }, []);
+
+
   return (
     <ImageBackground source={bgimage} style={styles.imagecontainer}>
       <View style={styles.box}>

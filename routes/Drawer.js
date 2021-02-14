@@ -24,7 +24,6 @@ const rootDrawerNavigator = createDrawerNavigator({
   AddDeliveryboy: {
     screen: Adddeliveryboystack,
   },
-
   Viewstats: {
     screen: Viewstatsstack,
   },

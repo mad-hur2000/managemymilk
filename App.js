@@ -1,32 +1,28 @@
 import { StatusBar } from "expo-status-bar";
-import React, { Component, useState } from "react";
+import React, { Component, useState , useContext , useEffect } from "react";
 import { StyleSheet, View } from "react-native";
-
-import * as Font from "expo-font";
-import { globalstyles } from "./styles/Global";
+import AsyncStorage from '@react-native-community/async-storage'
 
 import Login from "./screen/Login";
-import ProfileActivate from "./screen/ProfileActivate";
 import SignUp from "./screen/SignUp";
-import Manager from "./screen/Manager";
 
-import ViewProfile from "./screen/Myprofile";
 import NavigatorManager from "./routes/Drawer";
 import NavigatorCustomer from "./customerroutes/Customerdrawer";
 import NavigatorDelivery from "./deliveryroutes/Deliverydrawer";
-import Usercontextprovider, { UserContext } from "./context/Usercontext";
-
-const state = "iscustomer";
-const isloggedin = false;
+import Usercontextprovider from "./context/Usercontext";
+import Managercontextprovider from './context/Managercontext'
+import Handler from "./handler/Handler";
 
 export default function App() {
-  if (state == "ismanager") {
-    return isloggedin ? <NavigatorManager /> : <SignUp />;
-  } else if (state == "iscustomer") {
-    return isloggedin ? <NavigatorCustomer /> : <Usercontextprovider><Login /></Usercontextprovider>;
-  } else if (state == "isdeliveryboy") {
-    return isloggedin ? <NavigatorDelivery /> : <Usercontextprovider><Login /></Usercontextprovider>;
-  }
+
+  return (
+    <Usercontextprovider>
+      <Managercontextprovider>
+        <Handler />
+      </Managercontextprovider>
+    </Usercontextprovider>
+  )
+
 } 
 
 const styles = StyleSheet.create({

@@ -15,5 +15,5 @@ const rootDrawerNavigator = createDrawerNavigator({
     screen: Aboutstack,
   },
 });
-
+  
 export default createAppContainer(rootDrawerNavigator);
