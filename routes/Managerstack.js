@@ -37,10 +37,11 @@ const screens = {
     screen: EditCustomer,
     navigationOptions: {
       title: "Edit Customer",
-    },
+    }
+  },
 
-    
-    ShowProduct:{
+   
+   ShowProduct:{
         screen:ShowProduct,
         navigationOptions:{
             title:'Product',

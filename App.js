@@ -12,15 +12,22 @@ import NavigatorDelivery from "./deliveryroutes/Deliverydrawer";
 import Usercontextprovider from "./context/Usercontext";
 import Managercontextprovider from './context/Managercontext'
 import Handler from "./handler/Handler";
+import Managerstack from "./routes/Managerstack";
+
 
 export default function App() {
 
   return (
-    <Usercontextprovider>
-      <Managercontextprovider>
-        <Handler />
-      </Managercontextprovider>
-    </Usercontextprovider>
+    // <Usercontextprovider>
+    //   <Managercontextprovider>
+    //     <Handler />
+    //   </Managercontextprovider>
+    // </Usercontextprovider>
+
+    // this is only for testing purpose other wise functionality of authantication is working fine.
+    <NavigatorManager />
+    // <NavigatorDelivery />
+    //<NavigatorCustomer />
   )
 
 } 
