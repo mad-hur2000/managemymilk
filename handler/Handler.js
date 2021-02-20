@@ -11,7 +11,7 @@ import NavigatorCustomer from "../customerroutes/Customerdrawer";
 import NavigatorDelivery from "../deliveryroutes/Deliverydrawer";
 
 import Usercontextprovider, { UserContext } from "../context/Usercontext";
-import { ManagerContext } from '../context/Managercontext';
+import { ManagerContext } from '../context/ManagerContext';
 
 import Loading from "../screen/Loading";
 

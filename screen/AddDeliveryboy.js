@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, { Component, useState, useContext } from "react";
 import bgimage from "../assets/bgimage3.jpg";
 import {
   StyleSheet,
@@ -9,96 +9,165 @@ import {
   View,
   Image,
   Keyboard,
+  Button,
 } from "react-native";
 import { TouchableWithoutFeedback, ImageBackground } from "react-native";
 import { globalstyles } from "../styles/Global";
+import { ManagerContext } from "../context/ManagerContext";
 
-class AddDeliveryboy extends Component {
-  render() {
-    return (
-      <TouchableWithoutFeedback
-        onPress={() => {
-          Keyboard.dismiss();
-        }}
+const AddDeliveryboy = () => {
+  const { phone } = useContext(ManagerContext);
+  const [submit, setSubmit] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [mobileno, setMobileno] = useState("");
+  const [morning, setMorning] = useState(0);
+  const [evening, setEvening] = useState(0);
+  const [house, setHouse] = useState("");
+  const [society, setSociety] = useState("");
+  const [pincode, setPincode] = useState("");
+
+  const [message, setMessage] = useState("");
+
+  const customer = {
+    name: { name },
+    email: { email },
+    mobileno: { mobileno },
+    morning: { morning },
+    evening: { evening },
+    house: { house },
+    society: { society },
+    pincode: { pincode },
+    phone: { phone },
+  };
+
+  useEffect(() => {
+    setLoading(true);
+    fetch("https://managedairy.herokuapp.com/delivery/create", {
+      method: "POST",
+      headers: { "Content-type": "application/json; charset=UTF-8" },
+      body: JSON.stringify(customer),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setLoading(false);
+      })
+      .catch((err) => console.log(err));
+  }, [submit]);
+
+  const handlesubmit = () => {
+    if (
+      name != "" &&
+      email != "" &&
+      mobileno != "" &&
+      house != "" &&
+      society != "" &&
+      pincode != "" &&
+      phone != ""
+    ) {
+      setSubmit(!submit);
+      return;
+    } else {
+      setMessage("You might miss some of the details");
+      return;
+    }
+  };
+
+  return (
+    <TouchableWithoutFeedback
+      onPress={() => {
+        Keyboard.dismiss();
+      }}
+    >
+      <ImageBackground
+        source={bgimage}
+        style={globalstyles.imagecontainer}
+        style={{ flex: 1 }}
       >
-        <ImageBackground
-          source={bgimage}
-          style={globalstyles.imagecontainer}
-          style={{ flex: 1 }}
-        >
-          <View style={styles.tocenter}>
-            <View style={styles.box}>
-              <ScrollView>
-                <Text style={styles.titletext}>
-                  Enter The Details to add New DeliveryBoy
-                </Text>
+        <View style={styles.tocenter}>
+          <View style={styles.box}>
+            <ScrollView>
+              <Text style={styles.titletext}>
+                Enter The Details to add New DeliveryBoy
+              </Text>
 
-                <TextInput
-                  style={styles.stext}
-                  placeholder={"Enter Name"}
-                  underlineColorAndroid="transparent"
-                />
+              <TextInput
+                style={styles.stext}
+                placeholder={"Enter Name"}
+                underlineColorAndroid="transparent"
+                onChangeText={(text) => setName(text)}
+              />
 
-                <TextInput
-                  style={styles.stext}
-                  placeholder={"Enter Email"}
-                  underlineColorAndroid="transparent"
-                />
+              <TextInput
+                style={styles.stext}
+                placeholder={"Enter Email"}
+                underlineColorAndroid="transparent"
+                onChangeText={(text) => setEmail(text)}
+              />
 
-                <TextInput
-                  style={styles.stext}
-                  placeholder={"Enter Mobile Number"}
-                  underlineColorAndroid="transparent"
-                  keyboardType="numeric"
-                />
+              <TextInput
+                style={styles.stext}
+                placeholder={"Enter Mobile Number"}
+                underlineColorAndroid="transparent"
+                keyboardType="numeric"
+                onChangeText={(text) => setMobileno(text)}
+              />
 
-                <TextInput
-                  style={styles.stext}
-                  placeholder={"Morning Milk"}
-                  underlineColorAndroid="transparent"
-                  keyboardType="numeric"
-                />
+              <TextInput
+                style={styles.stext}
+                placeholder={"Morning Milk"}
+                underlineColorAndroid="transparent"
+                keyboardType="numeric"
+                onChangeText={(text) => setMorning(text)}
+              />
 
-                <TextInput
-                  style={styles.stext}
-                  placeholder={"Evening Milk"}
-                  underlineColorAndroid="transparent"
-                  keyboardType="numeric"
-                />
+              <TextInput
+                style={styles.stext}
+                placeholder={"Evening Milk"}
+                underlineColorAndroid="transparent"
+                keyboardType="numeric"
+                onChangeText={(text) => setEvening(text)}
+              />
 
-                <TextInput
-                  style={styles.stext}
-                  placeholder={"House Number/Name"}
-                  underlineColorAndroid="transparent"
-                />
+              <TextInput
+                style={styles.stext}
+                placeholder={"House Number/Name"}
+                underlineColorAndroid="transparent"
+                onChangeText={(text) => setHouse(text)}
+              />
 
-                <TextInput
-                  style={styles.stext}
-                  placeholder={"Society"}
-                  underlineColorAndroid="transparent"
-                />
+              <TextInput
+                style={styles.stext}
+                placeholder={"Society"}
+                underlineColorAndroid="transparent"
+                onChangeText={(text) => setSociety(text)}
+              />
 
-                <TextInput
-                  style={styles.stext}
-                  placeholder={"Pincode"}
-                  // underlineColorAndroid='transparent'
-                />
+              <TextInput
+                style={styles.stext}
+                placeholder={"Pincode"}
+                // underlineColorAndroid='transparent'
+                onChangeText={(text) => setPincode(text)}
+              />
 
-                <TouchableOpacity style={styles.sbutton}>
-                  <View>
-                    <Text style={styles.buttontext}>
-                      Create New DeliveryBoy
-                    </Text>
-                  </View>
-                </TouchableOpacity>
-              </ScrollView>
-            </View>
+              <TouchableOpacity style={styles.sbutton}>
+                <View>
+                  <Button
+                    style={styles.buttontext}
+                    onPress={handlesubmit}
+                    title="Create New DeliveryBoy"
+                  />
+                </View>
+              </TouchableOpacity>
+            </ScrollView>
           </View>
-        </ImageBackground>
-      </TouchableWithoutFeedback>
-    );
-  }
-}
+        </View>
+      </ImageBackground>
+    </TouchableWithoutFeedback>
+  );
+};
 
 const styles = StyleSheet.create({
   tocenter: {

@@ -19,7 +19,7 @@ const screens = {
       return {
         headerTitle: () => <Header navigtion={navigation} title="Manager" />,
       };
-    },
+    }
   },
   // ViewProfile:{
   //     screen:ViewProfile,
@@ -54,9 +54,7 @@ const screens = {
         }
 
     },
-
-    
-   
+  }
 }
 
 const Managerstack=createStackNavigator(screens,{

@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   FlatList,
   navigate,
+  ScrollView
 } from "react-native";
 import ViewProfile from "./Myprofile";
 

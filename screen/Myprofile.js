@@ -1,4 +1,4 @@
-import React, { useEffect , useContext } from "react";
+import React, { useEffect , useContext , useState } from "react";
 import bgimage from "../assets/bgimage3.jpg";
 import {
   StyleSheet,
@@ -6,28 +6,14 @@ import {
   Text,
   View,
   ImageBackground,
-  useState,
   Keyboard,
 } from "react-native";
 import { TouchableWithoutFeedback } from "react-native";
 import globalstyles from "../styles/Global";
 import logo from "../assets/logo.png";
-import {ManagerContext} from '../context/Managercontext'
+import {ManagerContext} from '../context/ManagerContext'
+import Loading from "./Loading";
 
-const customer = [
-  {
-    name: "Nisarg mungra",
-    mobileNo: "9988d998859",
-    Email: "mafdfaad@gmail.com",
-    morningMilk: 2,
-    eveningMilk: 1,
-    houseName_No: "295-A",
-    street: "11",
-    society: "Raijibaug",
-    city: "Junagadh", 
-    state: "Gujarat",
-  },
-];
 
 const Myprofilemanager = () => {
   const { phone , profile , setProfile } = useContext(ManagerContext);
@@ -45,27 +31,30 @@ const Myprofilemanager = () => {
       .catch((err) => console.log(err));
   }, []);
 
+  if(profile)
+  {
+    const { firstname , lastname , Email , MobileNo , Address  } = profile;
+    return (
+      <ImageBackground source={bgimage} style={styles.imagecontainer}>
+        <View style={styles.box}>
+          <Image source={logo} style={styles.profilepic} />
+          <Text style={styles.titletext}>{firstname}</Text>
+          <Text style={styles.titletext}>{lastname}</Text>
 
-  return (
-    <ImageBackground source={bgimage} style={styles.imagecontainer}>
-      <View style={styles.box}>
-        <Image source={logo} style={styles.profilepic} />
-        <Text style={styles.titletext}>{customer[0].name}</Text>
-        <View style={styles.detailbox}>
-          <Text style={styles.text}>Email: {customer[0].Email}</Text>
-          <Text style={styles.text}>Mobile No: {customer[0].mobileNo}</Text>
-          <Text style={styles.text} multiline>
-            Address:{" "}
-            {`${customer[0].houseName_No},${customer[0].street},${customer[0].society}`}
-          </Text>
-          <Text style={styles.text} multiline>
-            {" "}
-            {`                ${customer[0].city},${customer[0].state}`}
-          </Text>
+          <View style={styles.detailbox}>
+            <Text style={styles.text}>Email: {Email}</Text>
+            <Text style={styles.text}>Mobile No: {MobileNo}</Text>
+            <Text style={styles.text} multiline>
+              Address:{Address}
+            </Text>
+          </View>
         </View>
-      </View>
-    </ImageBackground>
-  );
+      </ImageBackground>
+    );
+  }
+  else{
+    return <Loading />
+  }
 };
 
 const styles = StyleSheet.create({

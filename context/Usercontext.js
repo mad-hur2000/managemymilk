@@ -25,7 +25,7 @@ const Usercontextprovider = ({children}) => {
     fetch("https://managedairy.herokuapp.com/", {
       method: "POST",
       headers: { "Content-type": "application/json; charset=UTF-8" },
-      body: JSON.stringify({ phone : normalnumber}),
+      body: JSON.stringify({ phone : normalnumber }),
     })
       .then((response) => response.json())
       .then((data) => { setRole(data) ; setLoading(false) })
