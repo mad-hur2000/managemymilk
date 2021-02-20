@@ -12,6 +12,8 @@ import NavigatorDelivery from "./deliveryroutes/Deliverydrawer";
 import Usercontextprovider from "./context/Usercontext";
 import Managercontextprovider from "./context/ManagerContext";
 import Handler from "./handler/Handler";
+import Managerstack from "./routes/Managerstack";
+
 
 export default function App() {
   return (
