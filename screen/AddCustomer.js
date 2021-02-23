@@ -100,21 +100,21 @@ const AddCustomer = () => {
               </Text>
 
               <TextInput
-                style={styles.stext}
+                style={globalstyles.stext}
                 placeholder={"Enter Name"}
                 underlineColorAndroid="transparent"
                 onChangeText={(text) => setName(text)}
               />
 
               <TextInput
-                style={styles.stext}
+                style={globalstyles.stext}
                 placeholder={"Enter Email"}
                 underlineColorAndroid="transparent"
                 onChangeText={(text) => setEmail(text)}
               />
 
               <TextInput
-                style={styles.stext}
+                style={globalstyles.stext}
                 placeholder={"Enter Mobile Number"}
                 underlineColorAndroid="transparent"
                 keyboardType="numeric"
@@ -122,7 +122,7 @@ const AddCustomer = () => {
               />
 
               <TextInput
-                style={styles.stext}
+                style={globalstyles.stext}
                 placeholder={"Morning Milk"}
                 underlineColorAndroid="transparent"
                 keyboardType="numeric"
@@ -130,7 +130,7 @@ const AddCustomer = () => {
               />
 
               <TextInput
-                style={styles.stext}
+                style={globalstyles.stext}
                 placeholder={"Evening Milk"}
                 underlineColorAndroid="transparent"
                 keyboardType="numeric"
@@ -138,34 +138,35 @@ const AddCustomer = () => {
               />
 
               <TextInput
-                style={styles.stext}
+                style={globalstyles.stext}
                 placeholder={"House Number/Name"}
                 underlineColorAndroid="transparent"
                 onChangeText={(text) => setHousenameorno(text)}
               />
 
               <TextInput
-                style={styles.stext}
+                style={globalstyles.stext}
                 placeholder={"Society"}
                 underlineColorAndroid="transparent"
                 onChangeText={(text) => setSociety(text)}
               />
 
               <TextInput
-                style={styles.stext}
+                style={globalstyles.stext}
                 placeholder={"Pincode"}
                 // underlineColorAndroid='transparent'
                 onChangeText={(text) => setPincode(text)}
               />
 
-              <TouchableOpacity style={styles.sbutton}>
-                <View>
-                  <Button
-                    style={styles.buttontext}
+              <TouchableOpacity 
+                    style={globalstyles.sbutton}
                     onPress={handlesubmit}
                     title="Create New Customer"
-                  />
-                </View>
+                    >
+                  <View>
+                    <Text style={globalstyles.buttontext}>Create New Customer</Text>
+                  </View>
+               
               </TouchableOpacity>
             </ScrollView>
           </View>
@@ -188,7 +189,7 @@ const styles = StyleSheet.create({
     height: "100%",
     width: "100%",
     fontSize: 16,
-    backgroundColor: "rgba(0,0,0,0.2)",
+    backgroundColor: "rgba(0,150,254,0.0)",
     borderRadius: 5,
     justifyContent: "center",
     alignItems: "center",
@@ -198,11 +199,12 @@ const styles = StyleSheet.create({
     alignContent: "center",
     justifyContent: "center",
     textAlign: "center",
-    color: "#eee",
+    color: "#111",
     fontSize: 28,
     marginTop: 10,
     marginHorizontal: 10,
     borderBottomWidth: 0.5,
+    borderColor: "rgba(0,150,254,0.9)",
   },
 
   stext: {

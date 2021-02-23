@@ -71,9 +71,9 @@ const Viewstats = ({ navigation }) => {
 const styles = StyleSheet.create({
   nametext: {
     flex: 1,
-    marginTop: 6,
+    marginTop: 10,
     fontSize: 22,
-    color: "#fff",
+    color: "#111",
     alignItems: "center",
     marginHorizontal: 8,
     justifyContent: "center",
@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
     marginTop: 7,
     fontSize: 28,
     borderRadius: 3,
-    backgroundColor: "rgba(0,0,0,0.2)",
+    backgroundColor: "rgba(0,150,254,0.7)",
     color: "#fff",
     flexDirection: "row",
     marginHorizontal: 4,
@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 4,
     marginTop: 4,
     marginBottom: 8,
-    backgroundColor: "rgba(0,0,0,0.2)",
+    backgroundColor: "rgba(0,0,0,0.0)",
   },
 
   card: {
@@ -135,8 +135,9 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginHorizontal: "1%",
     borderBottomWidth: 0.5,
+    borderColor:'rgba(56,170,254,0.9)',
     marginTop: 2,
-    backgroundColor: "rgba(255,255,255,0.8)",
+    backgroundColor: "rgba(0,150,254,0.0)",
     opacity: 1,
     alignItems: "center",
   },

@@ -1,14 +1,18 @@
 import React from "react";
 import { Text, StyleSheet, View, Button, TouchableOpacity } from "react-native";
 import Entypo from "react-native-vector-icons/Entypo";
-import { openDrawer } from "react-navigation-drawer";
-import { createAppContainer, navigation } from "react-navigation";
+import { openDrawer } from "@react-navigation/drawer";
 
-export default function Header({ navigation, title }) {
+
+export default function Header({navigation,title}) {
+  const openmenu=()=>{
+    navigation.openDrawer();
+  }
   return (
     <View style={styles.header}>
-      <Entypo name={"menu"} size={26} style={styles.iconmenu} />
-
+      <TouchableOpacity style={styles.iconmenu}  >
+      <Entypo name={"menu"} size={26} onPress={openmenu}/>
+      </TouchableOpacity>
       <View>
         <Text style={styles.headertext}>{title}</Text>
       </View>

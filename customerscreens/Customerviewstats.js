@@ -118,7 +118,8 @@ const styles = StyleSheet.create({
     flex: 1,
     marginTop: 6,
     fontSize: 22,
-    color: "#fff",
+    color: "#111",
+    fontWeight:'bold',
     alignItems: "center",
     marginHorizontal: 8,
     justifyContent: "center",
@@ -128,6 +129,20 @@ const styles = StyleSheet.create({
     fontSize: 15,
     marginHorizontal: 9,
     borderBottomWidth: 0.2,
+  },
+  card: {
+    flex: 1,
+    flexDirection: "row",
+    height: 40,
+    width: "98%",
+    borderColor:'rgba(56,170,254,0.9)',
+    borderRadius: 5,
+    marginHorizontal: "1%",
+    borderBottomWidth: 0.5,
+    marginTop: 2,
+    backgroundColor: "rgba(56,170,254,0.0)",
+    opacity: 1,
+    alignItems: "center",
   },
 
   carddate: {
@@ -144,47 +159,20 @@ const styles = StyleSheet.create({
     marginTop: 7,
     fontSize: 28,
     borderRadius: 3,
-    backgroundColor: "rgba(0,0,0,0.2)",
-    color: "#fff",
+    backgroundColor: "rgba(0,150,254,0.7)",
+    color: "#111",
     flexDirection: "row",
     marginHorizontal: 4,
-  },
-
-  editprofilebutton: {
-    height: 34,
-    width: 60,
-    borderWidth: 1,
-    borderRadius: 4,
-    textAlign: "center",
-    backgroundColor: "rgba(40,40,40,0.6)",
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 8,
-    color: "white",
   },
 
   tablebox: {
     flex: 12,
-    borderRadius: 3,
     marginHorizontal: 4,
     marginTop: 4,
     marginBottom: 8,
-    backgroundColor: "rgba(0,0,0,0.2)",
+    
   },
 
-  card: {
-    flex: 1,
-    flexDirection: "row",
-    height: 40,
-    width: "98%",
-    borderRadius: 5,
-    marginHorizontal: "1%",
-    borderBottomWidth: 0.5,
-    marginTop: 2,
-    backgroundColor: "rgba(255,255,255,0.8)",
-    opacity: 1,
-    alignItems: "center",
-  },
-});
+ });
 
 export default Customerviewstats;

@@ -135,15 +135,18 @@ const Delivery = ({ navigation }) => {
         data={customer}
         renderItem={({ item }) => (
           <TouchableOpacity
-            onPress={() => navigation.navigate("Showcustomer", item)}
+            onPress={() => navigation.navigate("ShowCustomertodelivery", item)}
           >
-            <View style={globalstyles.card}>
+            <View style={styles.card}>
               <Text style={styles.cardtextname}> Name : {item.name}</Text>
               <View style={styles.milktext}>
                 <Text style={styles.cardtextmilk}>
                   Morning : {item.morningMilk}
                 </Text>
                 <Text style={{ flex: 3 }}>Evening : {item.eveningMilk}</Text>
+                <TouchableOpacity style={{ flex: 3}}>
+                  <Text>Mobile No :9345909665 </Text>
+                </TouchableOpacity>
               </View>
             </View>
           </TouchableOpacity>
@@ -157,10 +160,21 @@ const styles = StyleSheet.create({
   cardtextname: {
     fontSize: 20,
     borderBottomWidth: 0.2,
+    borderColor: "rgba(0,150,254,0.8)",
   },
-
+  card: {
+    height: 70,
+    width: "98%",
+    borderRadius: 5,
+    marginHorizontal: "1%",
+    borderColor:'rgba(56,170,254,0.9)',
+    borderBottomWidth: 2,
+    marginTop: 2,
+    backgroundColor: "rgba(0,150,254,0.0)",
+    opacity: 1,
+  },
   cardtextmilk: {
-    flex: 1,
+    flex: 3,
     marginLeft: 5,
   },
 

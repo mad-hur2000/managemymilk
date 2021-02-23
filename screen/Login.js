@@ -76,10 +76,10 @@ export default function Login() {
         firebaseConfig={firebaseConfig}
         attemptInvisibleVerification={attemptInvisibleVerification}
       />
-      <Text style={{ marginTop: 20 }}>Enter phone number</Text>
+      <Text style={{ marginTop: 20 }}>Enter Mobile number</Text>
       <TextInput
         style={styles.stext}
-        placeholder="1234567891"
+        placeholder="+91 1234567891"
         autoFocus
         autoCompleteType="tel"
         keyboardType="phone-pad"
@@ -93,10 +93,8 @@ export default function Login() {
           setPhoneNumber(phoneNumber)
         }}
       />
-      <TouchableOpacity>
-          <View>
-            <Button
-              title="Send Verification Code"
+      <TouchableOpacity
+              style={globalstyles.sbutton}
               disabled={!phoneNumber}
               onPress={async () => {
                 // The FirebaseRecaptchaVerifierModal ref implements the
@@ -116,22 +114,24 @@ export default function Login() {
                   showMessage({ text: `Error: ${err.message}`, color: "red" });
                 }
               }}
-            />
+            >
+          <View>
+                    <Text style={globalstyles.buttontext}>Send Verification Code</Text>
           </View>
+               
       </TouchableOpacity>
 
       <Text style={{ marginTop: 20 }}>Enter Verification code</Text>
       <TextInput
         style={styles.stext}
-        style={{ marginVertical: 10, fontSize: 17 }}
+        
         editable={!!verificationId}
         placeholder="123456"
         onChangeText={setVerificationCode}
       />
-      <TouchableOpacity>
-          <View>
-          <Button
-              title="Confirm Verification Code"
+      <TouchableOpacity
+
+              style={globalstyles.sbutton}
               disabled={!verificationId}
               onPress={async () => {
                 try {
@@ -146,8 +146,12 @@ export default function Login() {
                   showMessage({ text: `Error: ${err.message}`, color: "red" });
                 }
               }}
-            />
-          </View>
+            >
+              <View>
+                    <Text style={globalstyles.buttontext}>Login</Text>
+              </View>
+               
+          
       </TouchableOpacity>
       
       {message ? (
@@ -191,10 +195,10 @@ const styles = StyleSheet.create({
 
   box: {
     marginTop: 7,
-    height: 450,
+    height: 520,
     width: 320,
     fontSize: 16,
-    backgroundColor: "rgba(0,0,0,0.3)",
+    backgroundColor: "rgba(0,150,254,0.2)",
     marginTop: 40,
     borderRadius: 25,
     justifyContent: "center",
@@ -204,7 +208,7 @@ const styles = StyleSheet.create({
   titletext: {
     alignContent: "center",
     justifyContent: "center",
-    color: "#eee",
+    color: "#000",
     fontSize: 28,
     marginTop: 10,
   },
@@ -221,16 +225,18 @@ const styles = StyleSheet.create({
   },
 
   stext: {
-    marginTop: 7,
+    marginTop: 10,
     height: 40,
     width: 270,
     borderBottomWidth: 0.2,
-    borderRadius: 25,
+    borderRadius:15,
     fontSize: 16,
-    backgroundColor: "rgba(0,0,0,0.2)",
+    backgroundColor: "rgba(0,150,254,0.6)",
     marginTop: 20,
     color: "black",
     textAlign: "center",
+    marginVertical: 10, 
+    fontSize: 17 
   },
 
   sbutton: {
@@ -239,7 +245,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 40,
     textAlign: "center",
-    backgroundColor: "rgba(40,40,40,0.4)",
+    backgroundColor: "rgba(40,40,40,0.6)",
     alignItems: "center",
     alignSelf: "center",
     justifyContent: "center",

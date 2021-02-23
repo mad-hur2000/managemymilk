@@ -10,6 +10,8 @@ import { ListItem, navigation, navigate } from "react-native-elements";
 import { globalstyles } from "../styles/Global";
 import bgimage from "../assets/bgimage3.jpg";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { TabRouter } from "react-navigation";
+import Entypo from "react-native-vector-icons/Entypo";
 
 const ShowCustomer = ({ navigation }) => {
   const [customer, setCustomer] = useState([
@@ -88,18 +90,23 @@ const ShowCustomer = ({ navigation }) => {
   return (
     <ImageBackground source={bgimage} style={globalstyles.imagecontainer}>
       <View style={styles.titlecontainer}>
-        <Text style={styles.nametext}>{navigation.getParam("name")}</Text>
-
-        <TouchableOpacity style={styles.editprofilebutton}>
-          <Text style={{ textAlign: "center" }}>Delete Profile</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
+        <Text style={styles.nametext}> Statistics</Text>
+        <TouchableOpacity>
+        <Entypo 
+          name={"cup"} 
+          size={26} 
           style={styles.editprofilebutton}
-          onPress={() => navigation.navigate("EditCustomer")}
-        >
-          <Text style={{ textAlign: "center" }}>Edit Profile</Text>
+        />
         </TouchableOpacity>
+        <TouchableOpacity>
+        <Entypo 
+          name={"edit"} 
+          size={26} 
+          onPress={() => navigation.navigate("EditCustomer")} 
+          style={styles.editprofilebutton}
+        />
+        </TouchableOpacity>
+        
       </View>
 
       <View style={styles.tablebox}>
@@ -127,9 +134,9 @@ const ShowCustomer = ({ navigation }) => {
 const styles = StyleSheet.create({
   nametext: {
     flex: 1,
-    marginTop: 6,
+    marginTop: 10,
     fontSize: 22,
-    color: "#fff",
+    color: "#111",
     alignItems: "center",
     marginHorizontal: 8,
     justifyContent: "center",
@@ -152,10 +159,10 @@ const styles = StyleSheet.create({
 
   titlecontainer: {
     flex: 1,
-    marginTop: 7,
+    marginTop: 5,
     fontSize: 28,
     borderRadius: 3,
-    backgroundColor: "rgba(0,0,0,0.2)",
+    backgroundColor: "rgba(0,150,254,0.7)",
     color: "#fff",
     flexDirection: "row",
     marginHorizontal: 4,
@@ -163,15 +170,16 @@ const styles = StyleSheet.create({
 
   editprofilebutton: {
     height: 34,
-    width: 60,
-    borderWidth: 1,
-    borderRadius: 4,
+    width: 50,
+    marginRight:10,
+    
+    borderRadius: 140,
     textAlign: "center",
-    backgroundColor: "rgba(40,40,40,0.6)",
+    backgroundColor: "rgba(0,150,254,0.7)",
     alignItems: "center",
     justifyContent: "center",
     marginTop: 8,
-    color: "white",
+    color: "#000",
   },
 
   tablebox: {
@@ -180,7 +188,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 4,
     marginTop: 4,
     marginBottom: 8,
-    backgroundColor: "rgba(0,0,0,0.2)",
+    // backgroundColor: "rgba(0,0,0,0.1)",
   },
 
   card: {
@@ -188,11 +196,12 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     height: 40,
     width: "98%",
+    borderColor:'rgba(56,170,254,0.9)',
     borderRadius: 5,
     marginHorizontal: "1%",
     borderBottomWidth: 0.5,
     marginTop: 2,
-    backgroundColor: "rgba(255,255,255,0.8)",
+    backgroundColor: "rgba(56,170,254,0.0)",
     opacity: 1,
     alignItems: "center",
   },

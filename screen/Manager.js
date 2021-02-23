@@ -15,7 +15,6 @@ import ViewProfile from "./Myprofile";
 
 import { globalstyles } from "../styles/Global";
 import bgimage from "../assets/bgimage3.jpg";
-import ShowCustomer from "../screen/ShowCustomer";
 import { StyleSheet } from "react-native";
 
 
@@ -148,17 +147,18 @@ const Manager = ({ navigation }) => {
   return(
    
       <ImageBackground source={bgimage} style={globalstyles.imagecontainer}>
-        <Text style={{backgroundColor:'rgba(40,40,40,0.3)'}}>Customers</Text>
-         <ScrollView>
+        <ScrollView>
+        <Text style={{backgroundColor: "rgba(0,150,254,0.8)",fontWeight:'bold',}}> Customers</Text>
+         
           <FlatList
           keyExtractor={(item)=> item.Email }
           data={customer}
           renderItem= {({item}) => (
             <TouchableOpacity onPress={() => navigation.navigate('ShowCustomer',item)}> 
-              <View style={globalstyles.card} >
-                <Text style={styles.cardtextname}> Name : {item.name}</Text>
+              <View style={styles.card} >
+                <Text style={styles.cardtextname}>  Name : {item.name}</Text>
                 <View style={styles.milktext}>
-                  <Text style={styles.cardtextmilk}>Morning : {item.morningMilk}</Text>
+                  <Text style={styles.cardtextmilk}> Morning : {item.morningMilk}</Text>
                   <Text style={{ flex:3}}>Evening : {item.eveningMilk}</Text>
                 </View>
               </View>
@@ -168,16 +168,39 @@ const Manager = ({ navigation }) => {
                   
           )}
           />
-        <Text style={{backgroundColor:'rgba(40,40,40,0.3)'}}>Produsts</Text>
+
+<Text style={{backgroundColor: "rgba(0,150,254,0.8)",fontWeight:'bold'}}> Delivery Men</Text>
+         
+         <FlatList
+         keyExtractor={(item)=> item.Email }
+         data={customer}
+         renderItem= {({item}) => (
+           <TouchableOpacity onPress={() => navigation.navigate('ShowDeliveryboy',item)}> 
+             <View style={styles.card} >
+               <Text style={styles.cardtextname}>  Name : {item.name}</Text>
+               <View style={styles.milktext}>
+                 <Text style={styles.cardtextmilk}> Morning : {item.morningMilk}</Text>
+                 <Text style={{ flex:3}}>Evening : {item.eveningMilk}</Text>
+               </View>
+             </View>
+             
+           </TouchableOpacity>
+
+                 
+         )}
+         />
+
+
+        <Text style={{backgroundColor: "rgba(0,150,254,0.8)",fontWeight:'bold'}}> Products</Text>
         
          <FlatList
-          style={{marginTop:50}}
+          // style={{marginTop:50}}
           keyExtractor={(item)=> item.Email }
           data={product}
           renderItem= {({item}) => (
             <TouchableOpacity onPress={() => navigation.navigate('ShowProduct',item)}> 
-              <View style={globalstyles.card} >
-                <Text style={styles.cardtextname}> Product Name : {item.name}</Text>
+              <View style={styles.card} >
+                <Text style={styles.cardtextname}>  Product Name : {item.name}</Text>
                 
               </View>
             </TouchableOpacity>
@@ -185,6 +208,8 @@ const Manager = ({ navigation }) => {
                   
           )}
          />
+
+
         </ScrollView>
         
       </ImageBackground>
@@ -197,6 +222,19 @@ const styles = StyleSheet.create({
   cardtextname: {
     fontSize: 20,
     borderBottomWidth: 0.2,
+    borderColor: "rgba(0,150,254,0.8)",
+  },
+
+  card: {
+    height: 70,
+    width: "100%",
+    borderRadius: 5,
+    // marginHorizontal: "1%",
+    borderColor:'rgba(56,170,254,0.9)',
+    borderBottomWidth: 2,
+    marginTop: 2,
+    backgroundColor: "rgba(0,150,254,0.0)",
+    opacity: 1,
   },
 
   cardtextmilk: {

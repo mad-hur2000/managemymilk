@@ -27,37 +27,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
 
-  titlecontainer: {
-    flex: 1,
-    marginTop: 7,
-    fontSize: 28,
-    borderRadius: 3,
-    backgroundColor: "rgba(0,0,0,0.2)",
-    color: "#fff",
-    flexDirection: "row",
-    marginHorizontal: 4,
-  },
-
-  editprofilebutton: {
-    height: 34,
-    width: 60,
-    borderWidth: 1,
-    borderRadius: 4,
-    textAlign: "center",
-    backgroundColor: "rgba(40,40,40,0.6)",
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 8,
-    color: "white",
-  },
-
-  tablebox: {
-    flex: 12,
-    borderRadius: 3,
-    marginHorizontal: 4,
-    marginTop: 4,
-    marginBottom: 8,
-    backgroundColor: "rgba(0,0,0,0.2)",
-  },
+  
 });
 export default About;

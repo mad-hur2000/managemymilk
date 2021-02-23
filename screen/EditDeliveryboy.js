@@ -14,7 +14,7 @@ import {
 import { TouchableWithoutFeedback, ImageBackground } from "react-native";
 import { globalstyles } from "../styles/Global";
 
-class EditCustomer extends Component {
+class EditDeliveryboy extends Component {
   render() {
     return (
       <TouchableWithoutFeedback
@@ -31,7 +31,7 @@ class EditCustomer extends Component {
             <View style={styles.box}>
               <ScrollView>
                 <Text style={styles.titletext}>
-                  Enter Details to Edit Customer
+                  Enter The Details to add Edit Deliveryboy
                 </Text>
 
                 <TextInput
@@ -53,20 +53,14 @@ class EditCustomer extends Component {
                   keyboardType="numeric"
                 />
 
-                <TextInput
+                 <TextInput
                   style={globalstyles.stext}
-                  placeholder={"Morning Milk"}
+                  placeholder={"Salary ()"}
                   underlineColorAndroid="transparent"
                   keyboardType="numeric"
                 />
 
-                <TextInput
-                  style={globalstyles.stext}
-                  placeholder={"Evening Milk"}
-                  underlineColorAndroid="transparent"
-                  keyboardType="numeric"
-                />
-
+               
                 <TextInput
                   style={globalstyles.stext}
                   placeholder={"House Number/Name"}
@@ -131,7 +125,22 @@ const styles = StyleSheet.create({
     borderBottomWidth: 0.5,
   },
 
+  stext: {
+    // flex:1,
+    marginTop: 7,
+    height: 40,
+    width: 300,
+    // borderBottomWidth:1,
+    borderRadius: 25,
+    fontSize: 16,
+    backgroundColor: "rgba(0,150,254,0.1)",
+    marginHorizontal: 25,
+    paddingLeft: 25,
+    marginTop: 20,
+    color: "#111",
+  },
+
 
 });
 
-export default EditCustomer;
+export default EditDeliveryboy;

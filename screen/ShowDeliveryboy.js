@@ -10,8 +10,10 @@ import { ListItem, navigation, navigate } from "react-native-elements";
 import { globalstyles } from "../styles/Global";
 import bgimage from "../assets/bgimage3.jpg";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { TabRouter } from "react-navigation";
+import Entypo from "react-native-vector-icons/Entypo";
 
-const ShowCustomertodelivery = ({ navigation }) => {
+const ShowDeliveryboy = ({ navigation }) => {
   const [customer, setCustomer] = useState([
     {
       date: "12-12-2020",
@@ -19,64 +21,15 @@ const ShowCustomertodelivery = ({ navigation }) => {
       morningMilk: 2,
       eveningMilk: 1,
     },
-    {
-      date: "12-12-2020",
-      name: "Nisarg mungra",
-      morningMilk: 2,
-      eveningMilk: 1,
-    },
-    { date: "12-12-2020", name: "akdjslka", morningMilk: 2, eveningMilk: 1 },
-    {
-      date: "12-12-2020",
-      name: "Nsdklfg munskadlfgra",
-      morningMilk: 2,
-      eveningMilk: 1,
-    },
-    { date: "12-12-2020", name: "djsa mungra", morningMilk: 2, eveningMilk: 1 },
-    {
-      date: "12-12-2020",
-      name: "Ndjsarg mungra",
-      morningMilk: 2,
-      eveningMilk: 1,
-    },
+    
     {
       date: "12-12-2020",
       name: "Nsdjsarg mungra",
       morningMilk: 2,
       eveningMilk: 1,
     },
-    {
-      date: "12-12-2020",
-      name: "madhur mungra",
-      morningMilk: 2,
-      eveningMilk: 1,
-    },
-    {
-      date: "12-12-2020",
-      name: "Nisarg mungra",
-      morningMilk: 2,
-      eveningMilk: 1,
-    },
-    { date: "12-12-2020", name: "akdjslka", morningMilk: 2, eveningMilk: 1 },
-    {
-      date: "12-12-2020",
-      name: "Nsdklfg munskadlfgra",
-      morningMilk: 2,
-      eveningMilk: 1,
-    },
-    { date: "12-12-2020", name: "djsa mungra", morningMilk: 2, eveningMilk: 1 },
-    {
-      date: "12-12-2020",
-      name: "Ndjsarg mungra",
-      morningMilk: 2,
-      eveningMilk: 1,
-    },
-    {
-      date: "12-12-2020",
-      name: "Nsdjsarg mungra",
-      morningMilk: 2,
-      eveningMilk: 1,
-    },
+  
+    
     {
       date: "12-12-2020",
       name: "Ndjsag mungra",
@@ -88,11 +41,23 @@ const ShowCustomertodelivery = ({ navigation }) => {
   return (
     <ImageBackground source={bgimage} style={globalstyles.imagecontainer}>
       <View style={styles.titlecontainer}>
-        <Text style={styles.nametext}>Statistics</Text>
-
-        {/* <TouchableOpacity style={styles.editprofilebutton} onPress={() => navigation.navigate('EditCustomer')}>
-          <Text style={{textAlign:'center' }}>Edit Profile</Text>
-        </TouchableOpacity> */}
+        <Text style={styles.nametext}> Statistics</Text>
+        <TouchableOpacity>
+        <Entypo 
+          name={"cup"} 
+          size={26} 
+          style={styles.editprofilebutton}
+        />
+        </TouchableOpacity>
+        <TouchableOpacity>
+        <Entypo 
+          name={"edit"} 
+          size={26} 
+          onPress={() => navigation.navigate("EditDeliveryboy")} 
+          style={styles.editprofilebutton}
+        />
+        </TouchableOpacity>
+        
       </View>
 
       <View style={styles.tablebox}>
@@ -120,7 +85,7 @@ const ShowCustomertodelivery = ({ navigation }) => {
 const styles = StyleSheet.create({
   nametext: {
     flex: 1,
-    marginTop: 6,
+    marginTop: 10,
     fontSize: 22,
     color: "#111",
     alignItems: "center",
@@ -145,15 +110,28 @@ const styles = StyleSheet.create({
 
   titlecontainer: {
     flex: 1,
-    marginTop: 7,
+    marginTop: 5,
     fontSize: 28,
     borderRadius: 3,
     backgroundColor: "rgba(0,150,254,0.7)",
-    color: "#111",
+    color: "#fff",
     flexDirection: "row",
     marginHorizontal: 4,
   },
 
+  editprofilebutton: {
+    height: 34,
+    width: 50,
+    marginRight:10,
+    
+    borderRadius: 140,
+    textAlign: "center",
+    backgroundColor: "rgba(0,150,254,0.7)",
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 8,
+    color: "#000",
+  },
 
   tablebox: {
     flex: 12,
@@ -161,7 +139,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 4,
     marginTop: 4,
     marginBottom: 8,
-   
+    // backgroundColor: "rgba(0,0,0,0.1)",
   },
 
   card: {
@@ -169,15 +147,15 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     height: 40,
     width: "98%",
+    borderColor:'rgba(56,170,254,0.9)',
     borderRadius: 5,
     marginHorizontal: "1%",
     borderBottomWidth: 0.5,
     marginTop: 2,
-    borderColor:'rgba(0,150,254,0.9)',
-    backgroundColor: "rgba(0,150,254,0.0)",
+    backgroundColor: "rgba(56,170,254,0.0)",
     opacity: 1,
     alignItems: "center",
   },
 });
 
-export default ShowCustomertodelivery;
+export default ShowDeliveryboy;

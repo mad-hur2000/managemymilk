@@ -42,19 +42,22 @@ const Myprofilemanager = () => {
           <Text style={styles.titletext}>{lastname}</Text>
 
           <View style={styles.detailbox}>
-            <Text style={styles.text}>Email: {Email}</Text>
-            <Text style={styles.text}>Mobile No: {MobileNo}</Text>
-            <Text style={styles.text} multiline>
-              Address:{Address}
+            <Text style={styles.text}>  Email: {Email}</Text>
+            <Text style={styles.text}>  Mobile No: {MobileNo}</Text>
+            {/* <Text style={styles.text} multiline>  Address: {Address}</Text> */}
+            <Text style={styles.text1} multiline>
+            Address:  {Address}
             </Text>
           </View>
         </View>
       </ImageBackground>
     );
   }
+
   else{
     return <Loading />
   }
+
 };
 
 const styles = StyleSheet.create({
@@ -62,8 +65,7 @@ const styles = StyleSheet.create({
     height: "100%",
     width: "100%",
     fontSize: 16,
-    backgroundColor: "rgba(0,0,0,0.2)",
-    marginTop: 10,
+    backgroundColor: "rgba(0,170,254,0.0)",
     borderRadius: 25,
     justifyContent: "flex-start",
     alignItems: "center",
@@ -72,21 +74,33 @@ const styles = StyleSheet.create({
     flex: 1,
     // alignItems: 'center',
     // justifyContent: 'center',
-    backgroundColor: "rgba(255,255,255,0.4)",
-    opacity: 0.7,
+    backgroundColor: "rgba(0,170,254,0.0)",
+    opacity: 1,
   },
 
   text: {
     marginTop: 14,
-    fontSize: 20,
-    height: 30,
-    color: "#fff",
-    alignItems: "center",
-    marginHorizontal: 8,
-    justifyContent: "center",
+    fontSize: 22,
+    height: 40,
+    width:'100%',
+    color: "#111",
+    marginHorizontal: 0,
     // borderBottomWidth:0.5,
-
-    textAlign: "center",
+    // borderColor: "rgba(0,170,254,0.5)",
+    backgroundColor: "rgba(0,170,254,0.1)",
+    textAlign:'left',
+  },
+  text1: {
+    marginTop: 14,
+    fontSize: 22,
+    height: 80,
+    width:'100%',
+    color: "#111",
+    marginHorizontal: 0,
+    // borderBottomWidth:0.5,
+    // borderColor: "rgba(0,170,254,0.5)",
+    backgroundColor: "rgba(0,170,254,0.1)",
+    textAlign:'left',
   },
 
   titletext: {
@@ -99,17 +113,19 @@ const styles = StyleSheet.create({
   },
 
   profilepic: {
-    backgroundColor: "blue",
+    backgroundColor: "rgba(0,170,254,0.1)",
     height: 80,
     width: 80,
     alignItems: "center",
     justifyContent: "center",
     marginHorizontal: 120,
-    marginTop: 20,
+    marginTop: 100,
     borderRadius: 150,
   },
   detailbox: {
-    backgroundColor: "rgba(255,255,255,0.4)",
+    backgroundColor: "rgba(0,150,254,0.0)",
+    borderTopWidth:0.5,
+    borderColor:"rgba(0,170,254,0.4)",
     width: 340,
     height: 300,
     marginTop: 5,
@@ -117,16 +133,7 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
   },
 
-  buttontext: {
-    color: "#bbb",
-  },
 
-  lasttext: {
-    color: "#ccc",
-    marginTop: 15,
-    alignItems: "center",
-    alignSelf: "center",
-  },
 });
 
 export default Myprofilemanager;

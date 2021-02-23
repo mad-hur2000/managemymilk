@@ -36,9 +36,9 @@ class  EditProduct extends Component{
                     multiline
                   />
 
-                  <TouchableOpacity style={styles.sbutton}>
+                  <TouchableOpacity style={globalstyles.sbutton}>
                     <View >
-                        <Text style={styles.buttontext}>Upload Image</Text>
+                        <Text style={globalstyles.buttontext}>Upload Image</Text>
                     </View>
                   </TouchableOpacity>
 
@@ -48,9 +48,9 @@ class  EditProduct extends Component{
                   
 
 
-                  <TouchableOpacity style={styles.sbutton}>
+                  <TouchableOpacity style={globalstyles.sbutton}>
                     <View >
-                        <Text style={styles.buttontext}>Save Changes</Text>
+                        <Text style={globalstyles.buttontext}>Save Changes</Text>
                     </View>
                   </TouchableOpacity>
                   </ScrollView>
@@ -87,7 +87,6 @@ const styles = StyleSheet.create({
     height:'100%',
     width:'100%',
     fontSize:16,
-    backgroundColor:'rgba(0,0,0,0.2)',
     borderRadius:5,
     justifyContent:'center',
     alignItems:'center',
@@ -99,11 +98,12 @@ const styles = StyleSheet.create({
     alignContent:'center',
     justifyContent:'center',
     textAlign:'center',
-    color:'#eee',
+    color:'#111',
     fontSize:28,
     marginTop:10,
     marginHorizontal:10,
     borderBottomWidth:0.5,
+    borderColor:"rgba(0,150,254,0.2)",
 
   },
 
@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
     // borderBottomWidth:1,
     borderRadius:25,
     fontSize:16,
-    backgroundColor:'rgba(0,0,0,0.2)',
+    backgroundColor: "rgba(0,150,254,0.2)",
     marginHorizontal:25,
     paddingLeft:25,
     marginTop:20,
@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
     width:300,
     borderRadius:25,
     fontSize:16,
-    backgroundColor:'rgba(0,0,0,0.2)',
+    backgroundColor: "rgba(0,150,254,0.2)",
     marginHorizontal:25,
     paddingLeft:25,
     marginTop:20,

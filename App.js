@@ -13,15 +13,28 @@ import Usercontextprovider from "./context/Usercontext";
 import Managercontextprovider from "./context/ManagerContext";
 import Handler from "./handler/Handler";
 import Managerstack from "./routes/Managerstack";
+import { NavigationContainer } from "@react-navigation/native";
+import Myprofile from './screen/Myprofile'
+import Addcustomer from './screen/AddCustomer'
 
 
 export default function App() {
   return (
-    <Usercontextprovider>
-      <Managercontextprovider>
-        <Handler />
-      </Managercontextprovider>
-    </Usercontextprovider>
+   
+      <Usercontextprovider>
+        <Managercontextprovider>
+          <Handler />
+        </Managercontextprovider>
+      </Usercontextprovider>
+   
+   
+      // <NavigatorCustomer></NavigatorCustomer>
+      // <NavigatorDelivery></NavigatorDelivery>
+      // <NavigatorManager></NavigatorManager>
+    
+    // <Myprofile />
+    // <Addcustomer></Addcustomer>
+    // <Login></Login>
   );
 }
 

@@ -48,15 +48,15 @@ class AddProduct extends Component {
                   multiline
                 />
 
-                <TouchableOpacity style={styles.sbutton}>
+                <TouchableOpacity style={globalstyles.sbutton}>
                   <View>
-                    <Text style={styles.buttontext}>Upload Image</Text>
+                    <Text style={globalstyles.buttontext}>Upload Image</Text>
                   </View>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={styles.sbutton}>
+                <TouchableOpacity style={globalstyles.sbutton}>
                   <View>
-                    <Text style={styles.buttontext}>Create New Product</Text>
+                    <Text style={globalstyles.buttontext}>Create New Product</Text>
                   </View>
                 </TouchableOpacity>
               </ScrollView>
@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
     height: "100%",
     width: "100%",
     fontSize: 16,
-    backgroundColor: "rgba(0,0,0,0.2)",
+    backgroundColor: "rgba(0,150,254,0.0)",
     borderRadius: 5,
     justifyContent: "center",
     alignItems: "center",
@@ -90,10 +90,11 @@ const styles = StyleSheet.create({
     alignContent: "center",
     justifyContent: "center",
     textAlign: "center",
-    color: "#eee",
+    color: "#111",
     fontSize: 28,
     marginTop: 10,
     marginHorizontal: 10,
+    borderColor:'rgba(56,170,254,0.9)',
     borderBottomWidth: 0.5,
   },
 
@@ -105,50 +106,26 @@ const styles = StyleSheet.create({
     // borderBottomWidth:1,
     borderRadius: 25,
     fontSize: 16,
-    backgroundColor: "rgba(0,0,0,0.2)",
+    backgroundColor: "rgba(0,150,254,0.1)",
     marginHorizontal: 25,
     paddingLeft: 25,
     marginTop: 20,
-    color: "#bbb",
+    color: "#111",
   },
 
   stext1: {
     marginTop: 7,
-    height: 60,
+    height: 80,
     width: 300,
     borderRadius: 25,
     fontSize: 16,
-    backgroundColor: "rgba(0,0,0,0.2)",
+    backgroundColor: "rgba(0,150,254,0.1)",
     marginHorizontal: 25,
     paddingLeft: 25,
     marginTop: 20,
-    color: "#bbb",
+    color: "#111",
   },
 
-  sbutton: {
-    height: 34,
-    width: 200,
-    borderWidth: 1,
-    borderRadius: 40,
-    textAlign: "center",
-    backgroundColor: "rgba(40,40,40,0.4)",
-    alignItems: "center",
-    alignSelf: "center",
-    justifyContent: "center",
-    marginTop: 25,
-    color: "white",
-  },
-
-  buttontext: {
-    color: "#ddd",
-  },
-
-  lasttext: {
-    color: "#fff",
-    marginTop: 15,
-    alignItems: "center",
-    alignSelf: "center",
-  },
 });
 
 export default AddProduct;
