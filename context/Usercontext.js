@@ -4,8 +4,7 @@ import {
   FirebaseRecaptchaBanner,
 } from "expo-firebase-recaptcha";
 import * as firebase from "firebase";
-import AsyncStorage from '@react-native-community/async-storage'
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 //set this keys in any environment file so that no one can see it in repository
 
@@ -21,14 +20,13 @@ const Usercontextprovider = ({children}) => {
   const [role, setRole] = useState();
 
   useEffect(() => {
-    setLoading(true);
     fetch("https://managedairy.herokuapp.com/", {
       method: "POST",
       headers: { "Content-type": "application/json; charset=UTF-8" },
       body: JSON.stringify({ phone : normalnumber }),
     })
       .then((response) => response.json())
-      .then((data) => { setRole(data) ; setLoading(false) })
+      .then((data) => { setRole(data) })
       .catch((err) => console.log(err));
   }, [ normalnumber ]);
 
@@ -41,7 +39,7 @@ const Usercontextprovider = ({children}) => {
     setIsloggedin,
     role,
     setNormalnumber,
-    normalnumber
+    normalnumber,
   };
   return <UserContext.Provider value={exposed}>{children}</UserContext.Provider>;
 }

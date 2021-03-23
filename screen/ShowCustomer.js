@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState , useEffect , useContext } from "react";
 import {
   View,
   Text,
@@ -12,8 +12,29 @@ import bgimage from "../assets/bgimage3.jpg";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { TabRouter } from "react-navigation";
 import Entypo from "react-native-vector-icons/Entypo";
+import { ManagerContext } from "../context/ManagerContext";
 
 const ShowCustomer = ({ navigation }) => {
+
+  const [ shoulddelete , setShoulddelete ] = useState(false);
+  const { currentselectedcustomer } = useContext(ManagerContext);
+  console.log(currentselectedcustomer);
+
+  useEffect(() => {
+    fetch("https://managedairy.herokuapp.com/customer/delete", {
+      method: "DELETE",
+      headers: { "Content-type": "application/json; charset=UTF-8" },
+      body: JSON.stringify({ email : currentselectedcustomer }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((err) => console.log(err));
+  } , [shoulddelete])
+  const handledelete = () => {
+      setShoulddelete(True);
+  }
   const [customer, setCustomer] = useState([
     {
       date: "12-12-2020",
@@ -96,6 +117,7 @@ const ShowCustomer = ({ navigation }) => {
           name={"cup"} 
           size={26} 
           style={styles.editprofilebutton}
+          onPress={handledelete}
         />
         </TouchableOpacity>
         <TouchableOpacity>
@@ -106,7 +128,6 @@ const ShowCustomer = ({ navigation }) => {
           style={styles.editprofilebutton}
         />
         </TouchableOpacity>
-        
       </View>
 
       <View style={styles.tablebox}>

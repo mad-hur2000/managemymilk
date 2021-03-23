@@ -18,9 +18,9 @@ import Loading from "./Loading";
 import { sub } from "react-native-reanimated";
 
 const AddCustomer = () => {
-  const { phone } = useContext(ManagerContext);
+  // const { phone } = useContext(ManagerContext);
+  const phone = "9328941862";
   const [submit, setSubmit] = useState(false);
-  // const [loading, setLoading] = useState(false);
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -31,24 +31,21 @@ const AddCustomer = () => {
   const [society, setSociety] = useState("");
   const [pincode, setPincode] = useState("");
 
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState([]);
 
   const customer = {
-    name:  name ,
-    email:  email ,
-    mobileno:  mobileno ,
-    morning:  morning ,
-    evening:  evening ,
-    house:  housenameorno ,
-    society:  society ,
-    pincode:  pincode ,
-    managerno:  phone ,
+    name: name,
+    email: email,
+    mobileno: mobileno,
+    morning: morning,
+    evening: evening,
+    house: housenameorno,
+    society: society,
+    pincode: pincode,
+    managerno: phone,
   };
 
   useEffect(() => {
-    console.log("useeffect is called");
-    // setLoading(true);
-    console.log(customer)
     fetch("https://managedairy.herokuapp.com/customer/create", {
       method: "POST",
       headers: { "Content-type": "application/json; charset=UTF-8" },
@@ -56,31 +53,32 @@ const AddCustomer = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        // setLoading(false);
-        console.log(data)
+        message = [];
+        message.push(data);
       })
       .catch((err) => console.log(err));
-  },[submit]);
+  }, [submit]);
 
   const handlesubmit = () => {
-    if (
-      name != "" &&
-      email != "" &&
-      mobileno != "" &&
-      housenameorno != "" &&
-      society != "" &&
-      pincode != "" &&
-      phone != ""
-    ) {
-      setSubmit(!submit);
+    const emailregx = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    const mobileregx = /^[6-9]\d{9}$/;
+    if (name == "") {
+      setMessage([...message, "enter name"]);
+    } else if (!emailregx.test(email)) {
+      setMessage([...message, "enter valid email"]);
+    } else if (!mobileregx.test(mobileno)) {
+      setMessage([...message, "enter valid mobile number"]);
+    } else if (housenameorno == "") {
+      setMessage([...message, "enter valid house number or name"]);
+    } else if (society == "") {
+      setMessage([...message, "enter valid society name"]);
+    } else if (pincode.length > 6 || pincode.length < 6) {
+      setMessage([...message, "enter valid pincode"]);
     } else {
-      setMessage("You might miss some of the details");
+      setSubmit(!submit);
     }
   };
 
-  // if (loading) {
-  //   return <Loading />;
-  // } else {
   return (
     <TouchableWithoutFeedback
       onPress={() => {
@@ -158,15 +156,16 @@ const AddCustomer = () => {
                 onChangeText={(text) => setPincode(text)}
               />
 
-              <TouchableOpacity 
-                    style={globalstyles.sbutton}
-                    onPress={handlesubmit}
-                    title="Create New Customer"
-                    >
-                  <View>
-                    <Text style={globalstyles.buttontext}>Create New Customer</Text>
-                  </View>
-               
+              <TouchableOpacity
+                style={globalstyles.sbutton}
+                onPress={handlesubmit}
+                title="Create New Customer"
+              >
+                <View>
+                  <Text style={globalstyles.buttontext}>
+                    Create New Customer
+                  </Text>
+                </View>
               </TouchableOpacity>
             </ScrollView>
           </View>
@@ -174,7 +173,6 @@ const AddCustomer = () => {
       </ImageBackground>
     </TouchableWithoutFeedback>
   );
-  // }
 };
 
 const styles = StyleSheet.create({

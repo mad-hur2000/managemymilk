@@ -1,4 +1,4 @@
-import React, { Component, useState, useContext } from "react";
+import React, { Component, useState, useContext , useEffect } from "react";
 import bgimage from "../assets/bgimage3.jpg";
 import {
   StyleSheet,
@@ -16,64 +16,64 @@ import { globalstyles } from "../styles/Global";
 import { ManagerContext } from "../context/ManagerContext";
 
 const AddDeliveryboy = () => {
-  // const { phone } = useContext(ManagerContext);
-  // const [submit, setSubmit] = useState(false);
-  // const [loading, setLoading] = useState(false);
+  const { phone } = useContext(ManagerContext);
+  const [submit, setSubmit] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  // const [name, setName] = useState("");
-  // const [email, setEmail] = useState("");
-  // const [mobileno, setMobileno] = useState("");
-  // const [morning, setMorning] = useState(0);
-  // const [evening, setEvening] = useState(0);
-  // const [house, setHouse] = useState("");
-  // const [society, setSociety] = useState("");
-  // const [pincode, setPincode] = useState("");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [mobileno, setMobileno] = useState("");
+  const [morning, setMorning] = useState(0);
+  const [evening, setEvening] = useState(0);
+  const [house, setHouse] = useState("");
+  const [society, setSociety] = useState("");
+  const [pincode, setPincode] = useState("");
 
-  // const [message, setMessage] = useState("");
+  const [message, setMessage] = useState("");
 
-  // const customer = {
-  //   name: { name },
-  //   email: { email },
-  //   mobileno: { mobileno },
-  //   morning: { morning },
-  //   evening: { evening },
-  //   house: { house },
-  //   society: { society },
-  //   pincode: { pincode },
-  //   phone: { phone },
-  // };
+  const customer = {
+    name: { name },
+    email: { email },
+    mobileno: { mobileno },
+    morning: { morning },
+    evening: { evening },
+    house: { house },
+    society: { society },
+    pincode: { pincode },
+    phone: { phone },
+  };
 
-  // useEffect(() => {
-  //   setLoading(true);
-  //   fetch("https://managedairy.herokuapp.com/delivery/create", {
-  //     method: "POST",
-  //     headers: { "Content-type": "application/json; charset=UTF-8" },
-  //     body: JSON.stringify(customer),
-  //   })
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       setLoading(false);
-  //     })
-  //     .catch((err) => console.log(err));
-  // }, [submit]);
+  useEffect(() => {
+    setLoading(true);
+    fetch("https://managedairy.herokuapp.com/delivery/create", {
+      method: "POST",
+      headers: { "Content-type": "application/json; charset=UTF-8" },
+      body: JSON.stringify(customer),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setLoading(false);
+      })
+      .catch((err) => console.log(err));
+  }, [submit]);
 
-  // const handlesubmit = () => {
-  //   if (
-  //     name != "" &&
-  //     email != "" &&
-  //     mobileno != "" &&
-  //     house != "" &&
-  //     society != "" &&
-  //     pincode != "" &&
-  //     phone != ""
-  //   ) {
-  //     setSubmit(!submit);
-  //     return;
-  //   } else {
-  //     setMessage("You might miss some of the details");
-  //     return;
-  //   }
-  // };
+  const handlesubmit = () => {
+    if (
+      name != "" &&
+      email != "" &&
+      mobileno != "" &&
+      house != "" &&
+      society != "" &&
+      pincode != "" &&
+      phone != ""
+    ) {
+      setSubmit(!submit);
+      return;
+    } else {
+      setMessage("You might miss some of the details");
+      return;
+    }
+  };
 
   return (
     <TouchableWithoutFeedback
@@ -97,14 +97,14 @@ const AddDeliveryboy = () => {
                 style={globalstyles.stext}
                 placeholder={"Enter Name"}
                 underlineColorAndroid="transparent"
-                // onChangeText={(text) => setName(text)}
+                onChangeText={(text) => setName(text)}
               />
 
               <TextInput
                 style={globalstyles.stext}
                 placeholder={"Enter Email"}
                 underlineColorAndroid="transparent"
-                // onChangeText={(text) => setEmail(text)}
+                onChangeText={(text) => setEmail(text)}
               />
 
               <TextInput
@@ -112,39 +112,39 @@ const AddDeliveryboy = () => {
                 placeholder={"Enter Mobile Number"}
                 underlineColorAndroid="transparent"
                 keyboardType="numeric"
-                // onChangeText={(text) => setMobileno(text)}
+                onChangeText={(text) => setMobileno(text)}
               />
 
               <TextInput
                 style={globalstyles.stext}
                 placeholder={"Salary"}
                 underlineColorAndroid="transparent"
-                // onChangeText={(text) => setHouse(text)}
+                onChangeText={(text) => setHouse(text)}
               />
               
               <TextInput
                 style={globalstyles.stext}
                 placeholder={"House Number/Name"}
                 underlineColorAndroid="transparent"
-                // onChangeText={(text) => setHouse(text)}
+                onChangeText={(text) => setHouse(text)}
               />
 
               <TextInput
                 style={globalstyles.stext}
                 placeholder={"Society"}
                 underlineColorAndroid="transparent"
-                // onChangeText={(text) => setSociety(text)}
+                onChangeText={(text) => setSociety(text)}
               />
 
               <TextInput
                 style={globalstyles.stext}
                 placeholder={"Pincode"}
-                // underlineColorAndroid='transparent'
-                // onChangeText={(text) => setPincode(text)}
+                underlineColorAndroid='transparent'
+                onChangeText={(text) => setPincode(text)}
               />
 
               <TouchableOpacity style={styles.sbutton} /*onPress={handlesubmit}*/>
-                   <View>
+                  <View>
                     <Text style={globalstyles.buttontext}>Create New Deliveryboy</Text>
                   </View>
                </TouchableOpacity>
