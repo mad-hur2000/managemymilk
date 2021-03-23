@@ -16,10 +16,10 @@ import { globalstyles } from "../styles/Global";
 import { ManagerContext } from "../context/ManagerContext";
 import Loading from "./Loading";
 import { sub } from "react-native-reanimated";
+import { FlatList } from "react-native-gesture-handler";
 
 const AddCustomer = () => {
-  // const { phone } = useContext(ManagerContext);
-  const phone = "9328941862";
+  const { phone } = useContext(ManagerContext);
   const [submit, setSubmit] = useState(false);
 
   const [name, setName] = useState("");
@@ -53,8 +53,7 @@ const AddCustomer = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        message = [];
-        message.push(data);
+        setMessage(data);
       })
       .catch((err) => console.log(err));
   }, [submit]);
@@ -96,6 +95,13 @@ const AddCustomer = () => {
               <Text style={styles.titletext}>
                 Enter The Details to add New Customer
               </Text>
+
+              <ScrollView>
+                {message.map((message) => {
+                  <Text key={message.length+1}>{message}</Text>
+                })}
+              </ScrollView>
+                
 
               <TextInput
                 style={globalstyles.stext}

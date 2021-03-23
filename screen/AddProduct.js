@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, { useState , useContext , useEffect } from "react";
 import bgimage from "../assets/bgimage3.jpg";
 import {
   StyleSheet,
@@ -12,9 +12,47 @@ import {
 } from "react-native";
 import { TouchableWithoutFeedback, ImageBackground } from "react-native";
 import { globalstyles } from "../styles/Global";
+import { ManagerContext } from "../context/ManagerContext";
 
-class AddProduct extends Component {
-  render() {
+const AddProduct = () =>  {
+    const { phone } = useContext(ManagerContext);
+    const [submit, setSubmit] = useState(false);
+
+    const [ productname , setProductname ] = useState("");
+    const [ description , setDescription ] = useState("");
+    
+    const [message, setMessage] = useState([]);
+
+    const product = {
+      productname : productname,
+      description : description,
+      managerno : phone
+    };
+
+    useEffect(() => {
+      fetch("https://managedairy.herokuapp.com/product/create", {
+        method: "POST",
+        headers: { "Content-type": "application/json; charset=UTF-8" },
+        body: JSON.stringify(product),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          setMessage(data);
+        })
+        .catch((err) => console.log(err));
+    }, [submit]);
+
+    const handlesubmit = () => {
+      if (productname == "") {
+        setMessage([...message, "enter valid name"]);
+      } else if (description == "") {
+        setMessage([...message, "enter valid description"]);
+      }  else {
+        setSubmit(!submit);
+      }
+    };
+
+
     return (
       <TouchableWithoutFeedback
         onPress={() => {
@@ -37,6 +75,7 @@ class AddProduct extends Component {
                   style={styles.stext}
                   placeholder={"Enter Name"}
                   underlineColorAndroid="transparent"
+                  onChangeText={(text) => setProductname(text)}
                 />
 
                 <Image placeholder="add Image"></Image>
@@ -46,6 +85,7 @@ class AddProduct extends Component {
                   placeholder={"Add Description"}
                   underlineColorAndroid="transparent"
                   multiline
+                  onChangeText={(text) => setDescription(text)}
                 />
 
                 <TouchableOpacity style={globalstyles.sbutton}>
@@ -54,7 +94,7 @@ class AddProduct extends Component {
                   </View>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={globalstyles.sbutton}>
+                <TouchableOpacity style={globalstyles.sbutton} onPress={handlesubmit}>
                   <View>
                     <Text style={globalstyles.buttontext}>Create New Product</Text>
                   </View>
@@ -65,7 +105,6 @@ class AddProduct extends Component {
         </ImageBackground>
       </TouchableWithoutFeedback>
     );
-  }
 }
 
 const styles = StyleSheet.create({

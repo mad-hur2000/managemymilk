@@ -6,8 +6,7 @@ import {
 import * as firebase from "firebase";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-//set this keys in any environment file so that no one can see it in repository
-
+  
 
 export const UserContext = createContext();
 const Usercontextprovider = ({children}) => {

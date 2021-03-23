@@ -27,11 +27,10 @@ export default function Handler() {
   const { setPhone } = useContext(ManagerContext);
 
   const checklogin = async () => {
-    if(role)
-    {
+    if (role) {
       setIsloggedin(true);
     }
-  }
+  };
 
   const getData = async () => {
     try {
@@ -39,9 +38,8 @@ export default function Handler() {
       console.log(value);
       if (value !== null) {
         setNormalnumber(value);
-        await checklogin();
-      }
-      else{
+        checklogin();
+      } else {
         setIsloggedin(false);
       }
     } catch (e) {
@@ -54,14 +52,13 @@ export default function Handler() {
     getData();
   }, []);
 
-  if (normalnumber && role.ismanager) {
+  if (normalnumber) {
     setPhone(normalnumber);
   }
 
   if (!isloggedin) {
     return <Login />;
-  }
-  else {
+  } else {
     if (role.ismanager) {
       return isloggedin ? <NavigatorManager /> : <SignUp />;
     } else if (role.iscustomer) {
@@ -70,7 +67,7 @@ export default function Handler() {
       return isloggedin ? <NavigatorDelivery /> : <Login />;
     }
   }
-}
+} 
 
 const styles = StyleSheet.create({
   container: {
