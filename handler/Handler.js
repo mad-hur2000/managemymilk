@@ -11,10 +11,7 @@ import NavigatorCustomer from "../customerroutes/Customerdrawer";
 import NavigatorDelivery from "../deliveryroutes/Deliverydrawer";
 
 import { UserContext } from "../context/Usercontext";
-import Loading from "../screen/Loading";
 import { ManagerContext } from "../context/ManagerContext";
-
-const state = "isdelivery";
 
 export default function Handler() {
   const {
@@ -34,13 +31,15 @@ export default function Handler() {
 
   const getData = async () => {
     try {
-      const value = await AsyncStorage.getItem("phone");
-      console.log(value);
-      if (value !== null) {
-        setNormalnumber(value);
-        checklogin();
-      } else {
-        setIsloggedin(false);
+      if (!isloggedin) {
+        const value = await AsyncStorage.getItem("phone");
+        console.log(value);
+        if (value !== null) {
+          setNormalnumber(value);
+          checklogin();
+        } else {
+          setIsloggedin(false);
+        }
       }
     } catch (e) {
       setIsloggedin(false);
@@ -67,7 +66,7 @@ export default function Handler() {
       return isloggedin ? <NavigatorDelivery /> : <Login />;
     }
   }
-} 
+}
 
 const styles = StyleSheet.create({
   container: {

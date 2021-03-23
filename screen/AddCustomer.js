@@ -21,6 +21,7 @@ import { FlatList } from "react-native-gesture-handler";
 const AddCustomer = () => {
   const { phone } = useContext(ManagerContext);
   const [submit, setSubmit] = useState(false);
+  const [ loading , setLoading ] = useState(false);
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -46,6 +47,7 @@ const AddCustomer = () => {
   };
 
   useEffect(() => {
+    setLoading(true);
     fetch("https://managedairy.herokuapp.com/customer/create", {
       method: "POST",
       headers: { "Content-type": "application/json; charset=UTF-8" },
@@ -54,29 +56,30 @@ const AddCustomer = () => {
       .then((response) => response.json())
       .then((data) => {
         setMessage(data);
+        setLoading(false);
       })
       .catch((err) => console.log(err));
   }, [submit]);
 
-  const handlesubmit = () => {
-    const emailregx = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-    const mobileregx = /^[6-9]\d{9}$/;
-    if (name == "") {
-      setMessage([...message, "enter name"]);
-    } else if (!emailregx.test(email)) {
-      setMessage([...message, "enter valid email"]);
-    } else if (!mobileregx.test(mobileno)) {
-      setMessage([...message, "enter valid mobile number"]);
-    } else if (housenameorno == "") {
-      setMessage([...message, "enter valid house number or name"]);
-    } else if (society == "") {
-      setMessage([...message, "enter valid society name"]);
-    } else if (pincode.length > 6 || pincode.length < 6) {
-      setMessage([...message, "enter valid pincode"]);
-    } else {
-      setSubmit(!submit);
-    }
-  };
+  // const handlesubmit = () => {
+  //   const emailregx = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+  //   const mobileregx = /^[6-9]\d{9}$/;
+  //   if (name == "") {
+  //     setMessage([...message, "enter name"]);
+  //   } else if (!emailregx.test(email)) {
+  //     setMessage([...message, "enter valid email"]);
+  //   } else if (!mobileregx.test(mobileno)) {
+  //     setMessage([...message, "enter valid mobile number"]);
+  //   } else if (housenameorno == "") {
+  //     setMessage([...message, "enter valid house number or name"]);
+  //   } else if (society == "") {
+  //     setMessage([...message, "enter valid society name"]);
+  //   } else if (pincode.length > 6 || pincode.length < 6) {
+  //     setMessage([...message, "enter valid pincode"]);
+  //   } else {
+  //     setSubmit(!submit);
+  //   }
+  // };
 
   return (
     <TouchableWithoutFeedback
@@ -164,8 +167,9 @@ const AddCustomer = () => {
 
               <TouchableOpacity
                 style={globalstyles.sbutton}
-                onPress={handlesubmit}
+                onPress={() => setSubmit(true)}
                 title="Create New Customer"
+                disabled = { loading ? true : false }
               >
                 <View>
                   <Text style={globalstyles.buttontext}>
