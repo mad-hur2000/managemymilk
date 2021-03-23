@@ -15,6 +15,8 @@ import { TouchableWithoutFeedback, ImageBackground } from "react-native";
 import { globalstyles } from "../styles/Global";
 import logo from "../assets/logo.png";
 import { UserContext } from "../context/Usercontext";
+import AsyncStorage from "@react-native-community/async-storage";
+
 
 import {
   FirebaseRecaptchaVerifierModal,
@@ -38,7 +40,7 @@ try {
 }
 
 export default function Login() {
-  const { phoneNumber , setPhoneNumber , isloggedin , setIsloggedin , setNormalnumber } = useContext(UserContext);
+  const { phoneNumber , setPhoneNumber , isloggedin , setIsloggedin , setNormalnumber , normalnumber } = useContext(UserContext);
 
   const recaptchaVerifier = React.useRef(null);
   const [verificationId, setVerificationId] = React.useState();
@@ -55,6 +57,15 @@ export default function Login() {
       : undefined
   );
   const attemptInvisibleVerification = false;
+
+  const storeData = async (normalnumber) => {
+    try {
+      await AsyncStorage.setItem('phone', normalnumber)
+      console.log("item saved successfully")
+    } catch (e) {
+      alert(e);
+    }
+  }
 
   return (
     <TouchableWithoutFeedback
@@ -142,6 +153,7 @@ export default function Login() {
                   await firebase.auth().signInWithCredential(credential);
                   showMessage({ text: "Phone authentication successful 👍" });
                   setIsloggedin(true);
+                  storeData(normalnumber)
                 } catch (err) {
                   showMessage({ text: `Error: ${err.message}`, color: "red" });
                 }

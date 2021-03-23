@@ -6,24 +6,14 @@ export const ManagerContext = createContext();
 const Managercontextprovider = ({ children }) => {
   const [profile, setProfile] = useState();
   const [phone, setPhone] = useState();
-  const [loading, setLoading] = useState(false);
   const [customers, setCustomers] = useState([]);
   const [deliveryboy, setDeliveryboy] = useState([]);
+  const [data, setData] = useState();
+  const [ currentselectedcustomer , setCurrentselectedcustomer ] = useState();
+  const [ currentselectedproduct , setCurrentselectedproduct ] = useState();
+  const [ currentselecteddelivery , setCurrentselecteddelivery ] = useState();
 
-  useEffect(() => {
-    setLoading(true);
-    fetch("https://managedairy.herokuapp.com/", {
-      method: "POST",
-      headers: { "Content-type": "application/json; charset=UTF-8" },
-      body: JSON.stringify({ phone: phone }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setProfile(data);
-        setLoading(false);
-      })
-      .catch((err) => console.log(err));
-  }, [phone]);
+  console.log(data);
 
   const exposed = {
     profile,
@@ -34,7 +24,19 @@ const Managercontextprovider = ({ children }) => {
 
     phone,
     setPhone,
-    loading,
+
+    data,
+    setData,
+
+    currentselectedcustomer,
+    setCurrentselectedcustomer,
+
+    currentselectedproduct,
+    setCurrentselectedproduct,
+
+    currentselecteddelivery,
+    setCurrentselecteddelivery
+
   };
 
   return (

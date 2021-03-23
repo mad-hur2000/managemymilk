@@ -16,11 +16,12 @@ import { globalstyles } from "../styles/Global";
 import { ManagerContext } from "../context/ManagerContext";
 import Loading from "./Loading";
 import { sub } from "react-native-reanimated";
+import { FlatList } from "react-native-gesture-handler";
 
 const AddCustomer = () => {
   const { phone } = useContext(ManagerContext);
   const [submit, setSubmit] = useState(false);
-  // const [loading, setLoading] = useState(false);
+  const [ loading , setLoading ] = useState(false);
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -31,24 +32,22 @@ const AddCustomer = () => {
   const [society, setSociety] = useState("");
   const [pincode, setPincode] = useState("");
 
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState([]);
 
   const customer = {
-    name:  name ,
-    email:  email ,
-    mobileno:  mobileno ,
-    morning:  morning ,
-    evening:  evening ,
-    house:  housenameorno ,
-    society:  society ,
-    pincode:  pincode ,
-    managerno:  phone ,
+    name: name,
+    email: email,
+    mobileno: mobileno,
+    morning: morning,
+    evening: evening,
+    house: housenameorno,
+    society: society,
+    pincode: pincode,
+    managerno: phone,
   };
 
   useEffect(() => {
-    console.log("useeffect is called");
-    // setLoading(true);
-    console.log(customer)
+    setLoading(true);
     fetch("https://managedairy.herokuapp.com/customer/create", {
       method: "POST",
       headers: { "Content-type": "application/json; charset=UTF-8" },
@@ -56,31 +55,32 @@ const AddCustomer = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        // setLoading(false);
-        console.log(data)
+        setMessage(data);
+        setLoading(false);
       })
       .catch((err) => console.log(err));
-  },[submit]);
+  }, [submit]);
 
-  const handlesubmit = () => {
-    if (
-      name != "" &&
-      email != "" &&
-      mobileno != "" &&
-      housenameorno != "" &&
-      society != "" &&
-      pincode != "" &&
-      phone != ""
-    ) {
-      setSubmit(!submit);
-    } else {
-      setMessage("You might miss some of the details");
-    }
-  };
+  // const handlesubmit = () => {
+  //   const emailregx = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+  //   const mobileregx = /^[6-9]\d{9}$/;
+  //   if (name == "") {
+  //     setMessage([...message, "enter name"]);
+  //   } else if (!emailregx.test(email)) {
+  //     setMessage([...message, "enter valid email"]);
+  //   } else if (!mobileregx.test(mobileno)) {
+  //     setMessage([...message, "enter valid mobile number"]);
+  //   } else if (housenameorno == "") {
+  //     setMessage([...message, "enter valid house number or name"]);
+  //   } else if (society == "") {
+  //     setMessage([...message, "enter valid society name"]);
+  //   } else if (pincode.length > 6 || pincode.length < 6) {
+  //     setMessage([...message, "enter valid pincode"]);
+  //   } else {
+  //     setSubmit(!submit);
+  //   }
+  // };
 
-  // if (loading) {
-  //   return <Loading />;
-  // } else {
   return (
     <TouchableWithoutFeedback
       onPress={() => {
@@ -98,6 +98,13 @@ const AddCustomer = () => {
               <Text style={styles.titletext}>
                 Enter The Details to add New Customer
               </Text>
+
+              <ScrollView>
+                {message.map((message) => {
+                  <Text key={message.length+1}>{message}</Text>
+                })}
+              </ScrollView>
+                
 
               <TextInput
                 style={globalstyles.stext}
@@ -158,15 +165,17 @@ const AddCustomer = () => {
                 onChangeText={(text) => setPincode(text)}
               />
 
-              <TouchableOpacity 
-                    style={globalstyles.sbutton}
-                    onPress={handlesubmit}
-                    title="Create New Customer"
-                    >
-                  <View>
-                    <Text style={globalstyles.buttontext}>Create New Customer</Text>
-                  </View>
-               
+              <TouchableOpacity
+                style={globalstyles.sbutton}
+                onPress={() => setSubmit(true)}
+                title="Create New Customer"
+                disabled = { loading ? true : false }
+              >
+                <View>
+                  <Text style={globalstyles.buttontext}>
+                    Create New Customer
+                  </Text>
+                </View>
               </TouchableOpacity>
             </ScrollView>
           </View>
@@ -174,7 +183,6 @@ const AddCustomer = () => {
       </ImageBackground>
     </TouchableWithoutFeedback>
   );
-  // }
 };
 
 const styles = StyleSheet.create({

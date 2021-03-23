@@ -10,26 +10,54 @@ import NavigatorManager from "../routes/Drawer";
 import NavigatorCustomer from "../customerroutes/Customerdrawer";
 import NavigatorDelivery from "../deliveryroutes/Deliverydrawer";
 
-import Usercontextprovider, { UserContext } from "../context/Usercontext";
-import { ManagerContext } from '../context/ManagerContext';
-
-import Loading from "../screen/Loading";
-
-const state = "isdelivery";
+import { UserContext } from "../context/Usercontext";
+import { ManagerContext } from "../context/ManagerContext";
 
 export default function Handler() {
-  const { isloggedin, normalnumber , role , loading } = useContext(UserContext);
-  const { setPhone  } = useContext(ManagerContext);
-  
-  if(normalnumber)
-  {
-      setPhone(normalnumber);
+  const {
+    isloggedin,
+    normalnumber,
+    setNormalnumber,
+    setIsloggedin,
+    role,
+  } = useContext(UserContext);
+  const { setPhone } = useContext(ManagerContext);
+
+  const checklogin = async () => {
+    if (role) {
+      setIsloggedin(true);
+    }
+  };
+
+  const getData = async () => {
+    try {
+      if (!isloggedin) {
+        const value = await AsyncStorage.getItem("phone");
+        console.log(value);
+        if (value !== null) {
+          setNormalnumber(value);
+          checklogin();
+        } else {
+          setIsloggedin(false);
+        }
+      }
+    } catch (e) {
+      setIsloggedin(false);
+      alert(e);
+    }
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  if (normalnumber) {
+    setPhone(normalnumber);
   }
- 
-  if(!isloggedin) {
-    return <Login />
-  }
-  else{
+
+  if (!isloggedin) {
+    return <Login />;
+  } else {
     if (role.ismanager) {
       return isloggedin ? <NavigatorManager /> : <SignUp />;
     } else if (role.iscustomer) {

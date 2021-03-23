@@ -8,9 +8,10 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@react-native-async-storage/async-storage": "^1.14.1",
     "@react-native-community/async-storage": "^1.12.1",
     "@react-native-community/masked-view": "0.1.10",
-    "@react-navigation/drawer": "^5.12.3",
+    "@react-navigation/drawer": "^5.12.4",
     "@react-navigation/native": "^5.9.2",
     "@react-navigation/stack": "^5.14.2",
     "expo": "^40.0.1",
@@ -20,6 +21,7 @@
     "firebase": "^8.2.6",
     "formic": "0.0.10",
     "formik": "^2.2.6",
+    "nodemailer": "^6.5.0",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-40.0.1.tar.gz",
@@ -37,6 +39,7 @@
     "react-navigation": "^4.4.3",
     "react-navigation-drawer": "^2.6.0",
     "react-navigation-stack": "^2.10.2",
+    "uuid": "^8.3.2",
     "yup": "^0.32.8"
   },
   "devDependencies": {
