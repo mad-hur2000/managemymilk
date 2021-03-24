@@ -144,7 +144,7 @@ const Delivery = ({ navigation }) => {
                   Morning : {item.morningMilk}
                 </Text>
                 <Text style={{ flex: 3 }}>Evening : {item.eveningMilk}</Text>
-                <TouchableOpacity style={{ flex: 3}}>
+                <TouchableOpacity style={{ flex: 3 }}>
                   <Text>Mobile No :9345909665 </Text>
                 </TouchableOpacity>
               </View>
@@ -167,7 +167,7 @@ const styles = StyleSheet.create({
     width: "98%",
     borderRadius: 5,
     marginHorizontal: "1%",
-    borderColor:'rgba(56,170,254,0.9)',
+    borderColor: "rgba(56,170,254,0.9)",
     borderBottomWidth: 2,
     marginTop: 2,
     backgroundColor: "rgba(0,150,254,0.0)",
