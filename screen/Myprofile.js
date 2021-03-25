@@ -64,7 +64,6 @@ const styles = StyleSheet.create({
     height: "100%",
     width: "100%",
     fontSize: 16,
-    backgroundColor: "rgba(0,170,254,0.0)",
     borderRadius: 25,
     justifyContent: "flex-start",
     alignItems: "center",
@@ -105,7 +104,7 @@ const styles = StyleSheet.create({
   titletext: {
     alignContent: "center",
     justifyContent: "center",
-    color: "#eee",
+    color: "black",
     fontSize: 28,
     marginTop: 10,
     // marginLeft:12,

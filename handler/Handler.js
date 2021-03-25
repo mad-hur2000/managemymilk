@@ -20,14 +20,10 @@ export default function Handler() {
     setNormalnumber,
     setIsloggedin,
     role,
+    setRole,
   } = useContext(UserContext);
   const { setPhone } = useContext(ManagerContext);
-
-  const checklogin = async () => {
-    if (role) {
-      setIsloggedin(true);
-    }
-  };
+  const [asyncnumber, setAsyncnumber] = useState(null);
 
   const getData = async () => {
     try {
@@ -35,14 +31,10 @@ export default function Handler() {
         const value = await AsyncStorage.getItem("phone");
         console.log(value);
         if (value !== null) {
-          setNormalnumber(value);
-          checklogin();
-        } else {
-          setIsloggedin(false);
+          await setAsyncnumber(value);
         }
       }
     } catch (e) {
-      setIsloggedin(false);
       alert(e);
     }
   };
@@ -51,6 +43,21 @@ export default function Handler() {
     getData();
   }, []);
 
+  useEffect(() => {
+    fetch("https://managedairy.herokuapp.com/", {
+      method: "POST",
+      headers: { "Content-type": "application/json; charset=UTF-8" },
+      body: JSON.stringify({ phone: asyncnumber }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setRole(data);
+        setNormalnumber(asyncnumber);
+        setIsloggedin(true);
+      })
+      .catch((err) => console.log(err));
+  }, [asyncnumber]);
+
   if (normalnumber) {
     setPhone(normalnumber);
   }
@@ -58,11 +65,11 @@ export default function Handler() {
   if (!isloggedin) {
     return <Login />;
   } else {
-    if (role.ismanager) {
+    if (role.ismanager || roles.ismanager) {
       return isloggedin ? <NavigatorManager /> : <SignUp />;
-    } else if (role.iscustomer) {
+    } else if (role.iscustomer || roles.iscustomer) {
       return isloggedin ? <NavigatorCustomer /> : <Login />;
-    } else if (role.isdelivery) {
+    } else if (role.isdelivery || roles.isdelivery) {
       return isloggedin ? <NavigatorDelivery /> : <Login />;
     }
   }

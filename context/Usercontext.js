@@ -13,21 +13,27 @@ const Usercontextprovider = ({ children }) => {
   const [normalnumber, setNormalnumber] = useState();
   const [loading, setLoading] = useState(false);
 
-  const [role, setRole] = useState();
+  const [role, setRole] = useState(null);
 
   useEffect(() => {
-    fetch("https://managedairy.herokuapp.com/", {
-      method: "POST",
-      headers: { "Content-type": "application/json; charset=UTF-8" },
-      body: JSON.stringify({ phone: normalnumber }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("it's here");
-        setRole(data);
+    if(role == null)
+    {
+      fetch("https://managedairy.herokuapp.com/", {
+        method: "POST",
+        headers: { "Content-type": "application/json; charset=UTF-8" },
+        body: JSON.stringify({ phone: normalnumber }),
       })
-      .catch((err) => console.log(err));
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("it's here");
+          setRole(data);
+        })
+        .catch((err) => console.log(err));
+    }
   }, [normalnumber]);
+
+  console.log(normalnumber)
+  console.log(role);
 
   const exposed = {
     isloggedin,
@@ -36,6 +42,7 @@ const Usercontextprovider = ({ children }) => {
     setPhoneNumber,
     setIsloggedin,
     role,
+    setRole,
     setNormalnumber,
     normalnumber,
   };

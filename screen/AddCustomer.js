@@ -60,6 +60,7 @@ const AddCustomer = () => {
       })
       .catch((err) => console.log(err));
   }, [submit]);
+  console.log(message);
 
   // const handlesubmit = () => {
   //   const emailregx = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
@@ -97,14 +98,7 @@ const AddCustomer = () => {
             <ScrollView>
               <Text style={styles.titletext}>
                 Enter The Details to add New Customer
-              </Text>
-
-              <ScrollView>
-                {message.map((message) => {
-                  <Text key={message.length+1}>{message}</Text>
-                })}
-              </ScrollView>
-                
+              </Text>                
 
               <TextInput
                 style={globalstyles.stext}
