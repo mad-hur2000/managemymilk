@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import {
   View,
   Text,
@@ -12,8 +12,12 @@ import bgimage from "../assets/bgimage3.jpg";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { TabRouter } from "react-navigation";
 import Entypo from "react-native-vector-icons/Entypo";
+import { ManagerContext } from "../context/ManagerContext";
 
 const ShowDeliveryboy = ({ navigation }) => {
+  const { currentselecteddelivery } = useContext(ManagerContext);
+
+  console.log("current selected delivery boy", currentselecteddelivery);
   const [customer, setCustomer] = useState([
     {
       date: "12-12-2020",
@@ -21,15 +25,14 @@ const ShowDeliveryboy = ({ navigation }) => {
       morningMilk: 2,
       eveningMilk: 1,
     },
-    
+
     {
       date: "12-12-2020",
       name: "Nsdjsarg mungra",
       morningMilk: 2,
       eveningMilk: 1,
     },
-  
-    
+
     {
       date: "12-12-2020",
       name: "Ndjsag mungra",
@@ -43,21 +46,16 @@ const ShowDeliveryboy = ({ navigation }) => {
       <View style={styles.titlecontainer}>
         <Text style={styles.nametext}> Statistics</Text>
         <TouchableOpacity>
-        <Entypo 
-          name={"cup"} 
-          size={26} 
-          style={styles.editprofilebutton}
-        />
+          <Entypo name={"cup"} size={26} style={styles.editprofilebutton} />
         </TouchableOpacity>
         <TouchableOpacity>
-        <Entypo 
-          name={"edit"} 
-          size={26} 
-          onPress={() => navigation.navigate("EditDeliveryboy")} 
-          style={styles.editprofilebutton}
-        />
+          <Entypo
+            name={"edit"}
+            size={26}
+            onPress={() => navigation.navigate("EditDeliveryboy")}
+            style={styles.editprofilebutton}
+          />
         </TouchableOpacity>
-        
       </View>
 
       <View style={styles.tablebox}>
@@ -122,8 +120,8 @@ const styles = StyleSheet.create({
   editprofilebutton: {
     height: 34,
     width: 50,
-    marginRight:10,
-    
+    marginRight: 10,
+
     borderRadius: 140,
     textAlign: "center",
     backgroundColor: "rgba(0,150,254,0.7)",
@@ -147,7 +145,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     height: 40,
     width: "98%",
-    borderColor:'rgba(56,170,254,0.9)',
+    borderColor: "rgba(56,170,254,0.9)",
     borderRadius: 5,
     marginHorizontal: "1%",
     borderBottomWidth: 0.5,

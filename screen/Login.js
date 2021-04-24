@@ -1,4 +1,4 @@
-import React, { Component, useState, useContext } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import bgimage from "../assets/bgimage3.jpg";
 import {
   StyleSheet,
@@ -9,14 +9,13 @@ import {
   Image,
   Keyboard,
   Button,
-  Platform
+  Platform,
 } from "react-native";
 import { TouchableWithoutFeedback, ImageBackground } from "react-native";
 import { globalstyles } from "../styles/Global";
 import logo from "../assets/logo.png";
 import { UserContext } from "../context/Usercontext";
-import AsyncStorage from "@react-native-community/async-storage";
-
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import {
   FirebaseRecaptchaVerifierModal,
@@ -40,7 +39,10 @@ try {
 }
 
 export default function Login() {
-  const { phoneNumber , setPhoneNumber , isloggedin , setIsloggedin , setNormalnumber , normalnumber } = useContext(UserContext);
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const { setIsloggedin, setNormalnumber, normalnumber } = useContext(
+    UserContext
+  );
 
   const recaptchaVerifier = React.useRef(null);
   const [verificationId, setVerificationId] = React.useState();
@@ -58,53 +60,42 @@ export default function Login() {
   );
   const attemptInvisibleVerification = false;
 
-  const storeData = async (normalnumber) => {
-    try {
-      await AsyncStorage.setItem('phone', normalnumber)
-      console.log("item saved successfully")
-    } catch (e) {
-      alert(e);
-    }
-  }
-
   return (
     <TouchableWithoutFeedback
-            onPress={() => {
-              // console.log('keyboard dismiss');
-              Keyboard.dismiss();
-            }}
-          >
-            <ImageBackground
-              source={bgimage}
-              style={globalstyles.imagecontainer}
-            >
-    <View style={styles.tocenter}>
-      <View style={styles.box}>
-        <Text style={styles.titletext}>Manage My Milk</Text>
-        <Image source={logo} style={styles.logo} />
-      <FirebaseRecaptchaVerifierModal
-        ref={recaptchaVerifier}
-        firebaseConfig={firebaseConfig}
-        attemptInvisibleVerification={attemptInvisibleVerification}
-      />
-      <Text style={{ marginTop: 20 }}>Enter Mobile number</Text>
-      <TextInput
-        style={styles.stext}
-        placeholder="+91 1234567891"
-        autoFocus
-        autoCompleteType="tel"
-        keyboardType="phone-pad"
-        textContentType="telephoneNumber"
-        onChangeText={(phoneNumber) => {
-          let number = phoneNumber.replace("+91" , "");
-          if(number.length == 10)
-          {
-            setNormalnumber(phoneNumber.replace("+91" , ""));
-          }
-          setPhoneNumber(phoneNumber)
-        }}
-      />
-      <TouchableOpacity
+      onPress={() => {
+        // console.log('keyboard dismiss');
+        Keyboard.dismiss();
+      }}
+    >
+      <ImageBackground source={bgimage} style={globalstyles.imagecontainer}>
+        <View style={styles.tocenter}>
+          <View style={styles.box}>
+            <Text style={styles.titletext}>Manage My Milk</Text>
+            <Image source={logo} style={styles.logo} />
+            <FirebaseRecaptchaVerifierModal
+              ref={recaptchaVerifier}
+              firebaseConfig={firebaseConfig}
+              attemptInvisibleVerification={attemptInvisibleVerification}
+            />
+            <Text style={{ marginTop: 20 }}>Enter Mobile number</Text>
+            <TextInput
+              style={styles.stext}
+              placeholder="+91 1234567891"
+              autoFocus
+              autoCompleteType="tel"
+              keyboardType="phone-pad"
+              textContentType="telephoneNumber"
+              onChangeText={(phoneNumber) => {
+                let number = phoneNumber.replace("+91", "");
+                const regx = /^[0-9]{10}$/;
+                if (regx.test(number)) {
+                  setNormalnumber(number);
+                  console.log(normalnumber);
+                }
+                setPhoneNumber(phoneNumber);
+              }}
+            />
+            <TouchableOpacity
               style={globalstyles.sbutton}
               disabled={!phoneNumber}
               onPress={async () => {
@@ -126,22 +117,21 @@ export default function Login() {
                 }
               }}
             >
-          <View>
-                    <Text style={globalstyles.buttontext}>Send Verification Code</Text>
-          </View>
-               
-      </TouchableOpacity>
+              <View>
+                <Text style={globalstyles.buttontext}>
+                  Send Verification Code
+                </Text>
+              </View>
+            </TouchableOpacity>
 
-      <Text style={{ marginTop: 20 }}>Enter Verification code</Text>
-      <TextInput
-        style={styles.stext}
-        
-        editable={!!verificationId}
-        placeholder="123456"
-        onChangeText={setVerificationCode}
-      />
-      <TouchableOpacity
-
+            <Text style={{ marginTop: 20 }}>Enter Verification code</Text>
+            <TextInput
+              style={styles.stext}
+              editable={!!verificationId}
+              placeholder="123456"
+              onChangeText={setVerificationCode}
+            />
+            <TouchableOpacity
               style={globalstyles.sbutton}
               disabled={!verificationId}
               onPress={async () => {
@@ -153,54 +143,47 @@ export default function Login() {
                   await firebase.auth().signInWithCredential(credential);
                   showMessage({ text: "Phone authentication successful 👍" });
                   setIsloggedin(true);
-                  storeData(normalnumber)
                 } catch (err) {
                   showMessage({ text: `Error: ${err.message}`, color: "red" });
                 }
               }}
             >
               <View>
-                    <Text style={globalstyles.buttontext}>Login</Text>
+                <Text style={globalstyles.buttontext}>Login</Text>
               </View>
-               
-          
-      </TouchableOpacity>
-      
-      {message ? (
-        <TouchableOpacity
-          style={[
-            StyleSheet.absoluteFill,
-            { backgroundColor: 0xffffffee, justifyContent: "center" },
-          ]}
-          onPress={() => showMessage(undefined)}
-        >
-          <Text
-            style={{
-              color: message.color || "blue",
-              fontSize: 17,
-              textAlign: "center",
-              margin: 20,
-            }}
-          >
-            {message.text}
-          </Text>
-        </TouchableOpacity>
-      ) : undefined}
-      {attemptInvisibleVerification && <FirebaseRecaptchaBanner />}
-    </View>
-    </View>
-    <Text style={styles.lasttext}>
-      To create account , contact here{ isloggedin ? <Text>{phoneNumber}</Text> : "" }
-    </Text>
-    </ImageBackground>
+            </TouchableOpacity>
+
+            {message ? (
+              <TouchableOpacity
+                style={[
+                  StyleSheet.absoluteFill,
+                  { backgroundColor: 0xffffffee, justifyContent: "center" },
+                ]}
+                onPress={() => showMessage(undefined)}
+              >
+                <Text
+                  style={{
+                    color: message.color || "blue",
+                    fontSize: 17,
+                    textAlign: "center",
+                    margin: 20,
+                  }}
+                >
+                  {message.text}
+                </Text>
+              </TouchableOpacity>
+            ) : undefined}
+            {attemptInvisibleVerification && <FirebaseRecaptchaBanner />}
+          </View>
+        </View>
+      </ImageBackground>
     </TouchableWithoutFeedback>
   );
 }
 
-
 const styles = StyleSheet.create({
   tocenter: {
-    flex: 1,  
+    flex: 1,
     justifyContent: "center",
     alignItems: "center",
   },
@@ -241,14 +224,14 @@ const styles = StyleSheet.create({
     height: 40,
     width: 270,
     borderBottomWidth: 0.2,
-    borderRadius:15,
+    borderRadius: 15,
     fontSize: 16,
     backgroundColor: "rgba(0,150,254,0.6)",
     marginTop: 20,
     color: "black",
     textAlign: "center",
-    marginVertical: 10, 
-    fontSize: 17 
+    marginVertical: 10,
+    fontSize: 17,
   },
 
   sbutton: {
@@ -276,4 +259,3 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
 });
-

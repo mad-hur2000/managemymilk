@@ -15,15 +15,16 @@ import { ManagerContext } from "../context/ManagerContext";
 import Loading from "./Loading";
 
 const Myprofilemanager = () => {
-  const {phone , profile , setProfile } = useContext(ManagerContext);
+  const { managerid } = useContext(ManagerContext);
   const [loading, setLoading] = useState(false);
+  const [profile, setProfile] = useState("");
 
   useEffect(() => {
     setLoading(true);
     fetch("https://managedairy.herokuapp.com/manager/profile", {
       method: "POST",
       headers: { "Content-type": "application/json; charset=UTF-8" },
-      body: JSON.stringify({ phone: phone }),
+      body: JSON.stringify({ _id: managerid }),
     })
       .then((response) => response.json())
       .then((data) => {
@@ -34,28 +35,30 @@ const Myprofilemanager = () => {
       .catch((err) => console.log(err));
   }, []);
 
-  if (profile) {
-    const { firstname, lastname, Email, MobileNo, Address } = profile;
-    return (
-      <ImageBackground source={bgimage} style={styles.imagecontainer}>
-        <View style={styles.box}>
-          <Image source={logo} style={styles.profilepic} />
-          <Text style={styles.titletext}>{firstname}</Text>
-          <Text style={styles.titletext}>{lastname}</Text>
-
-          <View style={styles.detailbox}>
-            <Text style={styles.text}> Email: {Email}</Text>
-            <Text style={styles.text}> Mobile No: {MobileNo}</Text>
-            {/* <Text style={styles.text} multiline>  Address: {Address}</Text> */}
-            <Text style={styles.text1} multiline>
-              Address: {Address}
-            </Text>
-          </View>
-        </View>
-      </ImageBackground>
-    );
-  } else {
+  if (loading) {
     return <Loading />;
+  } else {
+    if (profile) {
+      const { firstname, lastname, Email, MobileNo, Address } = profile;
+      return (
+        <ImageBackground source={bgimage} style={styles.imagecontainer}>
+          <View style={styles.box}>
+            <Image source={logo} style={styles.profilepic} />
+            <Text style={styles.titletext}>{firstname}</Text>
+            <Text style={styles.titletext}>{lastname}</Text>
+
+            <View style={styles.detailbox}>
+              <Text style={styles.text}> Email: {Email}</Text>
+              <Text style={styles.text}> Mobile No: {MobileNo}</Text>
+              {/* <Text style={styles.text} multiline>  Address: {Address}</Text> */}
+              <Text style={styles.text1} multiline>
+                Address: {Address}
+              </Text>
+            </View>
+          </View>
+        </ImageBackground>
+      );
+    }
   }
 };
 

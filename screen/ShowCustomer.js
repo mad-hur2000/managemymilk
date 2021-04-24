@@ -1,4 +1,4 @@
-import React, { useState , useEffect , useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   View,
   Text,
@@ -15,26 +15,25 @@ import Entypo from "react-native-vector-icons/Entypo";
 import { ManagerContext } from "../context/ManagerContext";
 
 const ShowCustomer = ({ navigation }) => {
-
-  const [ shoulddelete , setShoulddelete ] = useState(false);
+  const [shoulddelete, setShoulddelete] = useState(false);
   const { currentselectedcustomer } = useContext(ManagerContext);
-  console.log(currentselectedcustomer);
+  console.log(currentselectedcustomer, "selected customer");
 
   useEffect(() => {
     fetch("https://managedairy.herokuapp.com/customer/delete", {
       method: "DELETE",
       headers: { "Content-type": "application/json; charset=UTF-8" },
-      body: JSON.stringify({ email : currentselectedcustomer }),
+      body: JSON.stringify({ email: currentselectedcustomer }),
     })
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
       })
       .catch((err) => console.log(err));
-  } , [shoulddelete])
+  }, [shoulddelete]);
   const handledelete = () => {
-      setShoulddelete(True);
-  }
+    setShoulddelete(True);
+  };
   const [customer, setCustomer] = useState([
     {
       date: "12-12-2020",
@@ -113,20 +112,20 @@ const ShowCustomer = ({ navigation }) => {
       <View style={styles.titlecontainer}>
         <Text style={styles.nametext}> Statistics</Text>
         <TouchableOpacity>
-        <Entypo 
-          name={"cup"} 
-          size={26} 
-          style={styles.editprofilebutton}
-          onPress={handledelete}
-        />
+          <Entypo
+            name={"cup"}
+            size={26}
+            style={styles.editprofilebutton}
+            onPress={handledelete}
+          />
         </TouchableOpacity>
         <TouchableOpacity>
-        <Entypo 
-          name={"edit"} 
-          size={26} 
-          onPress={() => navigation.navigate("EditCustomer")} 
-          style={styles.editprofilebutton}
-        />
+          <Entypo
+            name={"edit"}
+            size={26}
+            onPress={() => navigation.navigate("EditCustomer")}
+            style={styles.editprofilebutton}
+          />
         </TouchableOpacity>
       </View>
 
@@ -192,8 +191,8 @@ const styles = StyleSheet.create({
   editprofilebutton: {
     height: 34,
     width: 50,
-    marginRight:10,
-    
+    marginRight: 10,
+
     borderRadius: 140,
     textAlign: "center",
     backgroundColor: "rgba(0,150,254,0.7)",
@@ -217,7 +216,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     height: 40,
     width: "98%",
-    borderColor:'rgba(56,170,254,0.9)',
+    borderColor: "rgba(56,170,254,0.9)",
     borderRadius: 5,
     marginHorizontal: "1%",
     borderBottomWidth: 0.5,

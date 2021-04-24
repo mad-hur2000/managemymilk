@@ -1,18 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import bgimage from "../assets/bgimage3.jpg";
-import {
-  StyleSheet,
-  Image,
-  Text,
-  View,
-  ImageBackground,
-  Keyboard,
-} from "react-native";
+import { StyleSheet, Image, Text, View, ImageBackground } from "react-native";
 import logo from "../assets/logo.png";
 import Loading from "../screen/Loading";
+import { UserContext } from "../context/Usercontext";
 
 const Myprofilecustomer = () => {
-  const phone = "9054687230";
+  const { id } = useContext(UserContext);
   const [profile, setProfile] = useState();
   const [loading, setLoading] = useState(false);
 
@@ -21,7 +15,7 @@ const Myprofilecustomer = () => {
     fetch("https://managedairy.herokuapp.com/customer/profile", {
       method: "POST",
       headers: { "Content-type": "application/json; charset=UTF-8" },
-      body: JSON.stringify({ phone: phone }),
+      body: JSON.stringify({ _id: id }),
     })
       .then((response) => response.json())
       .then((data) => {
