@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   FlatList,
   ScrollView,
+  Button,
 } from "react-native";
 
 import { globalstyles } from "../styles/Global";
@@ -29,9 +30,11 @@ const Manager = ({ navigation }) => {
     managerid,
   } = useContext(ManagerContext);
 
+  const [refresh, setRefresh] = useState(false);
+
   useEffect(() => {
     setLoading(true);
-    fetch("http://managedairy.herokuapp.com/manager/dashboarddata", {
+    fetch("https://managedairy.herokuapp.com/manager/dashboarddata", {
       method: "POST",
       headers: { "Content-type": "application/json; charset=UTF-8" },
       body: JSON.stringify({ _id: id }),
@@ -46,11 +49,37 @@ const Manager = ({ navigation }) => {
       .catch((err) => console.log(err));
   }, []);
 
+  useEffect(() => {
+    setLoading(true);
+    fetch("https://managedairy.herokuapp.com/manager/dashboarddata", {
+      method: "POST",
+      headers: { "Content-type": "application/json; charset=UTF-8" },
+      body: JSON.stringify({ _id: id }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setCustomer(data.customers);
+        setProduct(data.product);
+        setDelivery(data.delivery);
+      })
+      .then(() => setLoading(false))
+      .catch((err) => console.log(err));
+  }, [refresh]);
+
+  const Refreshbutton = () => {
+    setRefresh(!refresh);
+  };
+
+  console.log(refresh);
+
   if (loading) {
     return <Loading />;
   } else {
     return (
       <ImageBackground source={bgimage} style={globalstyles.imagecontainer}>
+        <TouchableOpacity style={styles.button} onPress={Refreshbutton}>
+          <Text>Refresh</Text>
+        </TouchableOpacity>
         <ScrollView>
           <Text
             style={{
@@ -127,13 +156,12 @@ const Manager = ({ navigation }) => {
           </Text>
 
           <FlatList
-            // style={{marginTop:50}}
             keyExtractor={(item) => item._id}
             data={product}
             renderItem={({ item }) => (
               <TouchableOpacity
                 onPress={() => {
-                  setCurrentselecteddelivery(item._id);
+                  setCurrentselectedproduct(item._id);
                   navigation.navigate("ShowProduct", item);
                 }}
               >
@@ -169,6 +197,12 @@ const styles = StyleSheet.create({
     marginTop: 2,
     backgroundColor: "rgba(0,150,254,0.0)",
     opacity: 1,
+  },
+
+  button: {
+    alignItems: "center",
+    backgroundColor: "#DDDDDD",
+    padding: 10,
   },
 
   cardtextmilk: {

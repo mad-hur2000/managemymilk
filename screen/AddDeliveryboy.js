@@ -1,4 +1,4 @@
-import React, { Component, useState, useContext , useEffect } from "react";
+import React, { Component, useState, useContext, useEffect } from "react";
 import bgimage from "../assets/bgimage3.jpg";
 import {
   StyleSheet,
@@ -7,72 +7,74 @@ import {
   TextInput,
   TouchableOpacity,
   View,
-  Image,
   Keyboard,
-  Button,
 } from "react-native";
 import { TouchableWithoutFeedback, ImageBackground } from "react-native";
 import { globalstyles } from "../styles/Global";
-import { ManagerContext } from "../context/ManagerContext";
+import { UserContext } from "../context/Usercontext";
+import Loading from "./Loading";
 
 const AddDeliveryboy = () => {
-  const { phone } = useContext(ManagerContext);
+  const { id } = useContext(UserContext);
   const [submit, setSubmit] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const [name, setName] = useState("");
+  const [firstname, setFirstname] = useState("");
+  const [lastname, setLastname] = useState("");
   const [email, setEmail] = useState("");
-  const [mobileno, setMobileno] = useState("");
-  const [morning, setMorning] = useState(0);
-  const [evening, setEvening] = useState(0);
-  const [house, setHouse] = useState("");
-  const [society, setSociety] = useState("");
-  const [pincode, setPincode] = useState("");
+  const [mobileno, setMobileno] = useState();
+  const [address, setAddress] = useState();
 
   const [message, setMessage] = useState("");
+  console.log("add delivery form");
 
-  const customer = {
-    name: { name },
-    email: { email },
-    mobileno: { mobileno },
-    morning: { morning },
-    evening: { evening },
-    house: { house },
-    society: { society },
-    pincode: { pincode },
-    phone: { phone },
+  const delivery = {
+    firstname: firstname,
+    lastname: lastname,
+    email: email,
+    mobileno: mobileno,
+    address: address,
+    _id: id,
   };
 
   useEffect(() => {
     setLoading(true);
+    console.log(JSON.stringify(delivery));
     fetch("https://managedairy.herokuapp.com/delivery/create", {
       method: "POST",
       headers: { "Content-type": "application/json; charset=UTF-8" },
-      body: JSON.stringify(customer),
+      body: JSON.stringify(delivery),
     })
       .then((response) => response.json())
       .then((data) => {
+        console.log(data);
+        setMessage(data);
         setLoading(false);
       })
       .catch((err) => console.log(err));
   }, [submit]);
 
+  // const handlesubmit = () => {
+  //   if (
+  //     name != "" &&
+  //     email != "" &&
+  //     mobileno != "" &&
+  //     house != "" &&
+  //     society != "" &&
+  //     pincode != "" &&
+  //     phone != ""
+  //   ) {
+  //     setSubmit(!submit);
+  //     return;
+  //   } else {
+  //     setMessage("You might miss some of the details");
+  //     return;
+  //   }
+  // };
+
   const handlesubmit = () => {
-    if (
-      name != "" &&
-      email != "" &&
-      mobileno != "" &&
-      house != "" &&
-      society != "" &&
-      pincode != "" &&
-      phone != ""
-    ) {
-      setSubmit(!submit);
-      return;
-    } else {
-      setMessage("You might miss some of the details");
-      return;
-    }
+    console.log("handle submit");
+    setSubmit(!submit);
   };
 
   return (
@@ -95,16 +97,16 @@ const AddDeliveryboy = () => {
 
               <TextInput
                 style={globalstyles.stext}
-                placeholder={"Enter Name"}
+                placeholder={"Enter Firstname"}
                 underlineColorAndroid="transparent"
-                onChangeText={(text) => setName(text)}
+                onChangeText={(text) => setFirstname(text)}
               />
 
               <TextInput
                 style={globalstyles.stext}
-                placeholder={"Enter Email"}
+                placeholder={"Enter Lastname"}
                 underlineColorAndroid="transparent"
-                onChangeText={(text) => setEmail(text)}
+                onChangeText={(text) => setLastname(text)}
               />
 
               <TextInput
@@ -117,37 +119,25 @@ const AddDeliveryboy = () => {
 
               <TextInput
                 style={globalstyles.stext}
-                placeholder={"Salary"}
+                placeholder={"address"}
                 underlineColorAndroid="transparent"
-                onChangeText={(text) => setHouse(text)}
-              />
-              
-              <TextInput
-                style={globalstyles.stext}
-                placeholder={"House Number/Name"}
-                underlineColorAndroid="transparent"
-                onChangeText={(text) => setHouse(text)}
+                onChangeText={(text) => setAddress(text)}
               />
 
               <TextInput
                 style={globalstyles.stext}
-                placeholder={"Society"}
+                placeholder={"Enter Email"}
                 underlineColorAndroid="transparent"
-                onChangeText={(text) => setSociety(text)}
+                onChangeText={(text) => setEmail(text)}
               />
 
-              <TextInput
-                style={globalstyles.stext}
-                placeholder={"Pincode"}
-                underlineColorAndroid='transparent'
-                onChangeText={(text) => setPincode(text)}
-              />
-
-              <TouchableOpacity style={styles.sbutton} /*onPress={handlesubmit}*/>
-                  <View>
-                    <Text style={globalstyles.buttontext}>Create New Deliveryboy</Text>
-                  </View>
-               </TouchableOpacity>
+              <TouchableOpacity style={styles.sbutton} onPress={handlesubmit}>
+                <View>
+                  <Text style={globalstyles.buttontext}>
+                    Create New Deliveryboy
+                  </Text>
+                </View>
+              </TouchableOpacity>
             </ScrollView>
           </View>
         </View>
@@ -214,12 +204,9 @@ const styles = StyleSheet.create({
     color: "#111",
   },
 
-
   buttontext: {
     color: "#111",
   },
-
-
 });
 
 export default AddDeliveryboy;

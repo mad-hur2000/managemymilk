@@ -1,58 +1,84 @@
-import React , {useState} from 'react';
-import { View ,Text, StyleSheet, ImageBackground,Image, FlatList} from 'react-native';
-import { ListItem,navigation ,navigate} from 'react-native-elements';
-import {globalstyles} from '../styles/Global';
-import bgimage from '../assets/bgimage3.jpg';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import axios from "axios";
+import React, { useContext, useEffect, useState } from "react";
+import { Image, ImageBackground, StyleSheet, Text, View } from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
 import Entypo from "react-native-vector-icons/Entypo";
-import logo from '../assets/logo.png'
+import bgimage from "../assets/bgimage3.jpg";
+import logo from "../assets/logo.png";
+import { ManagerContext } from "../context/ManagerContext";
+import { globalstyles } from "../styles/Global";
+import Loading from "./Loading";
 
-const ShowProduct = ({navigation}) => {
+const ShowProduct = ({ navigation }) => {
+  const { currentselectedproduct } = useContext(ManagerContext);
+  const [product, setProduct] = useState("");
+  const [loading, setLoading] = useState(false);
 
-    const [product,setProduct] = useState([
-      
-        { name: 'milk', price: '70 rs/liter' , discription:'this product is milk'},
-        { name: 'ghee', price: '1500 rs/kg' , discription:'this product is ghee' },
-        { name: 'gaumutra', price: '30 rs/liter', discription:'this product is gaumutra' }
-      ]);
+  useEffect(() => {
+    setLoading(true);
+    fetch(
+      `https://managedairy.herokuapp.com/product/${currentselectedproduct}`,
+      {
+        method: "GET",
+        headers: { "Content-type": "application/json; charset=UTF-8" },
+      }
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        setProduct(data);
+      })
+      .then(() => setLoading(false))
+      .catch((err) => console.log(err));
+  }, []);
 
+  const handledeletion = () => {
+    axios
+      .delete(
+        `https://managedairy.herokuapp.com/product/delete/${currentselectedproduct}`
+      )
+      .then((response) => response.json())
+      .then((data) => {
+        setMessage(data);
+      })
+      .catch((err) => console.log(err));
+  };
 
+  if (loading) {
+    return <Loading />;
+  } else {
+    return (
+      <ImageBackground source={bgimage} style={globalstyles.imagecontainer}>
+        <View style={styles.titlecontainer}>
+          <Text style={styles.nametext}>{product.productname}</Text>
+          <TouchableOpacity>
+            <Entypo
+              name={"cup"}
+              size={26}
+              style={styles.editprofilebutton}
+              onPress={handledeletion}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <Entypo
+              name={"edit"}
+              size={26}
+              onPress={() => navigation.navigate("EditProduct")}
+              style={styles.editprofilebutton}
+            />
+          </TouchableOpacity>
+        </View>
 
-  return(
-    <ImageBackground source={bgimage} style={globalstyles.imagecontainer} >
-      
-      <View style={styles.titlecontainer}>
-      <Text style={styles.nametext}> Product Name</Text>
-      <TouchableOpacity>
-        <Entypo 
-          name={"cup"} 
-          size={26} 
-          style={styles.editprofilebutton}
-        />
-        </TouchableOpacity>
-        <TouchableOpacity>
-        <Entypo 
-          name={"edit"} 
-          size={26} 
-          onPress={() => navigation.navigate("EditProduct")} 
-          style={styles.editprofilebutton}
-        />
-        </TouchableOpacity>
-      </View>
-
-      <View style={styles.tablebox}>
-      <Image source={logo} style={styles.profilepic} />
-      <View style={styles.detailbox}>
-        <Text style={styles.milktext}>Discription</Text>
-        <Text style={styles.milktext1}> Details Here</Text>
-      </View>
-      
-      </View>
-      
-    </ImageBackground>
-  )
+        <View style={styles.tablebox}>
+          <Image source={logo} style={styles.profilepic} />
+          <View style={styles.detailbox}>
+            <Text style={styles.milktext}>Discription</Text>
+            <Text style={styles.milktext1}>{product.description}</Text>
+          </View>
+        </View>
+      </ImageBackground>
+    );
+  }
 };
-
 
 const styles = StyleSheet.create({
   nametext: {
@@ -89,14 +115,14 @@ const styles = StyleSheet.create({
   milktext: {
     fontSize: 17,
     marginHorizontal: 7,
-    marginTop:12,
-    alignSelf:'center',
+    marginTop: 12,
+    alignSelf: "center",
   },
-  
+
   milktext1: {
     fontSize: 17,
     marginHorizontal: 7,
-    marginTop:12,
+    marginTop: 12,
   },
 
   titlecontainer: {
@@ -113,8 +139,8 @@ const styles = StyleSheet.create({
   editprofilebutton: {
     height: 34,
     width: 50,
-    marginRight:10,
-    
+    marginRight: 10,
+
     borderRadius: 140,
     textAlign: "center",
     backgroundColor: "rgba(0,150,254,0.7)",
@@ -130,13 +156,8 @@ const styles = StyleSheet.create({
     marginHorizontal: 4,
     marginTop: 4,
     marginBottom: 8,
-    alignItems:'center',
-  
+    alignItems: "center",
   },
-
 });
-
-
-
 
 export default ShowProduct;

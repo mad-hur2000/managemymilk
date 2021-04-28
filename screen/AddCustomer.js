@@ -31,8 +31,6 @@ const AddCustomer = () => {
   const [society, setSociety] = useState("");
   const [pincode, setPincode] = useState("");
 
-  const [data, setData] = useState("");
-
   const customer = {
     name: name,
     email: email,
@@ -42,7 +40,7 @@ const AddCustomer = () => {
     housedetail: housenameorno,
     society: society,
     pincode: pincode,
-    managerid: id,
+    _id: id,
   };
 
   useEffect(() => {
@@ -59,7 +57,6 @@ const AddCustomer = () => {
       })
       .catch((err) => console.log(err));
   }, [submit]);
-  console.log(message);
 
   // const handlesubmit = () => {
   //   const emailregx = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
@@ -80,6 +77,7 @@ const AddCustomer = () => {
   //     setSubmit(!submit);
   //   }
   // };
+  console.log(submit);
 
   return (
     <TouchableWithoutFeedback
@@ -162,7 +160,6 @@ const AddCustomer = () => {
                 style={globalstyles.sbutton}
                 onPress={() => setSubmit(true)}
                 title="Create New Customer"
-                disabled={loading ? true : false}
               >
                 <View>
                   <Text style={globalstyles.buttontext}>

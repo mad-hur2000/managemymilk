@@ -1,8 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
-import { StyleSheet, Text, TextInput, Button } from "react-native";
+import { StyleSheet } from "react-native";
 
 import Login from "../screen/Login";
-import SignUp from "../screen/SignUp";
 
 import NavigatorManager from "../routes/Drawer";
 import NavigatorCustomer from "../customerroutes/Customerdrawer";
@@ -19,7 +18,6 @@ export default Handler = () => {
   );
 
   const handledata = (data) => {
-    console.log("handledata function");
     setId(data.id);
     if (data.role === "higherauthority") {
       setRole("manager");
@@ -31,7 +29,6 @@ export default Handler = () => {
       setRole("delivery");
       setLoading(false);
     }
-    console.log("handledata is ending");
   };
 
   const getData = async () => {
@@ -55,10 +52,13 @@ export default Handler = () => {
     getData();
     console.log("get data done", role, id);
     if (role !== null && id !== null) {
-      setIsloggedin(true);
       setLoading(false);
     }
   }, []);
+
+  useEffect(() => {
+    setIsloggedin(true);
+  }, [loading]);
 
   if (loading) {
     return <Loading />;

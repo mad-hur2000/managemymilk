@@ -10,30 +10,32 @@ import { ListItem, navigation, navigate } from "react-native-elements";
 import { globalstyles } from "../styles/Global";
 import bgimage from "../assets/bgimage3.jpg";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { TabRouter } from "react-navigation";
 import Entypo from "react-native-vector-icons/Entypo";
 import { ManagerContext } from "../context/ManagerContext";
 
 const ShowCustomer = ({ navigation }) => {
   const [shoulddelete, setShoulddelete] = useState(false);
   const { currentselectedcustomer } = useContext(ManagerContext);
+  const [message, setMessage] = useState("");
   console.log(currentselectedcustomer, "selected customer");
 
   useEffect(() => {
-    fetch("https://managedairy.herokuapp.com/customer/delete", {
+    fetch(`https://managedairy.herokuapp.com/customer/delete`, {
       method: "DELETE",
       headers: { "Content-type": "application/json; charset=UTF-8" },
-      body: JSON.stringify({ email: currentselectedcustomer }),
+      body: JSON.stringify({ _id: currentselectedcustomer }),
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
+        setMessage(data);
       })
       .catch((err) => console.log(err));
   }, [shoulddelete]);
+
   const handledelete = () => {
-    setShoulddelete(True);
+    setShoulddelete(true);
   };
+
   const [customer, setCustomer] = useState([
     {
       date: "12-12-2020",

@@ -13,11 +13,50 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { TabRouter } from "react-navigation";
 import Entypo from "react-native-vector-icons/Entypo";
 import { ManagerContext } from "../context/ManagerContext";
+import Loading from "./Loading";
 
 const ShowDeliveryboy = ({ navigation }) => {
   const { currentselecteddelivery } = useContext(ManagerContext);
+  const [shoulddelete, setShoulddelete] = useState(false);
+  const [deliveryboy, setDeliveryboy] = useState("");
+  const [loading, setLoading] = useState(false);
 
   console.log("current selected delivery boy", currentselecteddelivery);
+
+  useEffect(() => {
+    setLoading(true);
+    fetch(
+      `https://managedairy.herokuapp.com/delivery/${currentselecteddelivery}`,
+      {
+        method: "GET",
+      }
+    )
+      .then((response) => {
+        response.json();
+      })
+      .then((data) => {
+        console.log("it's here");
+        setDeliveryboy(data);
+        setLoading(false);
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
+  useEffect(() => {
+    setLoading(true);
+    fetch(
+      `https://managedairy.herokuapp.com/delivery/delete/${currentselecteddelivery}`,
+      {
+        method: "GET",
+      }
+    )
+      .then((response) => {
+        response.json();
+      })
+      .then(() => setLoading(false))
+      .catch((err) => console.log(err));
+  }, [shoulddelete]);
+
   const [customer, setCustomer] = useState([
     {
       date: "12-12-2020",
@@ -41,43 +80,51 @@ const ShowDeliveryboy = ({ navigation }) => {
     },
   ]);
 
-  return (
-    <ImageBackground source={bgimage} style={globalstyles.imagecontainer}>
-      <View style={styles.titlecontainer}>
-        <Text style={styles.nametext}> Statistics</Text>
-        <TouchableOpacity>
-          <Entypo name={"cup"} size={26} style={styles.editprofilebutton} />
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <Entypo
-            name={"edit"}
-            size={26}
-            onPress={() => navigation.navigate("EditDeliveryboy")}
-            style={styles.editprofilebutton}
+  const handledelete = () => {
+    setShoulddelete(true);
+  };
+
+  if (loading) {
+    return <Loading />;
+  } else {
+    return (
+      <ImageBackground source={bgimage} style={globalstyles.imagecontainer}>
+        <View style={styles.titlecontainer}>
+          <Text style={styles.nametext}> Statistics</Text>
+          <TouchableOpacity onPress={handledelete}>
+            <Entypo name={"cup"} size={26} style={styles.editprofilebutton} />
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <Entypo
+              name={"edit"}
+              size={26}
+              onPress={() => navigation.navigate("EditDeliveryboy")}
+              style={styles.editprofilebutton}
+            />
+          </TouchableOpacity>
+        </View>
+
+        <View style={styles.tablebox}>
+          <FlatList
+            keyExtractor={(item) => item.Email}
+            data={customer}
+            style={{ flex: 15 }}
+            renderItem={({ item }) => (
+              <View style={styles.card}>
+                <Text style={styles.carddate}> Date : {item.date}</Text>
+
+                <Text style={styles.milktext}>M : {item.morningMilk}</Text>
+                <Text style={styles.milktext}>E : {item.eveningMilk}</Text>
+                <Text style={styles.milktext}>
+                  Total : {(item.morningMilk + item.eveningMilk) * 70}
+                </Text>
+              </View>
+            )}
           />
-        </TouchableOpacity>
-      </View>
-
-      <View style={styles.tablebox}>
-        <FlatList
-          keyExtractor={(item) => item.Email}
-          data={customer}
-          style={{ flex: 15 }}
-          renderItem={({ item }) => (
-            <View style={styles.card}>
-              <Text style={styles.carddate}> Date : {item.date}</Text>
-
-              <Text style={styles.milktext}>M : {item.morningMilk}</Text>
-              <Text style={styles.milktext}>E : {item.eveningMilk}</Text>
-              <Text style={styles.milktext}>
-                Total : {(item.morningMilk + item.eveningMilk) * 70}
-              </Text>
-            </View>
-          )}
-        />
-      </View>
-    </ImageBackground>
-  );
+        </View>
+      </ImageBackground>
+    );
+  }
 };
 
 const styles = StyleSheet.create({

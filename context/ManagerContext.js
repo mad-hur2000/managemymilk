@@ -11,8 +11,6 @@ const Managercontextprovider = ({ children }) => {
   const [currentselectedproduct, setCurrentselectedproduct] = useState(null);
   const [currentselecteddelivery, setCurrentselecteddelivery] = useState(null);
 
-  console.log(data);
-
   const exposed = {
     profile,
     setProfile,

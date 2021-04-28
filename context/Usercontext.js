@@ -10,7 +10,6 @@ const Usercontextprovider = ({ children }) => {
   const [role, setRole] = useState(null);
 
   const storeData = async (value) => {
-    console.log(value);
     try {
       const jsonValue = JSON.stringify(value);
       await AsyncStorage.setItem("DATA", jsonValue);
