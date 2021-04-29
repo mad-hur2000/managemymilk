@@ -1,61 +1,51 @@
 import React, { useEffect, useContext, useState } from "react";
 import bgimage from "../assets/bgimage3.jpg";
-import {
-  StyleSheet,
-  Image,
-  Text,
-  View,
-  ImageBackground,
-  Keyboard,
-} from "react-native";
-import { TouchableWithoutFeedback } from "react-native";
-import globalstyles from "../styles/Global";
+import { StyleSheet, Image, Text, View, ImageBackground } from "react-native";
 import logo from "../assets/logo.png";
-import { ManagerContext } from "../context/ManagerContext";
 import Loading from "./Loading";
+import { UserContext } from "../context/Usercontext";
 
 const Myprofilemanager = () => {
-  const {phone , profile , setProfile } = useContext(ManagerContext);
+  const { id } = useContext(UserContext);
   const [loading, setLoading] = useState(false);
+  const [profiledata, setProfiledata] = useState("");
 
   useEffect(() => {
     setLoading(true);
     fetch("https://managedairy.herokuapp.com/manager/profile", {
       method: "POST",
       headers: { "Content-type": "application/json; charset=UTF-8" },
-      body: JSON.stringify({ phone: phone }),
+      body: JSON.stringify({ _id: id }),
     })
       .then((response) => response.json())
       .then((data) => {
-        setProfile(data);
-        console.log(data);
-        setLoading(false);
+        setProfiledata(data);
+        console.log(profiledata);
       })
+      .then(() => setLoading(false))
       .catch((err) => console.log(err));
   }, []);
 
-  if (profile) {
-    const { firstname, lastname, Email, MobileNo, Address } = profile;
+  if (loading) {
+    return <Loading />;
+  } else {
     return (
       <ImageBackground source={bgimage} style={styles.imagecontainer}>
         <View style={styles.box}>
           <Image source={logo} style={styles.profilepic} />
-          <Text style={styles.titletext}>{firstname}</Text>
-          <Text style={styles.titletext}>{lastname}</Text>
+          <Text style={styles.titletext}>{profiledata.firstname}</Text>
+          <Text style={styles.titletext}>{profiledata.lastname}</Text>
 
           <View style={styles.detailbox}>
-            <Text style={styles.text}> Email: {Email}</Text>
-            <Text style={styles.text}> Mobile No: {MobileNo}</Text>
-            {/* <Text style={styles.text} multiline>  Address: {Address}</Text> */}
+            <Text style={styles.text}> Email: {profiledata.email}</Text>
+            <Text style={styles.text}> Mobile No: {profiledata.mobileno}</Text>
             <Text style={styles.text1} multiline>
-              Address: {Address}
+              Address: {profiledata.address}
             </Text>
           </View>
         </View>
       </ImageBackground>
     );
-  } else {
-    return <Loading />;
   }
 };
 

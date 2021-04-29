@@ -15,13 +15,12 @@ import { TouchableWithoutFeedback, ImageBackground } from "react-native";
 import { globalstyles } from "../styles/Global";
 import { ManagerContext } from "../context/ManagerContext";
 import Loading from "./Loading";
-import { sub } from "react-native-reanimated";
-import { FlatList } from "react-native-gesture-handler";
+import { UserContext } from "../context/Usercontext";
 
 const AddCustomer = () => {
-  const { phone } = useContext(ManagerContext);
+  const { id } = useContext(UserContext);
   const [submit, setSubmit] = useState(false);
-  const [ loading , setLoading ] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -32,18 +31,16 @@ const AddCustomer = () => {
   const [society, setSociety] = useState("");
   const [pincode, setPincode] = useState("");
 
-  const [message, setMessage] = useState([]);
-
   const customer = {
     name: name,
     email: email,
     mobileno: mobileno,
     morning: morning,
     evening: evening,
-    house: housenameorno,
+    housedetail: housenameorno,
     society: society,
     pincode: pincode,
-    managerno: phone,
+    _id: id,
   };
 
   useEffect(() => {
@@ -54,13 +51,12 @@ const AddCustomer = () => {
       body: JSON.stringify(customer),
     })
       .then((response) => response.json())
-      .then((data) => {
-        setMessage(data);
+      .then((output) => {
+        setData(output);
         setLoading(false);
       })
       .catch((err) => console.log(err));
   }, [submit]);
-  console.log(message);
 
   // const handlesubmit = () => {
   //   const emailregx = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
@@ -81,6 +77,7 @@ const AddCustomer = () => {
   //     setSubmit(!submit);
   //   }
   // };
+  console.log(submit);
 
   return (
     <TouchableWithoutFeedback
@@ -98,7 +95,7 @@ const AddCustomer = () => {
             <ScrollView>
               <Text style={styles.titletext}>
                 Enter The Details to add New Customer
-              </Text>                
+              </Text>
 
               <TextInput
                 style={globalstyles.stext}
@@ -163,7 +160,6 @@ const AddCustomer = () => {
                 style={globalstyles.sbutton}
                 onPress={() => setSubmit(true)}
                 title="Create New Customer"
-                disabled = { loading ? true : false }
               >
                 <View>
                   <Text style={globalstyles.buttontext}>

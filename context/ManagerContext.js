@@ -1,19 +1,15 @@
-import React, { createContext, useEffect, useState } from "react";
-import { View, Text } from "react-native";
+import React, { createContext, useContext, useEffect, useState } from "react";
 
 export const ManagerContext = createContext();
 
 const Managercontextprovider = ({ children }) => {
+  const [managerid, setManagerid] = useState();
   const [profile, setProfile] = useState();
-  const [phone, setPhone] = useState();
   const [customers, setCustomers] = useState([]);
-  const [deliveryboy, setDeliveryboy] = useState([]);
   const [data, setData] = useState();
-  const [ currentselectedcustomer , setCurrentselectedcustomer ] = useState();
-  const [ currentselectedproduct , setCurrentselectedproduct ] = useState();
-  const [ currentselecteddelivery , setCurrentselecteddelivery ] = useState();
-
-  console.log(data);
+  const [currentselectedcustomer, setCurrentselectedcustomer] = useState(null);
+  const [currentselectedproduct, setCurrentselectedproduct] = useState(null);
+  const [currentselecteddelivery, setCurrentselecteddelivery] = useState(null);
 
   const exposed = {
     profile,
@@ -21,9 +17,6 @@ const Managercontextprovider = ({ children }) => {
 
     customers,
     setCustomers,
-
-    phone,
-    setPhone,
 
     data,
     setData,
@@ -35,8 +28,10 @@ const Managercontextprovider = ({ children }) => {
     setCurrentselectedproduct,
 
     currentselecteddelivery,
-    setCurrentselecteddelivery
+    setCurrentselecteddelivery,
 
+    managerid,
+    setManagerid,
   };
 
   return (

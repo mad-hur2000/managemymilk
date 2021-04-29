@@ -1,4 +1,3 @@
-
 import React, { useContext, useEffect, useState } from "react";
 import bgimage from "../assets/bgimage3.jpg";
 import {
@@ -16,9 +15,9 @@ import { globalstyles } from "../styles/Global";
 import { ManagerContext } from "../context/ManagerContext";
 
 const EditCustomer = () => {
-  const { currentselectedcustomer  } = useContext(ManagerContext);
-  const [ loading , setLoading ] = useState(false);
-  const [ profiledata , setProfiledata ] = useState() 
+  const { currentselectedcustomer } = useContext(ManagerContext);
+  const [loading, setLoading] = useState(false);
+  const [customerdata, setCustomerdata] = useState();
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -30,6 +29,7 @@ const EditCustomer = () => {
   const [pincode, setPincode] = useState("");
 
   const [message, setMessage] = useState([]);
+  const [submit, setSubmit] = useState(false);
 
   const customer = {
     name: name,
@@ -40,6 +40,7 @@ const EditCustomer = () => {
     house: housenameorno,
     society: society,
     pincode: pincode,
+    _id: currentselectedcustomer,
   };
 
   useEffect(() => {
@@ -47,136 +48,149 @@ const EditCustomer = () => {
     fetch("https://managedairy.herokuapp.com/customer/getdata", {
       method: "POST",
       headers: { "Content-type": "application/json; charset=UTF-8" },
-      body: JSON.stringify({ email : currentselectedcustomer }),
+      body: JSON.stringify({ _id: currentselectedcustomer }),
     })
       .then((response) => response.json())
       .then((data) => {
-        setProfiledata(data);
-        console.log(data);
+        setCustomerdata(data);
         setLoading(false);
       })
       .catch((err) => console.log(err));
   }, []);
 
   useEffect(() => {
+    setName(customerdata.name);
+    setEmail(customerdata.email);
+    setMobileno(customerdata.mobileno);
+    setMorning(customerdata.morning);
+    setEvening(customerdata.evening);
+    setHousenameorno(customerdata.house);
+    setSociety(customerdata.society);
+    setPincode(customerdata.pincode);
+  }, [customerdata]);
+
+  useEffect(() => {
     setLoading(true);
     fetch("https://managedairy.herokuapp.com/customer/updatedata", {
       method: "POST",
       headers: { "Content-type": "application/json; charset=UTF-8" },
-      body: JSON.stringify({ customer : customer , email : currentselectedcustomer }),
+      body: JSON.stringify(customer),
     })
       .then((response) => response.json())
       .then((data) => {
-        setMessage(data);
-        console.log(data);
         setLoading(false);
       })
       .catch((err) => console.log(err));
-  } , [ update ]);
+  }, [submit]);
 
-  console.log(currentselectedcustomer)
-  console.log(message)
+  console.log(currentselectedcustomer);
+  console.log(message);
 
-  const [ update , setUpdate ] = useState(false);
+  const handlesubmit = () => {
+    setSubmit(true);
+  };
 
-    return (
-      <TouchableWithoutFeedback
-        onPress={() => {
-          Keyboard.dismiss();
-        }}
+  return (
+    <TouchableWithoutFeedback
+      onPress={() => {
+        Keyboard.dismiss();
+      }}
+    >
+      <ImageBackground
+        source={bgimage}
+        style={globalstyles.imagecontainer}
+        style={{ flex: 1 }}
       >
-        <ImageBackground
-          source={bgimage}
-          style={globalstyles.imagecontainer}
-          style={{ flex: 1 }}
-        >
-          <View style={styles.tocenter}>
-            <View style={styles.box}>
-              <ScrollView>
-                <Text style={styles.titletext}>
-                  Enter Details to Edit Customer
-                </Text>
+        <View style={styles.tocenter}>
+          <View style={styles.box}>
+            <ScrollView>
+              <Text style={styles.titletext}>
+                Enter Details to Edit Customer
+              </Text>
 
-                <TextInput
-                  style={globalstyles.stext}
-                  placeholder={"Enter Name"}
-                  underlineColorAndroid="transparent"
-                  value = {profiledata.Name}
-                  onChangeText={(text) => setName(text)}
-                />
+              <TextInput
+                style={globalstyles.stext}
+                placeholder={"Enter Name"}
+                underlineColorAndroid="transparent"
+                onChangeText={(text) => setName(text)}
+                value={name}
+              />
 
-                <TextInput
-                  style={globalstyles.stext}
-                  placeholder={"Enter Email"}
-                  underlineColorAndroid="transparent"
-                  value = {profiledata.Email}
-                  onChangeText={(text) => setEmail(text)}
-                />
+              <TextInput
+                style={globalstyles.stext}
+                placeholder={"Enter Email"}
+                underlineColorAndroid="transparent"
+                value={email}
+                onChangeText={(text) => setEmail(text)}
+              />
 
-                <TextInput
-                  style={globalstyles.stext}
-                  placeholder={"Enter Mobile Number"}
-                  underlineColorAndroid="transparent"
-                  keyboardType="numeric"
-                  value = {profiledata.MobileNo}
-                  onChangeText={(text) => setMobileno(text)}
-                />
+              <TextInput
+                style={globalstyles.stext}
+                placeholder={"Enter Mobile Number"}
+                underlineColorAndroid="transparent"
+                keyboardType="numeric"
+                value={mobileno}
+                onChangeText={(text) => setMobileno(text)}
+              />
 
-                <TextInput
-                  style={globalstyles.stext}
-                  placeholder={"Morning Milk"}
-                  underlineColorAndroid="transparent"
-                  keyboardType="numeric"
-                  value = {profiledata.Morningquantity}
-                  onChangeText={(text) => setMorning(text)}
-                />
+              <TextInput
+                style={globalstyles.stext}
+                placeholder={"Morning Milk"}
+                underlineColorAndroid="transparent"
+                keyboardType="numeric"
+                value={morning}
+                onChangeText={(text) => setMorning(text)}
+              />
 
-                <TextInput
-                  style={globalstyles.stext}
-                  placeholder={"Evening Milk"}
-                  underlineColorAndroid="transparent"
-                  keyboardType="numeric"
-                  value = {profiledata.Eveningquantity}
-                  onChangeText={(text) => setEvening(text)}
-                />
+              <TextInput
+                style={globalstyles.stext}
+                placeholder={"Evening Milk"}
+                underlineColorAndroid="transparent"
+                keyboardType="numeric"
+                value={evening}
+                onChangeText={(text) => setEvening(text)}
+              />
 
-                <TextInput
-                  style={globalstyles.stext}
-                  placeholder={"House Number/Name"}
-                  underlineColorAndroid="transparent"
-                  value = {profiledata.Housedetail}
-                  onChangeText={(text) => setHousenameorno(text)}
-                />
+              <TextInput
+                style={globalstyles.stext}
+                placeholder={"House Number/Name"}
+                underlineColorAndroid="transparent"
+                value={house}
+                onChangeText={(text) => setHousenameorno(text)}
+              />
 
-                <TextInput
-                  style={globalstyles.stext}
-                  placeholder={"Society"}
-                  underlineColorAndroid="transparent"
-                  value = {profiledata.Society}
-                  onChangeText={(text) => setSociety(text)}
-                />
+              <TextInput
+                style={globalstyles.stext}
+                placeholder={"Society"}
+                underlineColorAndroid="transparent"
+                value={society}
+                onChangeText={(text) => setSociety(text)}
+              />
 
-                <TextInput
-                  style={globalstyles.stext}
-                  placeholder={"Pincode"}
-                  // underlineColorAndroid='transparent'
-                  keyboardType="numeric"
-                  value = {profiledata.Pincode}
-                  onChangeText={(text) => setPincode(text)}
-                />
+              <TextInput
+                style={globalstyles.stext}
+                placeholder={"Pincode"}
+                // underlineColorAndroid='transparent'
+                keyboardType="numeric"
+                value={pincode}
+                onChangeText={(text) => setPincode(text)}
+              />
 
-                <TouchableOpacity style={globalstyles.sbutton} onPress={() => setUpdate(true)} disabled = { loading ? true : false }>
-                  <View>
-                    <Text style={globalstyles.buttontext}>Save Changes</Text>
-                  </View>
-                </TouchableOpacity>
-              </ScrollView>
-            </View>
+              <TouchableOpacity
+                style={globalstyles.sbutton}
+                onPress={handlesubmit}
+              >
+                <View>
+                  <Text style={globalstyles.buttontext}>Save Changes</Text>
+                </View>
+              </TouchableOpacity>
+            </ScrollView>
           </View>
-        </ImageBackground>
-      </TouchableWithoutFeedback>
-    );
-}
+        </View>
+      </ImageBackground>
+    </TouchableWithoutFeedback>
+  );
+};
 
 const styles = StyleSheet.create({
   tocenter: {
@@ -202,13 +216,11 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: "#111",
     fontSize: 28,
-    borderColor:'rgba(56,170,254,0.9)',
+    borderColor: "rgba(56,170,254,0.9)",
     marginTop: 10,
     marginHorizontal: 10,
     borderBottomWidth: 0.5,
   },
-
-
 });
 
 export default EditCustomer;

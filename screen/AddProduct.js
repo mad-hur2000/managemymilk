@@ -1,4 +1,4 @@
-import React, { useState , useContext , useEffect } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import bgimage from "../assets/bgimage3.jpg";
 import {
   StyleSheet,
@@ -12,100 +12,104 @@ import {
 } from "react-native";
 import { TouchableWithoutFeedback, ImageBackground } from "react-native";
 import { globalstyles } from "../styles/Global";
-import { ManagerContext } from "../context/ManagerContext";
+import { UserContext } from "../context/Usercontext";
 
-const AddProduct = () =>  {
-    const { phone } = useContext(ManagerContext);
-    const [submit, setSubmit] = useState(false);
+const AddProduct = () => {
+  const { id } = useContext(UserContext);
+  const [submit, setSubmit] = useState(false);
 
-    const [ productname , setProductname ] = useState("");
-    const [ description , setDescription ] = useState("");
-    
-    const [message, setMessage] = useState([]);
+  const [productname, setProductname] = useState("");
+  const [description, setDescription] = useState("");
 
-    const product = {
-      productname : productname,
-      description : description,
-      managerno : phone
-    };
+  const [message, setMessage] = useState([]);
+  console.log("this is addproduct", id);
+  const product = {
+    productname: productname,
+    description: description,
+    _id: id,
+  };
 
-    useEffect(() => {
-      fetch("https://managedairy.herokuapp.com/product/create", {
-        method: "POST",
-        headers: { "Content-type": "application/json; charset=UTF-8" },
-        body: JSON.stringify(product),
+  useEffect(() => {
+    fetch("https://managedairy.herokuapp.com/product/create", {
+      method: "POST",
+      headers: { "Content-type": "application/json; charset=UTF-8" },
+      body: JSON.stringify(product),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setMessage(data);
       })
-        .then((response) => response.json())
-        .then((data) => {
-          setMessage(data);
-        })
-        .catch((err) => console.log(err));
-    }, [submit]);
+      .catch((err) => console.log(err));
+  }, [submit]);
 
-    const handlesubmit = () => {
-      if (productname == "") {
-        setMessage([...message, "enter valid name"]);
-      } else if (description == "") {
-        setMessage([...message, "enter valid description"]);
-      }  else {
-        setSubmit(!submit);
-      }
-    };
+  const handlesubmit = () => {
+    if (productname == "") {
+      setMessage([...message, "enter valid name"]);
+    } else if (description == "") {
+      setMessage([...message, "enter valid description"]);
+    } else {
+      setSubmit(!submit);
+    }
+  };
 
-
-    return (
-      <TouchableWithoutFeedback
-        onPress={() => {
-          Keyboard.dismiss();
-        }}
+  return (
+    <TouchableWithoutFeedback
+      onPress={() => {
+        Keyboard.dismiss();
+      }}
+    >
+      <ImageBackground
+        source={bgimage}
+        style={globalstyles.imagecontainer}
+        style={{ flex: 1 }}
       >
-        <ImageBackground
-          source={bgimage}
-          style={globalstyles.imagecontainer}
-          style={{ flex: 1 }}
-        >
-          <View style={styles.tocenter}>
-            <View style={styles.box}>
-              <ScrollView>
-                <Text style={styles.titletext}>
-                  Enter The Details to add New Product
-                </Text>
+        <View style={styles.tocenter}>
+          <View style={styles.box}>
+            <ScrollView>
+              <Text style={styles.titletext}>
+                Enter The Details to add New Product
+              </Text>
 
-                <TextInput
-                  style={styles.stext}
-                  placeholder={"Enter Name"}
-                  underlineColorAndroid="transparent"
-                  onChangeText={(text) => setProductname(text)}
-                />
+              <TextInput
+                style={styles.stext}
+                placeholder={"Enter Name"}
+                underlineColorAndroid="transparent"
+                onChangeText={(text) => setProductname(text)}
+              />
 
-                <Image placeholder="add Image"></Image>
+              <Image placeholder="add Image"></Image>
 
-                <TextInput
-                  style={styles.stext1}
-                  placeholder={"Add Description"}
-                  underlineColorAndroid="transparent"
-                  multiline
-                  onChangeText={(text) => setDescription(text)}
-                />
+              <TextInput
+                style={styles.stext1}
+                placeholder={"Add Description"}
+                underlineColorAndroid="transparent"
+                multiline
+                onChangeText={(text) => setDescription(text)}
+              />
 
-                <TouchableOpacity style={globalstyles.sbutton}>
-                  <View>
-                    <Text style={globalstyles.buttontext}>Upload Image</Text>
-                  </View>
-                </TouchableOpacity>
+              <TouchableOpacity style={globalstyles.sbutton}>
+                <View>
+                  <Text style={globalstyles.buttontext}>Upload Image</Text>
+                </View>
+              </TouchableOpacity>
 
-                <TouchableOpacity style={globalstyles.sbutton} onPress={handlesubmit}>
-                  <View>
-                    <Text style={globalstyles.buttontext}>Create New Product</Text>
-                  </View>
-                </TouchableOpacity>
-              </ScrollView>
-            </View>
+              <TouchableOpacity
+                style={globalstyles.sbutton}
+                onPress={handlesubmit}
+              >
+                <View>
+                  <Text style={globalstyles.buttontext}>
+                    Create New Product
+                  </Text>
+                </View>
+              </TouchableOpacity>
+            </ScrollView>
           </View>
-        </ImageBackground>
-      </TouchableWithoutFeedback>
-    );
-}
+        </View>
+      </ImageBackground>
+    </TouchableWithoutFeedback>
+  );
+};
 
 const styles = StyleSheet.create({
   tocenter: {
@@ -133,7 +137,7 @@ const styles = StyleSheet.create({
     fontSize: 28,
     marginTop: 10,
     marginHorizontal: 10,
-    borderColor:'rgba(56,170,254,0.9)',
+    borderColor: "rgba(56,170,254,0.9)",
     borderBottomWidth: 0.5,
   },
 
@@ -164,7 +168,6 @@ const styles = StyleSheet.create({
     marginTop: 20,
     color: "#111",
   },
-
 });
 
 export default AddProduct;
