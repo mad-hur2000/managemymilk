@@ -13,6 +13,7 @@ const ShowProduct = ({ navigation }) => {
   const { currentselectedproduct } = useContext(ManagerContext);
   const [product, setProduct] = useState("");
   const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
 
   useEffect(() => {
     setLoading(true);
@@ -32,13 +33,14 @@ const ShowProduct = ({ navigation }) => {
   }, []);
 
   const handledeletion = () => {
+    setLoading(true);
     axios
       .delete(
         `https://managedairy.herokuapp.com/product/delete/${currentselectedproduct}`
       )
-      .then((response) => response.json())
       .then((data) => {
-        setMessage(data);
+        setMessage("Product deleted");
+        setLoading(false);
       })
       .catch((err) => console.log(err));
   };
@@ -70,6 +72,7 @@ const ShowProduct = ({ navigation }) => {
 
         <View style={styles.tablebox}>
           <Image source={logo} style={styles.profilepic} />
+          <Text style={{ color: "red" }}>{message && message}</Text>
           <View style={styles.detailbox}>
             <Text style={styles.milktext}>Discription</Text>
             <Text style={styles.milktext1}>{product.description}</Text>

@@ -21,56 +21,64 @@ export default Handler = () => {
     setId(data.id);
     if (data.role === "higherauthority") {
       setRole("manager");
-      setLoading(false);
+      setIsloggedin(true);
     } else if (data.role === "mediumclass") {
       setRole("customer");
-      setLoading(false);
+      setIsloggedin(true);
     } else if (data.role === "selemen") {
       setRole("delivery");
-      setLoading(false);
+      setIsloggedin(true);
     }
   };
 
   const getData = async () => {
     try {
-      if (!isloggedin) {
-        setLoading(true);
-        const value = await AsyncStorage.getItem("DATA");
-        console.log(value);
-        if (value !== null) {
-          handledata(JSON.parse(value));
-        } else {
-          setLoading(false);
-        }
+      const value = await AsyncStorage.getItem("DATA");
+      console.log(value, "async storage");
+      if (value !== null) {
+        handledata(JSON.parse(value));
       }
     } catch (e) {
       alert(e);
     }
   };
 
+  console.log("Handler rendering");
+
   useEffect(() => {
-    getData();
-    console.log("get data done", role, id);
-    if (role !== null && id !== null) {
-      setLoading(false);
+    if (!isloggedin && role == null) {
+      setLoading(true);
+      getData();
+      if (role == null && id == null) {
+        setLoading(false);
+        setIsloggedin(false);
+      } else {
+        setLoading(false);
+      }
     }
   }, []);
 
   useEffect(() => {
-    setIsloggedin(true);
-  }, [loading]);
+    if (isloggedin) {
+      if (loading) {
+        setLoading(false);
+      }
+    }
+  }, [isloggedin]);
 
   if (loading) {
     return <Loading />;
-  } else if (!isloggedin) {
-    return <Login />;
   } else {
-    if (role === "manager") {
-      return <NavigatorManager />;
-    } else if (role === "customer") {
-      return <NavigatorCustomer />;
-    } else if (role === "delivery") {
-      return <NavigatorDelivery />;
+    if (isloggedin) {
+      if (role === "manager") {
+        return <NavigatorManager />;
+      } else if (role === "customer") {
+        return <NavigatorCustomer />;
+      } else if (role === "delivery") {
+        return <NavigatorDelivery />;
+      }
+    } else {
+      return <Login />;
     }
   }
 };

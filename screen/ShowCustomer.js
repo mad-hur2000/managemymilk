@@ -12,14 +12,35 @@ import bgimage from "../assets/bgimage3.jpg";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import Entypo from "react-native-vector-icons/Entypo";
 import { ManagerContext } from "../context/ManagerContext";
+import Loading from "./Loading";
 
 const ShowCustomer = ({ navigation }) => {
-  const [shoulddelete, setShoulddelete] = useState(false);
   const { currentselectedcustomer } = useContext(ManagerContext);
   const [message, setMessage] = useState("");
   console.log(currentselectedcustomer, "selected customer");
+  const [records, setRecords] = useState([]);
+  const [loading, setLoading] = useState(false);
 
+  console.log(currentselectedcustomer);
   useEffect(() => {
+    setLoading(true);
+    fetch(
+      `https://managedairy.herokuapp.com/manager/${currentselectedcustomer}`,
+      {
+        method: "GET",
+        headers: { "Content-type": "application/json; charset=UTF-8" },
+      }
+    )
+      .then((res) => res.json())
+      .then((done) => {
+        setRecords(done);
+        setLoading(false);
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
+  const handledelete = () => {
+    setLoading(true);
     fetch(`https://managedairy.herokuapp.com/customer/delete`, {
       method: "DELETE",
       headers: { "Content-type": "application/json; charset=UTF-8" },
@@ -27,13 +48,9 @@ const ShowCustomer = ({ navigation }) => {
     })
       .then((response) => response.json())
       .then((data) => {
-        setMessage(data);
+        setMessage("customer deleted");
       })
       .catch((err) => console.log(err));
-  }, [shoulddelete]);
-
-  const handledelete = () => {
-    setShoulddelete(true);
   };
 
   const [customer, setCustomer] = useState([
@@ -109,48 +126,55 @@ const ShowCustomer = ({ navigation }) => {
     },
   ]);
 
-  return (
-    <ImageBackground source={bgimage} style={globalstyles.imagecontainer}>
-      <View style={styles.titlecontainer}>
-        <Text style={styles.nametext}> Statistics</Text>
-        <TouchableOpacity>
-          <Entypo
-            name={"cup"}
-            size={26}
-            style={styles.editprofilebutton}
-            onPress={handledelete}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <Entypo
-            name={"edit"}
-            size={26}
-            onPress={() => navigation.navigate("EditCustomer")}
-            style={styles.editprofilebutton}
-          />
-        </TouchableOpacity>
-      </View>
+  if (loading) {
+    return <Loading />;
+  } else {
+    return (
+      <ImageBackground source={bgimage} style={globalstyles.imagecontainer}>
+        <View style={styles.titlecontainer}>
+          <Text style={styles.nametext}> Statistics</Text>
+          <TouchableOpacity>
+            <Entypo
+              name={"cup"}
+              size={26}
+              style={styles.editprofilebutton}
+              onPress={handledelete}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <Entypo
+              name={"edit"}
+              size={26}
+              onPress={() => navigation.navigate("EditCustomer")}
+              style={styles.editprofilebutton}
+            />
+          </TouchableOpacity>
+        </View>
+        <Text style={{ color: "red" }}>{message && message}</Text>
+        <View style={styles.tablebox}>
+          <FlatList
+            keyExtractor={(records) => records._id}
+            data={records}
+            style={{ flex: 15 }}
+            renderItem={({ item }) => (
+              <View style={styles.card}>
+                <Text style={styles.carddate}>
+                  {" "}
+                  Date : {item.date + "-" + item.month + "-" + item.year}
+                </Text>
 
-      <View style={styles.tablebox}>
-        <FlatList
-          keyExtractor={(item) => item.Email}
-          data={customer}
-          style={{ flex: 15 }}
-          renderItem={({ item }) => (
-            <View style={styles.card}>
-              <Text style={styles.carddate}> Date : {item.date}</Text>
-
-              <Text style={styles.milktext}>M : {item.morningMilk}</Text>
-              <Text style={styles.milktext}>E : {item.eveningMilk}</Text>
-              <Text style={styles.milktext}>
-                Total : {(item.morningMilk + item.eveningMilk) * 70}
-              </Text>
-            </View>
-          )}
-        />
-      </View>
-    </ImageBackground>
-  );
+                <Text style={styles.milktext}>M : {item.morning}</Text>
+                <Text style={styles.milktext}>E : {item.evening}</Text>
+                <Text style={styles.milktext}>
+                  Total : {(item.morning + item.evening) * 70}
+                </Text>
+              </View>
+            )}
+          />
+        </View>
+      </ImageBackground>
+    );
+  }
 };
 
 const styles = StyleSheet.create({

@@ -17,9 +17,9 @@ import Loading from "./Loading";
 
 const ShowDeliveryboy = ({ navigation }) => {
   const { currentselecteddelivery } = useContext(ManagerContext);
-  const [shoulddelete, setShoulddelete] = useState(false);
   const [deliveryboy, setDeliveryboy] = useState("");
   const [loading, setLoading] = useState(false);
+  const [ message , setMessge ] = useState("");
 
   console.log("current selected delivery boy", currentselecteddelivery);
 
@@ -42,7 +42,7 @@ const ShowDeliveryboy = ({ navigation }) => {
       .catch((err) => console.log(err));
   }, []);
 
-  useEffect(() => {
+  const handledelete = () => {
     setLoading(true);
     fetch(
       `https://managedairy.herokuapp.com/delivery/delete/${currentselecteddelivery}`,
@@ -53,9 +53,12 @@ const ShowDeliveryboy = ({ navigation }) => {
       .then((response) => {
         response.json();
       })
-      .then(() => setLoading(false))
+      .then(() => {
+        setMessge("delivery boy deleted");
+        setLoading(false)
+      })
       .catch((err) => console.log(err));
-  }, [shoulddelete]);
+  };
 
   const [customer, setCustomer] = useState([
     {
@@ -80,10 +83,6 @@ const ShowDeliveryboy = ({ navigation }) => {
     },
   ]);
 
-  const handledelete = () => {
-    setShoulddelete(true);
-  };
-
   if (loading) {
     return <Loading />;
   } else {
@@ -103,7 +102,7 @@ const ShowDeliveryboy = ({ navigation }) => {
             />
           </TouchableOpacity>
         </View>
-
+        <Text style={{ color : "red" }}>{message != "" ? message : ""}</Text>
         <View style={styles.tablebox}>
           <FlatList
             keyExtractor={(item) => item.Email}

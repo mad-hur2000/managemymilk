@@ -25,7 +25,7 @@ const Usercontextprovider = ({ children }) => {
         role: "higherauthority",
       };
       storeData(value);
-      setid(data.id);
+      setId(data.id);
       setRole("manager");
     } else if (data.iscustomer) {
       let value = {
@@ -33,7 +33,7 @@ const Usercontextprovider = ({ children }) => {
         role: "mediumclass",
       };
       storeData(value);
-      setid(data.id);
+      setId(data.id);
       setRole("customer");
     } else {
       let value = {
@@ -41,7 +41,7 @@ const Usercontextprovider = ({ children }) => {
         role: "selsmen",
       };
       storeData(value);
-      setid(data.id);
+      setId(data.id);
       setRole("delivery");
     }
   };

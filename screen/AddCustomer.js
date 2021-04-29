@@ -58,6 +58,8 @@ const AddCustomer = () => {
       .catch((err) => console.log(err));
   }, [submit]);
 
+  
+
   // const handlesubmit = () => {
   //   const emailregx = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
   //   const mobileregx = /^[6-9]\d{9}$/;

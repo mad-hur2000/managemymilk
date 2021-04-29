@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -15,8 +15,19 @@ import { globalstyles } from "../styles/Global";
 import bgimage from "../assets/bgimage3.jpg";
 import ShowCustomer from "../screen/ShowCustomer";
 import { StyleSheet } from "react-native";
+import { UserContext } from "../context/Usercontext";
 
 const Customer = ({ navigation }) => {
+  const { id } = useContext(UserContext)
+  const [ morning , setMorning ] = useState();
+  const [ evening , setEvening ] = useState();
+  const [ data ,setData ] = useState({});
+
+  useEffect(() => {
+    setMorning(data.morning);
+    setEvening(data.evening);
+  } , [data])
+
   const [customer, setCustomer] = useState([
     {
       date: "madhur mu",
@@ -30,6 +41,40 @@ const Customer = ({ navigation }) => {
     },
   ]);
 
+  useEffect(() => {
+    fetch(`https://managedairy.herokuapp.com/customer/dashboard/${id}/${new Date}`, {
+      method: "GET",
+      headers: { "Content-type": "application/json; charset=UTF-8" },
+    })
+      .then((response) => response.json())
+      .then((output) => {
+        setData(output);
+        setLoading(false);
+      })
+      .catch((err) => console.log(err));
+  } , [])
+
+  const handlesubmit = () => {
+    setLoading(true);
+    const passingobject = {
+      id : id,
+      date : new Date(),
+      morning : morning,
+      evening : evening
+    }
+    fetch("https://managedairy.herokuapp.com/customer/dashboard", {
+      method: "POST",
+      headers: { "Content-type": "application/json; charset=UTF-8" },
+      body: JSON.stringify(passingobject),
+    })
+      .then((response) => response.json())
+      .then((output) => {
+        setData(output);
+        setLoading(false);
+      })
+      .catch((err) => console.log(err));
+  }
+
   return (
     <ImageBackground source={bgimage} style={globalstyles.imagecontainer}>
       <View style={styles.titlecontainer}>
@@ -41,22 +86,26 @@ const Customer = ({ navigation }) => {
         <Text style={styles.text}>Morning :</Text>
         <TextInput
           style={styles.entermilk}
-          placeholder={`${customer[0].morningMilk} Liter`}
+          placeholder={`Morning milk`}
           // placeholderTextColor= { 'rgba(225,225,225,0.7)'}
           underlineColorAndroid="transparent"
           keyboardType="numeric"
+          value = {morning}
+          onChange={(text) => setMorning(text)}
         />
         <Text style={styles.text}>Evening :</Text>
         <TextInput
           style={styles.entermilk}
-          placeholder={`${customer[0].eveningMilk} Liter`}
+          placeholder={`Evening milk`}
           // placeholderTextColor= { 'rgba(225,225,225,0.7)'}
           underlineColorAndroid="transparent"
           keyboardType="numeric"
+          value={evening}
+          onChange={(text) => setEvening(text)}
         />
         {/* </View> */}
       </View>
-      <TouchableOpacity style={styles.sbutton}>
+      <TouchableOpacity style={styles.sbutton} onPress={handlesubmit}>
         <View>
           <Text style={styles.buttontext}>Submit</Text>
         </View>

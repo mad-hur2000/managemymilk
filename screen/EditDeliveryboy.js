@@ -1,5 +1,4 @@
-
-import React, { Component, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import bgimage from "../assets/bgimage3.jpg";
 import {
   StyleSheet,
@@ -13,9 +12,72 @@ import {
 } from "react-native";
 import { TouchableWithoutFeedback, ImageBackground } from "react-native";
 import { globalstyles } from "../styles/Global";
+import Loading from "./Loading";
+import { ManagerContext } from "../context/ManagerContext";
 
-class EditDeliveryboy extends Component {
-  render() {
+const EditDeliveryboy = () => {
+  const [deliveryboydata, setDeliveryboydata] = useState("");
+  const { currentselecteddelivery } = useContext(ManagerContext);
+  const [loading, setLoading] = useState(false);
+
+  const [firstname, setFirstname] = useState("");
+  const [lastname, setLastname] = useState("");
+  const [email, setEmail] = useState("");
+  const [mobileno, setMobileno] = useState();
+  const [address, setAddress] = useState();
+  const [submit, setSubmit] = useState(false);
+
+  const delivery = {
+    firstname: firstname,
+    lastname: lastname,
+    email: email,
+    mobileno: mobileno,
+    address: address,
+    _id: currentselecteddelivery,
+  };
+
+  useEffect(() => {
+    setLoading(true);
+    fetch(
+      `https://managedairy.herokuapp.com/delivery/${currentselecteddelivery}`,
+      {
+        method: "GET",
+        headers: { "Content-type": "application/json; charset=UTF-8" },
+      }
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        setDeliveryboydata(data);
+        setLoading(false);
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
+  useEffect(() => {
+    setFirstname(deliveryboydata.firstname);
+    setLastname(deliveryboydata.lastname);
+    setEmail(deliveryboydata.email);
+    setAddress(deliveryboydata.address);
+    setMobileno(deliveryboydata.mobileno);
+  }, [deliveryboydata]);
+
+  const handlesubmit = () => {
+    setLoading(true);
+    fetch(`https://managedairy.herokuapp.com/delivery/updatedata`, {
+      method: "POST",
+      headers: { "Content-type": "application/json; charset=UTF-8" },
+      body: JSON.stringify(delivery),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setLoading(false);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  if (loading) {
+    return <Loading />;
+  } else {
     return (
       <TouchableWithoutFeedback
         onPress={() => {
@@ -36,51 +98,49 @@ class EditDeliveryboy extends Component {
 
                 <TextInput
                   style={globalstyles.stext}
-                  placeholder={"Enter Name"}
+                  placeholder={"Enter Firstname"}
                   underlineColorAndroid="transparent"
+                  onChange={(text) => setFirstname(text)}
+                  value={firstname}
+                />
+
+                <TextInput
+                  style={globalstyles.stext}
+                  placeholder={"Enter Lastname"}
+                  underlineColorAndroid="transparent"
+                  onChange={(text) => setLastname(text)}
+                  value={lastname}
                 />
 
                 <TextInput
                   style={globalstyles.stext}
                   placeholder={"Enter Email"}
                   underlineColorAndroid="transparent"
+                  onChange={(text) => setEmail(text)}
+                  value={email}
                 />
 
                 <TextInput
                   style={globalstyles.stext}
                   placeholder={"Enter Mobile Number"}
                   underlineColorAndroid="transparent"
+                  onChange={(text) => setMobileno(text)}
                   keyboardType="numeric"
+                  value={mobileno}
                 />
 
-                 <TextInput
-                  style={globalstyles.stext}
-                  placeholder={"Salary ()"}
-                  underlineColorAndroid="transparent"
-                  keyboardType="numeric"
-                />
-
-               
                 <TextInput
                   style={globalstyles.stext}
                   placeholder={"House Number/Name"}
                   underlineColorAndroid="transparent"
+                  onChange={(text) => setAddress(text)}
+                  value={address}
                 />
 
-                <TextInput
-                  style={globalstyles.stext}
-                  placeholder={"Society"}
-                  underlineColorAndroid="transparent"
-                />
-
-                <TextInput
-                  style={globalstyles.stext}
-                  placeholder={"Pincode"}
-                  // underlineColorAndroid='transparent'
-                  keyboardType="numeric"
-                />
-
-                <TouchableOpacity style={globalstyles.sbutton}>
+                <TouchableOpacity
+                  style={globalstyles.sbutton}
+                  onPress={handlesubmit}
+                >
                   <View>
                     <Text style={globalstyles.buttontext}>Save Changes</Text>
                   </View>
@@ -92,8 +152,7 @@ class EditDeliveryboy extends Component {
       </TouchableWithoutFeedback>
     );
   }
-
-}
+};
 
 const styles = StyleSheet.create({
   tocenter: {
@@ -119,7 +178,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: "#111",
     fontSize: 28,
-    borderColor:'rgba(56,170,254,0.9)',
+    borderColor: "rgba(56,170,254,0.9)",
     marginTop: 10,
     marginHorizontal: 10,
     borderBottomWidth: 0.5,
@@ -139,8 +198,6 @@ const styles = StyleSheet.create({
     marginTop: 20,
     color: "#111",
   },
-
-
 });
 
 export default EditDeliveryboy;
